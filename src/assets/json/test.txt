@@ -1,0 +1,70 @@
+{
+  "passages": [
+    {
+      "text": "hello, how are you \n[[bad]]\n[[good]]",
+      "links": [
+        {
+          "name": "bad",
+          "link": "bad",
+          "pid": "2"
+        },
+        {
+          "name": "good",
+          "link": "good",
+          "pid": "3"
+        }
+      ],
+      "name": "hello",
+      "pid": "1",
+      "position": {
+        "x": "860",
+        "y": "462.5"
+      }
+    },
+    {
+      "text": "oh, how sad! \n*hug* \nis that better?\n[[yes->good]]\n[[no->badend]]",
+      "links": [
+        {
+          "name": "yes",
+          "link": "good",
+          "pid": "3"
+        },
+        {
+          "name": "no",
+          "link": "badend",
+          "pid": "4"
+        }
+      ],
+      "name": "bad",
+      "pid": "2",
+      "position": {
+        "x": "823",
+        "y": "620.5"
+      }
+    },
+    {
+      "text": "great!\n[[ask me again->hello]]",
+      "links": [],
+      "name": "good",
+      "pid": "3",
+      "position": {
+        "x": "960",
+        "y": "624.5"
+      }
+    },
+    {
+      "text": "hmm. what a pity. \n[[ask me again->hello]]",
+      "name": "badend",
+      "pid": "4",
+      "position": {
+        "x": "663",
+        "y": "775.5"
+      }
+    }
+  ],
+  "name": "phasersmalltest",
+  "startnode": "1",
+  "creator": "Twine",
+  "creator-version": "2.3.3",
+  "ifid": "FB0F62D2-6E15-4228-AC33-D8CC2EBF7FA4"
+}
