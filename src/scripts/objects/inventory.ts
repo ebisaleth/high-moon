@@ -14,10 +14,10 @@ export default class Inventory extends Phaser.GameObjects.Image {
     super(scene, x, y, 'inventory-bg');
     scene.add.existing(this);
 
-    this.setOrigin(0,0);
+    this.setOrigin(0,0).setDepth(10);
 
-    this.nameText = scene.add.bitmapText(x + 10, y + 224, 'profont', '' )
-    this.descriptionText = scene.add.bitmapText(x + 10, y + 254, 'profont', '' )
+    this.nameText = scene.add.bitmapText(x + 10, y + 224, 'profont', '' ).setDepth(11)
+    this.descriptionText = scene.add.bitmapText(x + 10, y + 254, 'profont', '' ).setDepth(11)
 
     this.content = content;
 
@@ -29,6 +29,8 @@ export default class Inventory extends Phaser.GameObjects.Image {
         .setAlpha(0)
         .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
         .setDepth(20)
+
+      this.contentGameObjs[index].name = item.name;
 
       scene.input.setDraggable(this.contentGameObjs[index])
 

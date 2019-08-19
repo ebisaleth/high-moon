@@ -8,10 +8,14 @@ export default class BeginningScene extends Phaser.Scene {
   textBox: TextBox
   gong: any // sorry TS
   helmetSound: any // sorry TS
+
   tab: Phaser.Input.Keyboard.Key
+  spacebar: Phaser.Input.Keyboard.Key
+
   inventory: Inventory
+
   skyStars: Phaser.GameObjects.TileSprite
-  creature: Phaser.GameObjects.Image
+  creature: Phaser.GameObjects.Sprite
   sign: Phaser.GameObjects.Image
   book: Phaser.GameObjects.Image
 
@@ -23,11 +27,13 @@ export default class BeginningScene extends Phaser.Scene {
     this.load.text('start-text', 'assets/json/intro-port-nem')
     this.load.image('space-bus-bg', 'assets/img/space_bus_bg.png')
     this.load.image('space-bus-sky', 'assets/img/space_bus_sky.png')
-    this.load.image('space-bus-creature', 'assets/img/space_bus_creature.png')
+    this.load.spritesheet('space-bus-creature', 'assets/img/space_bus_creature_frames.png', {frameWidth: 256, frameHeight: 304})
     this.load.image('space-bus-book', 'assets/img/space_bus_book.png')
     this.load.image('space-bus-sign', 'assets/img/space_bus_sign.png')
     this.load.image('space-bus-ticket-small', 'assets/img/space_bus_ticket_small.png')
+    this.load.image('space-bus-ticket-large', 'assets/img/space_bus_ticket_large.png')
     this.load.image('shuttle-ticket-small', 'assets/img/shuttle_ticket_small.png')
+    this.load.image('shuttle-ticket-large', 'assets/img/shuttle_ticket_large_frame1.png')
     this.load.image('breather-helmet', 'assets/img/breather_helmet_small.png')
     this.load.audio('gong', 'assets/sound/PSA.mp3');
     this.load.audio('breather-helmet-sound', 'assets/sound/breather-helmet.mp3')
@@ -35,7 +41,20 @@ export default class BeginningScene extends Phaser.Scene {
 
   create() {
 
+    /* CAMERA AND TEXTBOX INITIALISE*/
+
     this.cameras.main.fadeFrom(3000)
+
+    this.textBox = new TextBox(
+      this,
+      PassageParser
+        .parseJSONStringToPassages(this.cache.text.get('start-text')))
+
+    this.time.delayedCall(3000, this.textBox.open, [], this.textBox)
+
+    this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+
+    /* GRAPHICS SETUP */
 
     this.skyStars = this.add.tileSprite(0,0, 2228, 660, 'space-bus-sky').setOrigin(0,0)
     this.add.image(0,0,'space-bus-bg').setOrigin(0,0)
@@ -55,9 +74,23 @@ export default class BeginningScene extends Phaser.Scene {
       }
     })
 
-    this.creature = this.add.image(0,0,'space-bus-creature')
-      .setOrigin(0,0)
+    this.creature = this.add.sprite(826,508,'space-bus-creature')
+      //.setOrigin(0,0)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
+
+    this.anims.create({
+      key: 'creature-blink',
+      frames: this.anims.generateFrameNumbers('space-bus-creature', {frames: [0,1,2,1,0]}),
+      frameRate: 30
+    });
+
+    this.anims.create({
+      key: 'creature-foot',
+      frames: this.anims.generateFrameNumbers('space-bus-creature', {frames: [0,3,4,3,0,3,4,3,0]}),
+      frameRate: 10
+    });
+
+    this.time.delayedCall(Math.random()*5000, this.animateCreature, [], this)
 
     this.creature.on('pointerdown', () => {
       if(!this.textBox.isOpen){
@@ -84,7 +117,11 @@ export default class BeginningScene extends Phaser.Scene {
       }
     })
 
+    /* ANIMATE GRAPHICS */
 
+    this.moveStars()
+
+    /* SOUND SETUP */
 
 
     this.gong = this.sound.add('gong');
@@ -92,6 +129,8 @@ export default class BeginningScene extends Phaser.Scene {
 
     this.helmetSound = this.sound.add('breather-helmet-sound');
     this.helmetSound .volume = 0.3;
+
+    /* INVENTORY SETUP */
 
     let items: Item[] = [{
       name: 'Breathing Helmet',
@@ -103,36 +142,33 @@ export default class BeginningScene extends Phaser.Scene {
         name: 'Space Bus Ticket + Leaflet',
         description: 'A ticket for the space bus journey from my home planet to Port Nem. They also gave me an infoleaflet.',
         smallImageKey: 'space-bus-ticket-small',
-        largeImageKey: 'space-bus-ticket-sma  ll'
+        largeImageKey: 'space-bus-ticket-large'
       },
       {
         name: 'Shuttle Ticket',
         description: 'A ticket for the individual shuttle service I booked to High Moon. No space buses stop there.',
         smallImageKey: 'shuttle-ticket-small',
-        largeImageKey: 'shuttle-ticket-small'
+        largeImageKey: 'shuttle-ticket-large'
       }]
 
     this.inventory = new Inventory(this, 120, 120, items).setAlpha(0);
 
-    this.textBox = new TextBox(
-      this,
-      PassageParser
-        .parseJSONStringToPassages(this.cache.text.get('start-text')))
-
-    this.textBox.open()
-
     this.tab = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB)
 
-    this.moveStars()
+    /* DRAG SETUP */
 
     this.input.on('drag',(pointer, gameObject, dragX, dragY) => {
       gameObject.x = dragX;
       gameObject.y = dragY;
+      // @ts-ignore
+      gameObject.setTexture(items.find((item) => item.name === gameObject.name).largeImageKey)
     });
 
     this.input.on('dragend', (pointer, gameObject, dropped) => {
       gameObject.x = gameObject.input.dragStartX;
       gameObject.y = gameObject.input.dragStartY;
+      // @ts-ignore
+      gameObject.setTexture(items.find((item) => item.name === gameObject.name).smallImageKey)
     });
 
     this.input.on('drop', (pointer, gameObject, dropZone) => {
@@ -142,21 +178,21 @@ export default class BeginningScene extends Phaser.Scene {
 
         let passages: Passage[] = []
 
-        switch (gameObject.texture.key) {
-          case 'space-bus-ticket-small' :
+        switch (gameObject.name) {
+          case 'Space Bus Ticket + Leaflet' :
             passages = PassageParser.makePassagesFromListOfStrings(['That\'s my ticket for the space bus. It has already been validated.',
             'The complementary leaflet they gave me when I booked it marvels the benefits of traveling with semi-public space transit.',
               'I had nine hours to kill and I still couldn\'t get myself to read it.']);
             break;
-          case 'shuttle-ticket-small' :
+          case 'Shuttle Ticket' :
             passages = PassageParser.makePassagesFromListOfStrings(['I need to change into a shuttle taxi at Nem Station.',
             'I tried to find another space bus connection, but apparently, the space bus stop on High Moon closed down a few years ago.',
             'I also had to book this taxi in advance and the shuttle agency charged me extra, because  ~no  one~  wants to go to that backwater place.',
             'Not even shuttle drivers.']);
             break;
-          case 'breather-helmet' :
+          case 'Breathing Helmet' :
             passages = PassageParser.makePassagesFromListOfStrings(['Great. Let\'s put this on and get off this weird bus. My back hurts like heck.']);
-            this.time.delayedCall(1500, this.helmetSound.play, [], this.helmetSound);
+            this.time.delayedCall(2500, this.helmetSound.play, [], this.helmetSound);
             this.time.delayedCall(10000, this.scene.start, ['MainScene'], this.scene);
             this.time.delayedCall(5000, this.cameras.main.fade, [3000], this.cameras.main);
             break;
@@ -167,7 +203,11 @@ export default class BeginningScene extends Phaser.Scene {
       }
     });
 
+  }
 
+  animateCreature() {
+    this.creature.play(Math.round(Math.random())?'creature-blink':'creature-foot')
+    this.time.delayedCall(Math.random()*10000, this.animateCreature, [], this)
   }
 
   moveStars() {
@@ -186,6 +226,11 @@ export default class BeginningScene extends Phaser.Scene {
     if (Phaser.Input.Keyboard.JustDown(this.tab)) {
       this.inventory.isOpen?this.inventory.close():this.inventory.open()
     }
+
+    if (Phaser.Input.Keyboard.JustDown(this.spacebar) && !this.textBox.progressing) {
+      this.textBox.advance()
+    }
+
   }
 
 

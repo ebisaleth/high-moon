@@ -5,6 +5,7 @@ import Inventory from '../objects/inventory'
 export default class MainScene extends Phaser.Scene {
   textBox: TextBox
   spacebar: Phaser.Input.Keyboard.Key
+
   skyClear: Phaser.GameObjects.Image
   skyStars: Phaser.GameObjects.TileSprite
 
@@ -21,8 +22,10 @@ export default class MainScene extends Phaser.Scene {
   boobship: Phaser.GameObjects.Image
 
   inventory: Inventory
+  tab: Phaser.Input.Keyboard.Key
 
   music: any //sorry TS
+  spaceBusLeaving: any //sorry TS
 
   constructor() {
     super({ key: 'MainScene' })
@@ -44,32 +47,51 @@ export default class MainScene extends Phaser.Scene {
     this.load.image('portnem-sprite-dreieckship', 'assets/img/portnem/portnem_sprite_dreieckship.png')
     this.load.image('portnem-sprite-kuppelship', 'assets/img/portnem/portnem_sprite_kuppelship.png')
     this.load.image('portnem-sprite-wurstship', 'assets/img/portnem/portnem_sprite_wurstship.png')
+    /* SOUND EFFECTS */
+    this.load.audio('space-bus-leaving', 'assets/sound/leaving-spacebus.mp3')
+
   }
 
   create() {
 
-    this.cameras.main.fadeFrom(3000)
+    /* CAMERA AND TEXTBOX INITIALISE */
+
+    this.textBox = new TextBox(this);
+    //this.textBox.setSource(this.cache.text.get('start-text'))
+    this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+
+    this.cameras.main.fade(0)
+    this.time.delayedCall(18000, this.cameras.main.fadeFrom, [3000], this.cameras.main)
 
     /* SOUND */
     this.music = this.sound.add('cavern', { loop: true});
-    this.music.volume = 0.3;
-    this.music.play();
-    //
-    // this.tweens.add({
-    //   targets: this.music,
-    //   volume: 0.3,
-    //
-    //   ease: 'Quad.easeIn',
-    //   duration: 5000,
-    //
-    // });
+    this.music.volume = 0;
 
 
-    /* IMAGES */
+
+    this.time.delayedCall(18000, this.fadeInMusic, [], this)
+
+    this.spaceBusLeaving = this.sound.add('space-bus-leaving');
+    this.spaceBusLeaving.play();
+
+
+
+
+    /*
+     * ----------------------------------------
+     * SETUP & ANIMATE GRAPHICS & CLICK EVENTS
+     * THERE ARE A LOT
+     * ---------------------------------------
+    */
+
+    /* SKY */
 
     this.skyClear = this.add.image(0, 0, 'portnem-background-sky-clear').setOrigin(0, 0)
     this.skyStars = this.add.tileSprite(0, 0, 1228, 660, 'portnem-background-sky-stars').setOrigin(0, 0)
 
+    this.moveStars()
+
+    /* BACKGROUND */
 
     this.dock = this.add.image(0, 0, 'portnem-background-dock').setOrigin(0, 0).setDepth(1)
     this.bridge = this.add.image(0, 0, 'portnem-background-bridge').setOrigin(0, 0).setDepth(1)
@@ -127,7 +149,13 @@ export default class MainScene extends Phaser.Scene {
         }
       })
 
-    /* BIG SHIP*/
+    /*
+     * - -  - - - - - - - -
+     *     SPACE SHIPS
+     * - - - - - - - - - - -
+     */
+
+    /* BIG SHIP */
 
     this.bigship = this.add.image(0, 0, 'portnem-sprite-bigship')
       .setOrigin(0, 0)
@@ -257,20 +285,6 @@ export default class MainScene extends Phaser.Scene {
 
     })
 
-    // this.add.tween({
-    //   targets: this.boobship,
-    //   y: 4,
-    //   duration: 3000,
-    //   yoyo: true,
-    //   repeat: -1
-    // })
-
-
-    this.textBox = new TextBox(this);
-    //this.textBox.setSource(this.cache.text.get('start-text'))
-    this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
-
-    this.moveStars()
 
 
     let items: Item[] = [      {
@@ -287,6 +301,7 @@ export default class MainScene extends Phaser.Scene {
       }]
 
     this.inventory = new Inventory(this, 120, 120, items).setAlpha(0);
+    this.tab = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB)
 
 
 
@@ -338,11 +353,29 @@ export default class MainScene extends Phaser.Scene {
     this.time.delayedCall(10000, this.moveStars, [], this)
   }
 
+  fadeInMusic(){
+    this.music.play();
+    this.tweens.add({
+      targets: this.music,
+      volume: 0.3,
+
+      ease: 'Quad.easeIn',
+      duration: 2000,
+
+    });
+  }
+
 
   update() {
+
     if (Phaser.Input.Keyboard.JustDown(this.spacebar) && !this.textBox.progressing) {
       this.textBox.advance()
     }
+
+    if (Phaser.Input.Keyboard.JustDown(this.tab)) {
+      this.inventory.isOpen?this.inventory.close():this.inventory.open()
+    }
+
   }
 }
 //

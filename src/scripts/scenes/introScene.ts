@@ -179,7 +179,6 @@ export default class IntroScene extends Phaser.Scene {
       this.pressKeyText.destroy();
 
       this.time.delayedCall(4000, this.nextScene, [], this);
-      this.time.delayedCall(3000, this.music.destroy, [], this);
       this.cameras.main.fade(3000)
     }
   }
