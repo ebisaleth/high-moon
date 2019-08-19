@@ -2,21 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="329aa31f-4c8a-4da7-95d7-6e9cf890cf6c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/scripts/objects/textBox.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/scripts/other/passageParser.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/scripts/scenes/introScene.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/json/intro-port-nem" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scripts/objects/inventory.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scripts/scenes/beginningScene.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scripts/game.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/game.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scripts/objects/fpsText.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scripts/objects/phaserLogo.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/objects/phaserLogo.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scripts/objects/textBox.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/objects/textBox.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scripts/other/passageParser.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/other/passageParser.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scripts/scenes/introScene.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/scenes/introScene.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scripts/scenes/mainScene.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/scenes/mainScene.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scripts/scenes/preloadScene.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/scenes/preloadScene.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/typings/custom.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/typings/custom.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webpack/credits.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack/credits.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack/webpack.common.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack/webpack.common.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -29,29 +26,56 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/scripts/scenes/mainScene.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+            <state relative-caret-position="225">
+              <caret line="293" column="27" lean-forward="true" selection-start-line="293" selection-start-column="27" selection-end-line="293" selection-end-column="27" />
+              <folding>
+                <element signature="e#0#40#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/webpack/webpack.common.js">
+        <entry file="file://$PROJECT_DIR$/src/scripts/scenes/beginningScene.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="33" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="33" />
+            <state relative-caret-position="180">
+              <caret line="95" column="4" selection-start-line="95" selection-start-column="4" selection-end-line="114" selection-end-column="70" />
+              <folding>
+                <element signature="e#0#40#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/scripts/objects/textBox.ts">
+        <entry file="file://$PROJECT_DIR$/src/scripts/objects/inventory.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1725">
-              <caret line="115" column="73" selection-start-line="115" selection-start-column="6" selection-end-line="115" selection-end-column="73" />
+            <state relative-caret-position="450">
+              <caret line="30" column="20" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
+              <folding>
+                <element signature="e#0#50#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/scripts/objects/phaserLogo.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" column="4" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/assets/json/intro-port-nem">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="15" column="29" lean-forward="true" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -59,28 +83,19 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/scripts/other/passageParser.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="3" selection-start-line="14" selection-start-column="3" selection-end-line="14" selection-end-column="3" />
+            <state relative-caret-position="45">
+              <caret line="3" column="60" selection-start-line="3" selection-start-column="60" selection-end-line="3" selection-end-column="60" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/typings/custom.d.ts">
+        <entry file="file://$PROJECT_DIR$/src/scripts/objects/textBox.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="19" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/scripts/game.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="3" selection-start-line="22" selection-start-column="3" selection-end-line="22" selection-end-column="3" />
+            <state relative-caret-position="721">
+              <caret line="194" column="33" selection-start-line="194" selection-start-column="33" selection-end-line="194" selection-end-column="33" />
               <folding>
-                <element signature="e#0#15#0" expanded="true" />
+                <element signature="e#0#50#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -89,17 +104,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/scripts/scenes/introScene.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="138" column="30" selection-start-line="138" selection-start-column="30" selection-end-line="138" selection-end-column="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/webpack/credits.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="51" selection-start-line="21" selection-start-column="51" selection-end-line="21" selection-end-column="51" />
+            <state relative-caret-position="690">
+              <caret line="187" selection-start-line="187" selection-end-line="187" />
             </state>
           </provider>
         </entry>
@@ -107,17 +113,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/scripts/scenes/preloadScene.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="56" lean-forward="true" selection-start-column="56" selection-end-column="56" />
+            <state relative-caret-position="660">
+              <caret line="44" column="15" selection-start-line="44" selection-start-column="15" selection-end-line="44" selection-end-column="15" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/index.html">
+        <entry file="file://$PROJECT_DIR$/typings/custom.d.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="495">
-              <caret line="33" column="20" selection-start-line="33" selection-start-column="20" selection-end-line="33" selection-end-column="20" />
+            <state relative-caret-position="60">
+              <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -131,6 +137,11 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>Alph</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -142,34 +153,25 @@
         <option value="$PROJECT_DIR$/src/scripts/objects/fpsText.ts" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/webpack/webpack.common.js" />
-        <option value="$PROJECT_DIR$/src/scripts/scenes/mainScene.ts" />
         <option value="$PROJECT_DIR$/src/index.html" />
-        <option value="$PROJECT_DIR$/typings/custom.d.ts" />
+        <option value="$PROJECT_DIR$/webpack/credits.js" />
         <option value="$PROJECT_DIR$/src/scripts/other/passageParser.ts" />
+        <option value="$PROJECT_DIR$/src/scripts/scenes/beginningScene" />
+        <option value="$PROJECT_DIR$/src/scripts/game.ts" />
+        <option value="$PROJECT_DIR$/typings/custom.d.ts" />
         <option value="$PROJECT_DIR$/src/scripts/objects/textBox.ts" />
         <option value="$PROJECT_DIR$/src/scripts/scenes/preloadScene.ts" />
-        <option value="$PROJECT_DIR$/src/scripts/game.ts" />
+        <option value="$PROJECT_DIR$/src/scripts/objects/inventory.ts" />
         <option value="$PROJECT_DIR$/src/scripts/scenes/introScene.ts" />
-        <option value="$PROJECT_DIR$/webpack/credits.js" />
-      </list>
-    </option>
-  </component>
-  <component name="ProjectConfigurationFiles">
-    <option name="files">
-      <list>
-        <option value="$PROJECT_DIR$/.idea/phaser-project-template.iml" />
-        <option value="$PROJECT_DIR$/.idea/vcs.xml" />
-        <option value="$PROJECT_DIR$/.idea/misc.xml" />
-        <option value="$PROJECT_DIR$/.idea/modules.xml" />
-        <option value="$PROJECT_DIR$/.idea/codeStyles/Project.xml" />
-        <option value="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" />
+        <option value="$PROJECT_DIR$/src/scripts/scenes/beginningScene.ts" />
+        <option value="$PROJECT_DIR$/src/assets/json/intro-port-nem" />
+        <option value="$PROJECT_DIR$/src/scripts/scenes/mainScene.ts" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1169" />
     <option name="y" value="27" />
-    <option name="width" value="751" />
+    <option name="width" value="1920" />
     <option name="height" value="1053" />
   </component>
   <component name="ProjectView">
@@ -177,83 +179,79 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="phaser-project-template" type="b2602c69:ProjectViewProjectNode" />
-              <item name="phaser-project-template" type="462c0819:PsiDirectoryNode" />
+              <item name="high-moon" type="b2602c69:ProjectViewProjectNode" />
+              <item name="high-moon" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="phaser-project-template" type="b2602c69:ProjectViewProjectNode" />
-              <item name="phaser-project-template" type="462c0819:PsiDirectoryNode" />
+              <item name="high-moon" type="b2602c69:ProjectViewProjectNode" />
+              <item name="high-moon" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="phaser-project-template" type="b2602c69:ProjectViewProjectNode" />
-              <item name="phaser-project-template" type="462c0819:PsiDirectoryNode" />
+              <item name="high-moon" type="b2602c69:ProjectViewProjectNode" />
+              <item name="high-moon" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="assets" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="phaser-project-template" type="b2602c69:ProjectViewProjectNode" />
-              <item name="phaser-project-template" type="462c0819:PsiDirectoryNode" />
+              <item name="high-moon" type="b2602c69:ProjectViewProjectNode" />
+              <item name="high-moon" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="assets" type="462c0819:PsiDirectoryNode" />
               <item name="img" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="phaser-project-template" type="b2602c69:ProjectViewProjectNode" />
-              <item name="phaser-project-template" type="462c0819:PsiDirectoryNode" />
+              <item name="high-moon" type="b2602c69:ProjectViewProjectNode" />
+              <item name="high-moon" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="sound" type="462c0819:PsiDirectoryNode" />
+              <item name="json" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="phaser-project-template" type="b2602c69:ProjectViewProjectNode" />
-              <item name="phaser-project-template" type="462c0819:PsiDirectoryNode" />
+              <item name="high-moon" type="b2602c69:ProjectViewProjectNode" />
+              <item name="high-moon" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="scripts" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="phaser-project-template" type="b2602c69:ProjectViewProjectNode" />
-              <item name="phaser-project-template" type="462c0819:PsiDirectoryNode" />
+              <item name="high-moon" type="b2602c69:ProjectViewProjectNode" />
+              <item name="high-moon" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="scripts" type="462c0819:PsiDirectoryNode" />
               <item name="objects" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="phaser-project-template" type="b2602c69:ProjectViewProjectNode" />
-              <item name="phaser-project-template" type="462c0819:PsiDirectoryNode" />
+              <item name="high-moon" type="b2602c69:ProjectViewProjectNode" />
+              <item name="high-moon" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="scripts" type="462c0819:PsiDirectoryNode" />
               <item name="other" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="phaser-project-template" type="b2602c69:ProjectViewProjectNode" />
-              <item name="phaser-project-template" type="462c0819:PsiDirectoryNode" />
+              <item name="high-moon" type="b2602c69:ProjectViewProjectNode" />
+              <item name="high-moon" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="scripts" type="462c0819:PsiDirectoryNode" />
               <item name="scenes" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="phaser-project-template" type="b2602c69:ProjectViewProjectNode" />
-              <item name="phaser-project-template" type="462c0819:PsiDirectoryNode" />
+              <item name="high-moon" type="b2602c69:ProjectViewProjectNode" />
+              <item name="high-moon" type="462c0819:PsiDirectoryNode" />
               <item name="typings" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="phaser-project-template" type="b2602c69:ProjectViewProjectNode" />
-              <item name="phaser-project-template" type="462c0819:PsiDirectoryNode" />
-              <item name="webpack" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js.last.introduce.type" value="LET" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -299,17 +297,19 @@
       <workItem from="1565817534051" duration="3950000" />
       <workItem from="1565971214015" duration="21009000" />
       <workItem from="1566042091999" duration="8380000" />
+      <workItem from="1566053686379" duration="3540000" />
+      <workItem from="1566137806203" duration="33467000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35234000" />
+    <option name="totallyTimeSpent" value="72241000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21624473" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21624473" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -335,13 +335,6 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/scripts/objects/fpsText.ts" />
-    <entry file="file://$PROJECT_DIR$/src/scripts/objects/phaserLogo.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="28" selection-start-line="3" selection-start-column="28" selection-end-line="3" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/webpack/webpack.prod.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
@@ -384,12 +377,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/scripts/scenes/mainScene.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/src/assets/json/test.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/assets/img/cursorgreen.png">
+      <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/webpack/webpack.common.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -398,55 +390,102 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/typings/custom.d.ts">
+    <entry file="file://$PROJECT_DIR$/webpack/credits.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="19" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/scripts/other/passageParser.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="3" selection-start-line="14" selection-start-column="3" selection-end-line="14" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/scripts/objects/textBox.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1725">
-          <caret line="115" column="73" selection-start-line="115" selection-start-column="6" selection-end-line="115" selection-end-column="73" />
+        <state relative-caret-position="405">
+          <caret line="27" column="1" selection-start-line="27" selection-start-column="1" selection-end-line="27" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/scripts/game.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="3" selection-start-line="22" selection-start-column="3" selection-end-line="22" selection-end-column="3" />
+        <state relative-caret-position="300">
+          <caret line="20" column="39" selection-start-line="20" selection-start-column="39" selection-end-line="20" selection-end-column="39" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/typings/custom.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/scripts/objects/inventory.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="30" column="20" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/scripts/objects/phaserLogo.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="4" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/scripts/scenes/preloadScene.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="56" lean-forward="true" selection-start-column="56" selection-end-column="56" />
+        <state relative-caret-position="660">
+          <caret line="44" column="15" selection-start-line="44" selection-start-column="15" selection-end-line="44" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/scripts/objects/textBox.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="721">
+          <caret line="194" column="33" selection-start-line="194" selection-start-column="33" selection-end-line="194" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/scripts/other/passageParser.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="60" selection-start-line="3" selection-start-column="60" selection-end-line="3" selection-end-column="60" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/scripts/scenes/introScene.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="138" column="30" selection-start-line="138" selection-start-column="30" selection-end-line="138" selection-end-column="30" />
+        <state relative-caret-position="690">
+          <caret line="187" selection-start-line="187" selection-end-line="187" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webpack/credits.js">
+    <entry file="file://$PROJECT_DIR$/src/assets/json/intro-port-nem">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="51" selection-start-line="21" selection-start-column="51" selection-end-line="21" selection-end-column="51" />
+        <state relative-caret-position="225">
+          <caret line="15" column="29" lean-forward="true" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/scripts/scenes/beginningScene.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="95" column="4" selection-start-line="95" selection-start-column="4" selection-end-line="114" selection-end-column="70" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/scripts/scenes/mainScene.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="293" column="27" lean-forward="true" selection-start-line="293" selection-start-column="27" selection-end-line="293" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

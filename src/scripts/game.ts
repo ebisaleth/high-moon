@@ -2,14 +2,15 @@ import 'phaser'
 import MainScene from './scenes/mainScene'
 import IntroScene from './scenes/introScene'
 import PreloadScene from './scenes/preloadScene'
+import BeginningScene from './scenes/beginningScene'
 
 const DEFAULT_WIDTH = 1228
-const DEFAULT_HEIGHT = 660
+const DEFAULT_HEIGHT = 800
 
 // @ts-ignore https://github.com/photonstorm/phaser/issues/4522
 // still not working in 3.18.1 :/
 const config: GameConfig = {
-  backgroundColor: '#ffffff',
+  backgroundColor: '#000000',
   scale: {
     parent: 'phaser-game',
     //mode: Phaser.Scale.FIT,
@@ -17,7 +18,7 @@ const config: GameConfig = {
     width: DEFAULT_WIDTH,
     height: DEFAULT_HEIGHT
   },
-  scene: [PreloadScene, IntroScene, MainScene],
+  scene: [PreloadScene, BeginningScene, IntroScene, MainScene],
   audio: {
     disableWebAudio: true
   }

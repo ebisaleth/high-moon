@@ -1,0 +1,18 @@
+{
+  "passages": [
+    {
+      "text": "So...\nThis is it. \nWe're almost there. \nI've sat on this bus for almost nine hours. \nAnd the person across from me still hasn't finished reading their book.\nI wonder what it's about.\n...\nI've never been this far away from home. \nBut they told me that this was my last chance...\n...\nAfter ~the incident~. \nBetter not think about it. \n§sound[gong]*gong* \n... oh? \n§color[0x00FFFF]Attention passengers. \n§color[0x00FFFF]We'll soon arrive at: Nem Station Port. \n§color[0x00FFFF]Please exit the space bus on the left. \n§color[0x00FFFF]For your own safety, please make sure to put on your breathing devices if you rely on breathing oxygen, nitrogen, or any carbon derivatives. \n... Right. \nI should probably do that. \n§color[0xADADAD](Press TAB to open your inventory!)\n§color[0xADADAD](If you are ready to leave the bus, drag the breathing helmet down to where this text is in order to put it on.)",
+      "name": "start",
+      "pid": "1",
+      "position": {
+        "x": "412",
+        "y": "188"
+      }
+    }
+  ],
+  "name": "hochmond-intro-1",
+  "startnode": "1",
+  "creator": "Twine",
+  "creator-version": "2.3.3",
+  "ifid": "DC4B03F3-CA3E-475E-934F-41C97A79715A"
+}

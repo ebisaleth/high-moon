@@ -9,12 +9,20 @@ export default class IntroScene extends Phaser.Scene {
   pressKeyText: Phaser.GameObjects.BitmapText
   spacebar: Phaser.Input.Keyboard.Key
   lastColour: integer
+  music: any
+  rect: Phaser.GameObjects.Graphics
 
   constructor() {
     super({ key: 'IntroScene' })
   }
 
   create() {
+
+    this.rect = this.add.graphics();
+    this.rect.fillStyle(0x000000, 1)
+    this.rect.fillRect(0, 660, 1228, 140);
+    this.rect.setDepth(20);
+
 
     this.bg_back = this.add.tileSprite(0,0, 1228, 1500, 'stars-bg-back')
       .setOrigin(0,0);
@@ -29,7 +37,7 @@ export default class IntroScene extends Phaser.Scene {
       .setOrigin(0,0)
       .setAlpha(0);
 
-    this.pressKeyText = this.add.bitmapText(this.cameras.main.width/2, this.cameras.main.height/2 + 100, 'profont', 'press the SPACE key!')
+    this.pressKeyText = this.add.bitmapText(this.cameras.main.width/2, 660/2 + 100, 'profont', 'press the SPACE key!')
       .setOrigin(.5,.5)
       .setAlpha(0);
 
@@ -63,18 +71,18 @@ export default class IntroScene extends Phaser.Scene {
     this.time.delayedCall(8000, this.addText, [], this);
 
     this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-    this.lastColour = 0;
+    this.lastColour = 0xFFFFFF;
 
     //this is actually okay. idk what's going on here. sorry typescript.
-    let music: any = this.sound.add('theme', { loop: true});
-    music.volume = 0;
-    music.play();
+    this.music = this.sound.add('theme', { loop: true});
+    this.music.volume = 0;
+    this.music.play();
 
     this.tweens.add({
-      targets: music,
-      volume: 1,
+      targets: this.music,
+      volume: 0.5,
 
-      ease: 'Linear',
+      ease: 'Quad.easeIn',
       duration: 5000,
 
     });
@@ -93,8 +101,8 @@ export default class IntroScene extends Phaser.Scene {
         })
 
     this.time.delayedCall(1500, this.addSmallerText, [], this);
-    this.time.delayedCall(3910, this.tintText, [], this);
-    this.moveBg('Quad.easeIn')
+    this.time.delayedCall(3902, this.tintText, [], this);
+    this.time.delayedCall(4100, this.moveBg, ['Quad.easeIn'], this);
   }
 
   addSmallerText() {
@@ -136,12 +144,13 @@ export default class IntroScene extends Phaser.Scene {
   tintText() {
     this.bg_text.setTint(this.nextColour());
 
-    this.time.delayedCall(1350, this.tintText, [], this);
+    this.time.delayedCall(1352, this.tintText, [], this);
   }
 
   nextColour(){
 
-    let colors = [0x8adeff, 0x94a2ff, 0xc294ff, 0xf28fff, 0xff8fd0, 0xff8f8f, 0xffc18f, 0xffea8f, 0xf6ff8f, 0xd6ff8f, 0xb1ff8f, 0x8fffa0, 0x8fffd2]
+    let colors = [0x8adeff, 0x94a2ff, 0xc294ff, 0xff8fd0, 0xff8f8f, 0xffc18f, 0xffea8f, 0xd6ff8f, 0x8fffa0, 0x8fffd2, 0xffffff,
+      0x762dd6, 0xd62da0, 0xffab36, 0xbfe30e, 0x04ff00, 0x00fff7, 0x484fd4]
 
     let proposedColour = colors[Math.floor(Math.random()*colors.length)]
 
@@ -159,8 +168,26 @@ export default class IntroScene extends Phaser.Scene {
 
     if (Phaser.Input.Keyboard.JustDown(this.spacebar))
     {
-      this.scene.start('MainScene')
+      this.tweens.add({
+        targets: this.music,
+        volume: 0,
+
+        ease: 'Quad.easeIn',
+        duration: 3000,
+      })
+
+      this.pressKeyText.destroy();
+
+      this.time.delayedCall(4000, this.nextScene, [], this);
+      this.time.delayedCall(3000, this.music.destroy, [], this);
+      this.cameras.main.fade(3000)
     }
+  }
+
+  nextScene() {
+
+    this.scene.start('BeginningScene')
+
   }
 
 

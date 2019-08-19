@@ -19,11 +19,11 @@ console.log(
   'background: none'
 )
 console.log(
-  '%c %c %c %c %c Royalty Free Music from Bensound https://www.bensound.com',
+  '%c %c %c %c %c Royalty Free Music from Bensound %c https://www.bensound.com',
   'background: #ff0000',
   'background: #ffff00',
   'background: #00ff00',
   'background: #00ffff',
   'color: #fff; background: #000000;',
- // 'background: none'
+  'background: none'
 )

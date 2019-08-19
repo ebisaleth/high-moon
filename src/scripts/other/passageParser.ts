@@ -1,6 +1,6 @@
 export default class PassageParser {
 
-  public parseJSONStringToPassages(json: string): Passage[] {
+  public static parseJSONStringToPassages(json: string): Passage[] {
     return JSON.parse(json).passages.map(function(passage) {
       return {
         lines : passage.text.split("\n").filter(str => !str.startsWith("[[")),
@@ -14,7 +14,7 @@ export default class PassageParser {
     });
   }
 
-  public makePassagesFromListOfStrings(list: string[]): Passage[] {
+  public static makePassagesFromListOfStrings(list: string[]): Passage[] {
     return [{
       lines: list,
       choices : [],
