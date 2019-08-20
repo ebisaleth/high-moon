@@ -7,7 +7,6 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
   scene: HighMoonScene
   passageCounter: number
   lineCounter: number
-  letterCounter: number
   textGameObj: Phaser.GameObjects.BitmapText
   progressing: Boolean
   DELAY: number
@@ -45,7 +44,7 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
     this.dropZone.setInteractive(new Phaser.Geom.Rectangle(x, y, width, height), Phaser.Geom.Rectangle.Contains)
     // make rect clickable
       .on('pointerdown', () => {
-          this.advance()
+        this.advance()
 
       })
 
@@ -64,7 +63,6 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
     // this.textSource = ['hello', 'this is a texttest', 'how are you doing', 'this is some longer text for your fun and convenience'];
     this.passageCounter = 0
     this.lineCounter = 0
-    this.letterCounter = 0
 
     this.progressing = false
     this.isOpen = false
@@ -107,7 +105,6 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
   public startWithPassages(passages: Passage[]) {
     this.passageCounter = 0
     this.lineCounter = 0
-    this.letterCounter = 0
     this.progressing = false
     this.passages = passages
     // this.setAlpha(0)
@@ -117,7 +114,6 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
   public close() {
     this.passageCounter = 0
     this.lineCounter = 0
-    this.letterCounter = 0
     this.progressing = false
     this.passages = []
     // this.setAlpha(0)
@@ -184,17 +180,16 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
 
   putLine() {
 
-    console.log(this.passages[this.passageCounter].lines[this.lineCounter])
     if (this.lineCounter < this.passages[this.passageCounter].lines.length) {
       this.progressing = true
-
 
       /* WORD WRAP */
 
       this.passages[this.passageCounter].lines[this.lineCounter] = this.passages[this.passageCounter].lines[this.lineCounter].replace(/(?![^\n]{1,98}$)([^\n]{1,98})\s/g, '$1\n')
 
       if (this.passages[this.passageCounter].lines[this.lineCounter].length > 0) {
-        this.nextLetter(this.passages[this.passageCounter].lines[this.lineCounter])
+        console.log(this.passages[this.passageCounter].lines[this.lineCounter])
+        this.textGameObj.text = ""
         this.scene.tweens.add({
           targets: this.sound,
           volume: 0.05,
@@ -202,6 +197,7 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
           duration: 250
 
         })
+        this.putLetterByLetter(this.passages[this.passageCounter].lines[this.lineCounter])
       } else {
         this.lineCounter++
       }
@@ -215,13 +211,13 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
   }
 
 
-  nextLetter(line: string) {
+  putLetterByLetter(line: string) {
 
-    this.textGameObj.text = this.passages[this.passageCounter].lines[this.lineCounter].slice(0, this.letterCounter)
-    this.letterCounter++
+    if (line.length > 0) {
 
-    if (this.letterCounter <= this.passages[this.passageCounter].lines[this.lineCounter].length) {
-      this.scene.time.delayedCall(this.DELAY, this.nextLetter, [], this)
+      this.textGameObj.text = this.textGameObj.text.concat(line.slice(0, 1))
+
+      this.scene.time.delayedCall(this.DELAY, this.putLetterByLetter, [line.substring(1)], this)
     } else {
       this.scene.tweens.add({
         targets: this.sound,
@@ -230,9 +226,7 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
         duration: 250
 
       })
-      //this.sound.stop();
       this.lineCounter++
-      this.letterCounter = 0
       this.progressing = false
     }
 
@@ -294,7 +288,7 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
   //
   //     if(this.lineCounter < this.textSource.length){
   //       this.progressing = true;
-  //       this.nextLetter();
+  //       this.putLetterByLetter();
   //     } else {
   //       //this.textGameObj.text = '';
   //       this.offerChoice([{text: 'yes'}, {text: 'no'}])
