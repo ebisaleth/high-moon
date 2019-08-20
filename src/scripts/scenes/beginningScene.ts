@@ -2,17 +2,12 @@ import TextBox from '../objects/textBox'
 import PassageParser from '../other/passageParser'
 import Inventory from '../objects/inventory'
 import inventory from '../objects/inventory'
+import HighMoonScene from './highMoonScene'
 
-export default class BeginningScene extends Phaser.Scene {
+export default class BeginningScene extends HighMoonScene {
 
-  textBox: TextBox
   gong: any // sorry TS
   helmetSound: any // sorry TS
-
-  tab: Phaser.Input.Keyboard.Key
-  spacebar: Phaser.Input.Keyboard.Key
-
-  inventory: Inventory
 
   skyStars: Phaser.GameObjects.TileSprite
   creature: Phaser.GameObjects.Sprite
@@ -20,7 +15,7 @@ export default class BeginningScene extends Phaser.Scene {
   book: Phaser.GameObjects.Image
 
   constructor() {
-    super({ key: 'BeginningScene' })
+    super('BeginningScene')
   }
 
   preload() {
@@ -40,19 +35,15 @@ export default class BeginningScene extends Phaser.Scene {
   }
 
   create() {
+    super.create()
 
     /* CAMERA AND TEXTBOX INITIALISE*/
 
     this.cameras.main.fadeFrom(3000)
 
-    this.textBox = new TextBox(
-      this,
-      PassageParser
-        .parseJSONStringToPassages(this.cache.text.get('start-text')))
+    this.textBox.setJsonStringAsPassages(this.cache.text.get('start-text'))
 
     this.time.delayedCall(3000, this.textBox.open, [], this.textBox)
-
-    this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
 
     /* GRAPHICS SETUP */
 
@@ -151,9 +142,7 @@ export default class BeginningScene extends Phaser.Scene {
         largeImageKey: 'shuttle-ticket-large'
       }]
 
-    this.inventory = new Inventory(this, 120, 120, items).setAlpha(0);
-
-    this.tab = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB)
+    this.inventory.setContent(items);
 
     /* DRAG SETUP */
 
@@ -223,13 +212,7 @@ export default class BeginningScene extends Phaser.Scene {
   }
 
   update() {
-    if (Phaser.Input.Keyboard.JustDown(this.tab)) {
-      this.inventory.isOpen?this.inventory.close():this.inventory.open()
-    }
-
-    if (Phaser.Input.Keyboard.JustDown(this.spacebar) && !this.textBox.progressing) {
-      this.textBox.advance()
-    }
+    super.update()
 
   }
 

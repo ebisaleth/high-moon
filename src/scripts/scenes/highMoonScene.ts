@@ -12,43 +12,36 @@ export default class HighMoonScene extends Phaser.Scene {
   textBox: TextBox
 
   constructor(name: string) {
-    super({key: 'HighMoonScene'})
-    //super({key: name})
+    super({key: name})
   }
 
   create() {
-
-    console.log("GUMO")
 
     this.tab = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB);
     this.space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
-    this.add.image(300, 300, 'phaser-logo')
-
     this.menu = new Menu(this);
 
-    this.inventory = new Inventory(this, 400, 400)
+    this.inventory = new Inventory(this, 100, 100)
 
     this.textBox = new TextBox(this);
-    this.textBox.setStringArrayAsPassage(['wooo', 'hello there']);
 
   }
 
   update() {
 
-    if (Phaser.Input.Keyboard.JustDown(this.tab)) {
-            this.inventory.isOpen?this.inventory.close():this.inventory.open()
-    }
-
     if (Phaser.Input.Keyboard.JustDown(this.esc)) {
-      console.log("pressed esc")
       this.menu.isOpen?this.menu.close():this.menu.open()
     }
 
-    // if (Phaser.Input.Keyboard.JustDown(this.space) && !this.textBox.progressing) {
-    //   this.textBox.advance()
-    // }
+    if (Phaser.Input.Keyboard.JustDown(this.tab ) && !this.menu.isOpen) {
+      this.inventory.isOpen?this.inventory.close():this.inventory.open()
+    }
+
+    if (Phaser.Input.Keyboard.JustDown(this.space) && !this.menu.isOpen) {
+      this.textBox.advance()
+    }
 
   }
 

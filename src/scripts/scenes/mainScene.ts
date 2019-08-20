@@ -1,10 +1,9 @@
 import TextBox from '../objects/textBox'
 import PassageParser from '../other/passageParser'
 import Inventory from '../objects/inventory'
+import HighMoonScene from './highMoonScene'
 
-export default class MainScene extends Phaser.Scene {
-  textBox: TextBox
-  spacebar: Phaser.Input.Keyboard.Key
+export default class MainScene extends HighMoonScene {
 
   skyClear: Phaser.GameObjects.Image
   skyStars: Phaser.GameObjects.TileSprite
@@ -21,14 +20,11 @@ export default class MainScene extends Phaser.Scene {
   kuppelship: Phaser.GameObjects.Image
   boobship: Phaser.GameObjects.Image
 
-  inventory: Inventory
-  tab: Phaser.Input.Keyboard.Key
-
   music: any //sorry TS
   spaceBusLeaving: any //sorry TS
 
   constructor() {
-    super({ key: 'MainScene' })
+    super('MainScene')
   }
 
   preload() {
@@ -54,27 +50,22 @@ export default class MainScene extends Phaser.Scene {
 
   create() {
 
-    /* CAMERA AND TEXTBOX INITIALISE */
+    super.create()
 
-    this.textBox = new TextBox(this);
-    //this.textBox.setStringArrayAsPassage(this.cache.text.get('start-text'))
-    this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+    /* CAMERA INITIALISE */
 
     this.cameras.main.fade(0)
     this.time.delayedCall(18000, this.cameras.main.fadeFrom, [3000], this.cameras.main)
 
     /* SOUND */
-    this.music = this.sound.add('cavern', { loop: true});
+    this.music = this.sound.add('cavern', { loop: true });
     this.music.volume = 0;
-
 
 
     this.time.delayedCall(18000, this.fadeInMusic, [], this)
 
     this.spaceBusLeaving = this.sound.add('space-bus-leaving');
     this.spaceBusLeaving.play();
-
-
 
 
     /*
@@ -102,11 +93,11 @@ export default class MainScene extends Phaser.Scene {
 
     this.houses
       .on('pointerdown', () => {
-        if(!this.textBox.isOpen){
+        if (!this.textBox.isOpen) {
           let passages: Passage[] = PassageParser.makePassagesFromListOfStrings([
             'That\'s the main hall of this space port.',
-          'On a small station like this, there probably used to be a ticket window staffed with an actual person, like, ages ago.',
-          'I bet now they have a vending machine with nutrient blocks and an AI hologram that generates a new misunderstanding for any given speech input.'])
+            'On a small station like this, there probably used to be a ticket window staffed with an actual person, like, ages ago.',
+            'I bet now they have a vending machine with nutrient blocks and an AI hologram that generates a new misunderstanding for any given speech input.'])
           this.textBox.setPassages(passages)
           this.textBox.open()
         }
@@ -118,14 +109,14 @@ export default class MainScene extends Phaser.Scene {
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
     this.nemcity
       .on('pointerdown', () => {
-        if(!this.textBox.isOpen){
+        if (!this.textBox.isOpen) {
           let passages: Passage[] = PassageParser.makePassagesFromListOfStrings([
             'I think that is Nem City over there.',
-          'They have this fancy dome. That\'s kind of neat.',
-          'Although it probably only works because Nem City is not that large.',
-          '\'Nem City\' is kind of an overstatement actually.',
-          'Maybe \'Nem Town\' would be more apt.',
-          '\'Nem Three Houses Next to a Chapel\'?'])
+            'They have this fancy dome. That\'s kind of neat.',
+            'Although it probably only works because Nem City is not that large.',
+            '\'Nem City\' is kind of an overstatement actually.',
+            'Maybe \'Nem Town\' would be more apt.',
+            '\'Nem Three Houses Next to a Chapel\'?'])
 
           this.textBox.setPassages(passages)
           this.textBox.open()
@@ -139,7 +130,7 @@ export default class MainScene extends Phaser.Scene {
 
     this.picnic
       .on('pointerdown', () => {
-        if(!this.textBox.isOpen){
+        if (!this.textBox.isOpen) {
           let passages: Passage[] = PassageParser.makePassagesFromListOfStrings([
             'There is a little picnic ensemble and a small bench over there.',
             'No one is sitting there.'])
@@ -163,13 +154,13 @@ export default class MainScene extends Phaser.Scene {
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
 
     this.bigship.on('pointerdown', () => {
-      if(!this.textBox.isOpen){
+      if (!this.textBox.isOpen) {
         let passages: Passage[] = PassageParser.makePassagesFromListOfStrings([
           'A large passenger ship.',
-        'It\'s probably bound to go back to my home system.',
-        'I kind of wish I could just go with it...',
-        'But I need to find my shuttle.',
-        'I should probably look at the ticket I got and find out which dock I need to go to.'])
+          'It\'s probably bound to go back to my home system.',
+          'I kind of wish I could just go with it...',
+          'But I need to find my shuttle.',
+          'I should probably look at the ticket I got and find out which dock I need to go to.'])
 
         this.textBox.setPassages(passages)
         this.textBox.open()
@@ -193,11 +184,11 @@ export default class MainScene extends Phaser.Scene {
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
 
     this.wurstship.on('pointerdown', () => {
-      if(!this.textBox.isOpen){
+      if (!this.textBox.isOpen) {
         let passages: Passage[] = PassageParser.makePassagesFromListOfStrings([
           'A space bus.',
-        'Similar to the one I arrived in.',
-        'Except this one has gills?'])
+          'Similar to the one I arrived in.',
+          'Except this one has gills?'])
 
         this.textBox.setPassages(passages)
         this.textBox.open()
@@ -221,7 +212,7 @@ export default class MainScene extends Phaser.Scene {
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
 
     this.dreieckship.on('pointerdown', () => {
-      if(!this.textBox.isOpen){
+      if (!this.textBox.isOpen) {
         let passages: Passage[] = PassageParser.makePassagesFromListOfStrings([
           'The crystal at the front of this vessel probably shoots lasers or something.'])
         this.textBox.setPassages(passages)
@@ -246,7 +237,7 @@ export default class MainScene extends Phaser.Scene {
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
 
     this.kuppelship.on('pointerdown', () => {
-      if(!this.textBox.isOpen){
+      if (!this.textBox.isOpen) {
         let passages: Passage[] = PassageParser.makePassagesFromListOfStrings([
           'That spaceship looks intensely menacing.',
           'I wonder what kind of creature flies it.'])
@@ -274,7 +265,7 @@ export default class MainScene extends Phaser.Scene {
 
     this.boobship.on('pointerdown', () => {
 
-      if(!this.textBox.isOpen){
+      if (!this.textBox.isOpen) {
         let passages: Passage[] = PassageParser.makePassagesFromListOfStrings([
           'This ufo is looking at me weirdly',
           'I don\'t know how I feel about that.'])
@@ -286,13 +277,12 @@ export default class MainScene extends Phaser.Scene {
     })
 
 
-
-    let items: Item[] = [      {
-        name: 'Space Bus Ticket + Leaflet',
-        description: 'A ticket for the space bus journey from my home planet to Port Nem. They also gave me an infoleaflet.',
-        smallImageKey: 'space-bus-ticket-small',
-        largeImageKey: 'space-bus-ticket-sma  ll'
-      },
+    let items: Item[] = [{
+      name: 'Space Bus Ticket + Leaflet',
+      description: 'A ticket for the space bus journey from my home planet to Port Nem. They also gave me an infoleaflet.',
+      smallImageKey: 'space-bus-ticket-small',
+      largeImageKey: 'space-bus-ticket-sma  ll'
+    },
       {
         name: 'Shuttle Ticket',
         description: 'A ticket for the individual shuttle service I booked to High Moon. No space buses stop there.',
@@ -300,12 +290,10 @@ export default class MainScene extends Phaser.Scene {
         largeImageKey: 'shuttle-ticket-small'
       }]
 
-    this.inventory = new Inventory(this, 120, 120, items).setAlpha(0);
-    this.tab = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB)
+    this.inventory.setContent(items)
 
 
-
-    this.input.on('drag',(pointer, gameObject, dragX, dragY) => {
+    this.input.on('drag', (pointer, gameObject, dragX, dragY) => {
       gameObject.x = dragX;
       gameObject.y = dragY;
     });
@@ -317,7 +305,7 @@ export default class MainScene extends Phaser.Scene {
 
     this.input.on('drop', (pointer, gameObject, dropZone) => {
 
-      if(!this.textBox.progressing) {
+      if (!this.textBox.progressing) {
         this.inventory.close()
 
         let passages: Passage[] = []
@@ -330,7 +318,7 @@ export default class MainScene extends Phaser.Scene {
             break;
           case 'shuttle-ticket-small' :
             passages = PassageParser.makePassagesFromListOfStrings(['Alright. Let\'s see. This says I need to go to dock 4.',
-            '... Now I only need to find out where dock 4 is.']);
+              '... Now I only need to find out where dock 4 is.']);
             break;
         }
         this.textBox.close();
@@ -353,7 +341,7 @@ export default class MainScene extends Phaser.Scene {
     this.time.delayedCall(10000, this.moveStars, [], this)
   }
 
-  fadeInMusic(){
+  fadeInMusic() {
     this.music.play();
     this.tweens.add({
       targets: this.music,
@@ -368,14 +356,7 @@ export default class MainScene extends Phaser.Scene {
 
   update() {
 
-    if (Phaser.Input.Keyboard.JustDown(this.spacebar) && !this.textBox.progressing) {
-      this.textBox.advance()
-    }
-
-    if (Phaser.Input.Keyboard.JustDown(this.tab)) {
-      this.inventory.isOpen?this.inventory.close():this.inventory.open()
-    }
-
+    super.update()
   }
 }
 //

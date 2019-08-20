@@ -2,15 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="329aa31f-4c8a-4da7-95d7-6e9cf890cf6c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/scripts/objects/menu.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/scripts/scenes/highMoonScene.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scripts/game.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/game.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scripts/objects/inventory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/objects/inventory.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scripts/objects/textBox.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/objects/textBox.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scripts/scenes/introScene.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/scenes/introScene.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scripts/scenes/beginningScene.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/scenes/beginningScene.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scripts/scenes/highMoonScene.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/scenes/highMoonScene.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scripts/scenes/mainScene.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/scenes/mainScene.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scripts/scenes/preloadScene.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/scenes/preloadScene.ts" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -24,12 +19,36 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/scripts/scenes/beginningScene.ts">
+        <entry file="file://$PROJECT_DIR$/src/scripts/scenes/mainScene.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="23" lean-forward="true" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
+            <state relative-caret-position="5205">
+              <caret line="347" column="18" lean-forward="true" selection-start-line="347" selection-start-column="18" selection-end-line="347" selection-end-column="18" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/scripts/scenes/beginningScene.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="33" column="80" lean-forward="true" selection-start-line="33" selection-start-column="80" selection-end-line="33" selection-end-column="80" />
+              <folding>
+                <element signature="e#0#40#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/scripts/scenes/highMoonScene.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="615">
+              <caret line="41" column="51" selection-start-line="41" selection-start-column="51" selection-end-line="41" selection-end-column="51" />
+              <folding>
+                <element signature="e#0#34#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -47,32 +66,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/scripts/scenes/highMoonScene.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="4" column="34" selection-start-line="4" selection-start-column="34" selection-end-line="4" selection-end-column="34" />
-              <folding>
-                <element signature="e#0#34#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/scripts/objects/menu.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="29" lean-forward="true" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/scripts/objects/textBox.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="24" lean-forward="true" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
+            <state relative-caret-position="120">
+              <caret line="157" column="21" lean-forward="true" selection-start-line="157" selection-start-column="21" selection-end-line="157" selection-end-column="21" />
               <folding>
                 <element signature="e#0#50#0" expanded="true" />
               </folding>
@@ -107,11 +105,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/scripts/scenes/preloadScene.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="675">
-              <caret line="45" column="31" selection-start-line="45" selection-start-column="31" selection-end-line="45" selection-end-column="31" />
+            <state relative-caret-position="330">
+              <caret line="22" column="12" lean-forward="true" selection-start-line="22" selection-start-column="12" selection-end-line="22" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -119,8 +117,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/scripts/game.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="24" lean-forward="true" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="37" />
+            <state relative-caret-position="150">
+              <caret line="10" column="63" lean-forward="true" selection-start-line="10" selection-start-column="63" selection-end-line="10" selection-end-column="63" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -140,6 +138,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>Alph</find>
+      <find>advance()</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -159,18 +158,18 @@
         <option value="$PROJECT_DIR$/typings/custom.d.ts" />
         <option value="$PROJECT_DIR$/src/assets/json/intro-port-nem" />
         <option value="$PROJECT_DIR$/src/index.html" />
-        <option value="$PROJECT_DIR$/src/scripts/scenes/mainScene.ts" />
-        <option value="$PROJECT_DIR$/src/scripts/scenes/beginningScene.ts" />
         <option value="$PROJECT_DIR$/src/scripts/scenes/introScene.ts" />
         <option value="$PROJECT_DIR$/src/scripts/scenes/SceneClass.ts" />
         <option value="$PROJECT_DIR$/src/scripts/game.ts" />
         <option value="$PROJECT_DIR$/src/scripts/scenes/sceneClass.ts" />
         <option value="$PROJECT_DIR$/src/scripts/objects/menu.ts" />
-        <option value="$PROJECT_DIR$/src/scripts/objects/textBox.ts" />
         <option value="$PROJECT_DIR$/src/scripts/objects/inventory.ts" />
         <option value="$PROJECT_DIR$/src/scripts/scenes/sceneWithMenuAndInventory.ts" />
-        <option value="$PROJECT_DIR$/src/scripts/scenes/highMoonScene.ts" />
         <option value="$PROJECT_DIR$/src/scripts/scenes/preloadScene.ts" />
+        <option value="$PROJECT_DIR$/src/scripts/scenes/beginningScene.ts" />
+        <option value="$PROJECT_DIR$/src/scripts/scenes/mainScene.ts" />
+        <option value="$PROJECT_DIR$/src/scripts/scenes/highMoonScene.ts" />
+        <option value="$PROJECT_DIR$/src/scripts/objects/textBox.ts" />
       </list>
     </option>
   </component>
@@ -285,18 +284,18 @@
       <workItem from="1566053686379" duration="3540000" />
       <workItem from="1566137806203" duration="33467000" />
       <workItem from="1566226022520" duration="9993000" />
-      <workItem from="1566302292178" duration="5706000" />
+      <workItem from="1566302292178" duration="6852000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="87940000" />
+    <option name="totallyTimeSpent" value="89086000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21624473" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21624473" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -384,16 +383,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/scripts/scenes/mainScene.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="915">
-          <caret line="63" column="28" selection-start-line="63" selection-start-column="28" selection-end-line="63" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
@@ -408,10 +397,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/json/intro-port-nem">
+    <entry file="file://$PROJECT_DIR$/src/scripts/objects/menu.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
+        <state relative-caret-position="120">
+          <caret line="8" column="29" lean-forward="true" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/scripts/scenes/preloadScene.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="12" lean-forward="true" selection-start-line="22" selection-start-column="12" selection-end-line="22" selection-end-column="12" />
         </state>
       </provider>
     </entry>
@@ -422,6 +418,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/assets/json/intro-port-nem">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/scripts/scenes/introScene.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1185">
@@ -429,19 +432,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/scripts/objects/menu.ts">
+    <entry file="file://$PROJECT_DIR$/src/scripts/game.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="29" lean-forward="true" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/scripts/objects/textBox.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="24" lean-forward="true" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
+        <state relative-caret-position="150">
+          <caret line="10" column="63" lean-forward="true" selection-start-line="10" selection-start-column="63" selection-end-line="10" selection-end-column="63" />
           <folding>
-            <element signature="e#0#50#0" expanded="true" />
+            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -456,40 +452,43 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/scripts/scenes/highMoonScene.ts">
+    <entry file="file://$PROJECT_DIR$/src/scripts/scenes/mainScene.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="4" column="34" selection-start-line="4" selection-start-column="34" selection-end-line="4" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#34#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/scripts/game.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="24" lean-forward="true" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/scripts/scenes/beginningScene.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="23" lean-forward="true" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
+        <state relative-caret-position="5205">
+          <caret line="347" column="18" lean-forward="true" selection-start-line="347" selection-start-column="18" selection-end-line="347" selection-end-column="18" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/scripts/scenes/preloadScene.ts">
+    <entry file="file://$PROJECT_DIR$/src/scripts/scenes/beginningScene.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="45" column="31" selection-start-line="45" selection-start-column="31" selection-end-line="45" selection-end-column="31" />
+        <state relative-caret-position="270">
+          <caret line="33" column="80" lean-forward="true" selection-start-line="33" selection-start-column="80" selection-end-line="33" selection-end-column="80" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/scripts/scenes/highMoonScene.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="615">
+          <caret line="41" column="51" selection-start-line="41" selection-start-column="51" selection-end-line="41" selection-end-column="51" />
+          <folding>
+            <element signature="e#0#34#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/scripts/objects/textBox.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="157" column="21" lean-forward="true" selection-start-line="157" selection-start-column="21" selection-end-line="157" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
