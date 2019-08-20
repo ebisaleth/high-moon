@@ -96,19 +96,14 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
     this.lineCounter = lineCounter
   }
 
+  public toggle() {
+    this.isOpen?this.close():this.open()
+  }
+
   public open() {
     this.isOpen = true
     // this.setAlpha(0.8)
     this.advance()
-  }
-
-  public startWithPassages(passages: Passage[]) {
-    this.passageCounter = 0
-    this.lineCounter = 0
-    this.progressing = false
-    this.passages = passages
-    // this.setAlpha(0)
-    this.isOpen = true
   }
 
   public close() {
@@ -128,12 +123,11 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
 
       if (this.passageCounter < this.passages.length) {
 
-
         let textSource = this.passages[this.passageCounter].lines
 
         if (this.lineCounter < textSource.length) {
 
-          this.putLine()
+          this.putLine(this.passages[this.passageCounter].lines[this.lineCounter])
 
           if (this.lineCounter === textSource.length - 1 && this.passages[this.passageCounter].choices.length > 0) {
             this.offerChoice(this.passages[this.passageCounter].choices)
@@ -149,65 +143,31 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
 
   }
 
-  parseAndExecuteSpecialCommands(): string {
+  putLine(line: string) {
 
-    /* PARSE COLOUR*/
+    this.progressing = true
 
-    let colourreg = /^§colou?r\[(?<colour>0x.*)\](?<message>.*)/
+    let lineSansCommands = this.parseAndExecuteSpecialCommands(line)
 
-    if (!this.passages[this.passageCounter].lines[this.lineCounter].match(colourreg)) {
-      this.textGameObj.setTint(0xFFFFFF)
+    /* WORD WRAP */
+
+    let wrappedLine = this.wordWrap(lineSansCommands)
+
+    if (wrappedLine.length > 0) {
+      console.log(line)
+      this.textGameObj.text = ''
+      this.scene.tweens.add({
+        targets: this.sound,
+        volume: 0.05,
+        ease: 'Quad.easeOut',
+        duration: 250
+
+      })
+      this.putLetterByLetter(wrappedLine)
     } else {
-      // @ts-ignore
-      this.textGameObj.setTint(this.passages[this.passageCounter].lines[this.lineCounter].match(colourreg).groups.colour)
-      // @ts-ignore
-      this.passages[this.passageCounter].lines[this.lineCounter] = this.passages[this.passageCounter].lines[this.lineCounter].match(colourreg).groups.message
+      this.lineCounter++
     }
 
-    /* PARSE SOUND */
-
-    let soundreg = /^§sound\[(?<sound>.*)\](?<message>.*)/
-
-    if (this.passages[this.passageCounter].lines[this.lineCounter].match(soundreg)) {
-      // @ts-ignore
-      this.scene[this.passages[this.passageCounter].lines[this.lineCounter].match(soundreg).groups.sound].play()
-      // @ts-ignore
-      this.passages[this.passageCounter].lines[this.lineCounter] = this.passages[this.passageCounter].lines[this.lineCounter].match(soundreg).groups.message
-    }
-
-    return ''
-  }
-
-  putLine() {
-
-    if (this.lineCounter < this.passages[this.passageCounter].lines.length) {
-      this.progressing = true
-
-      /* WORD WRAP */
-
-      this.passages[this.passageCounter].lines[this.lineCounter] = this.passages[this.passageCounter].lines[this.lineCounter].replace(/(?![^\n]{1,98}$)([^\n]{1,98})\s/g, '$1\n')
-
-      if (this.passages[this.passageCounter].lines[this.lineCounter].length > 0) {
-        console.log(this.passages[this.passageCounter].lines[this.lineCounter])
-        this.textGameObj.text = ""
-        this.scene.tweens.add({
-          targets: this.sound,
-          volume: 0.05,
-          ease: 'Quad.easeOut',
-          duration: 250
-
-        })
-        this.putLetterByLetter(this.passages[this.passageCounter].lines[this.lineCounter])
-      } else {
-        this.lineCounter++
-      }
-    } else {
-      //this.textGameObj.text = '';
-      if (this.LOOP) {
-        this.lineCounter = 0
-      }
-
-    }
   }
 
 
@@ -231,6 +191,49 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
     }
 
 
+  }
+
+
+  wordWrap(str: string): string {
+    return str.replace(/(?![^\n]{1,98}$)([^\n]{1,98})\s/g, '$1\n')
+  }
+
+  parseAndExecuteSpecialCommands(line: string): string {
+
+    let commands = line.match(/§[^§]*\[[^§]*\]/g)
+
+    if (!commands) {
+      this.textGameObj.setTint(0xFFFFFF)
+      return line
+    } else {
+      let message = line.slice(commands.join('').length)
+
+      let parsedCommands =
+        commands.map((command) =>
+          command
+            .replace(']', '')
+            .replace('§', '')
+            .split('[')
+        )
+
+
+      /* COLOUR */
+      parsedCommands.filter((commandTuple) =>
+        /^colou?r$/.test(commandTuple[0]))
+        .forEach((commandTuple) =>
+          this.textGameObj.setTint(parseInt(commandTuple[1])))
+
+      /* SOUND EFFECTS */
+      parsedCommands.filter((commandTuple) =>
+        commandTuple[0] === 'sound'
+      ).forEach((commandTuple) => {
+          if (this.scene[commandTuple[1]]) {
+            this.scene[commandTuple[1]].play()
+          }
+        }
+      )
+      return message
+    }
   }
 
   offerChoice(choices) {
