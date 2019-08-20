@@ -75,8 +75,10 @@ export default class IntroScene extends Phaser.Scene {
 
     //this is actually okay. idk what's going on here. sorry typescript.
     this.music = this.sound.add('theme', { loop: true});
+
     this.music.volume = 0;
-    this.music.play();
+    //I think the delay makes it less likely that we get a dom exception?
+    this.time.delayedCall(100, this.music.play, [], this.music);
 
     this.tweens.add({
       targets: this.music,
@@ -101,7 +103,7 @@ export default class IntroScene extends Phaser.Scene {
         })
 
     this.time.delayedCall(1500, this.addSmallerText, [], this);
-    this.time.delayedCall(3902, this.tintText, [], this);
+    this.time.delayedCall(4015, this.tintText, [], this);
     this.time.delayedCall(4100, this.moveBg, ['Quad.easeIn'], this);
   }
 

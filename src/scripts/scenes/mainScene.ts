@@ -57,7 +57,7 @@ export default class MainScene extends Phaser.Scene {
     /* CAMERA AND TEXTBOX INITIALISE */
 
     this.textBox = new TextBox(this);
-    //this.textBox.setSource(this.cache.text.get('start-text'))
+    //this.textBox.setStringArrayAsPassage(this.cache.text.get('start-text'))
     this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
 
     this.cameras.main.fade(0)

@@ -30,7 +30,7 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
     scene.add.existing(this)
 
     // draw rect
-    this.fillStyle(0x000000, 0.8);
+    this.fillStyle(0x000000, 1);
     this.fillRect(x, y, width, height);
     // this.setAlpha(0);
 
@@ -79,9 +79,16 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
 
   }
 
-  public setSource(jsonstr: string, passageCounter: integer = 0, lineCounter: integer = 0) {
+  public setJsonStringAsPassages(jsonstr: string, passageCounter: integer = 0, lineCounter: integer = 0) {
 
     this.passages = PassageParser.parseJSONStringToPassages(jsonstr);
+    this.passageCounter = passageCounter;
+    this.lineCounter = lineCounter;
+  }
+
+  public setStringArrayAsPassage(strs: string[], passageCounter: integer = 0, lineCounter: integer = 0) {
+
+    this.passages = PassageParser.makePassagesFromListOfStrings(strs);
     this.passageCounter = passageCounter;
     this.lineCounter = lineCounter; 
   }

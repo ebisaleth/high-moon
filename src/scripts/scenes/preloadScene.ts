@@ -24,7 +24,7 @@ export default class PreloadScene extends Phaser.Scene {
 
     this.input.setDefaultCursor('url(assets/img/cursorblue.png), pointer');
 
-    this.time.delayedCall(2000, this.nextScene, [], this);
+    this.time.delayedCall(3000, this.nextScene, [], this);
 
 
     /**
@@ -43,7 +43,7 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   nextScene() {
-    this.scene.start('IntroScene')
+    this.scene.start('BeginningScene')
   }
 
 }

@@ -3,6 +3,7 @@ import MainScene from './scenes/mainScene'
 import IntroScene from './scenes/introScene'
 import PreloadScene from './scenes/preloadScene'
 import BeginningScene from './scenes/beginningScene'
+import HighMoonScene from './scenes/highMoonScene'
 
 const DEFAULT_WIDTH = 1228
 const DEFAULT_HEIGHT = 800
@@ -18,7 +19,7 @@ const config: GameConfig = {
     width: DEFAULT_WIDTH,
     height: DEFAULT_HEIGHT
   },
-  scene: [PreloadScene, BeginningScene, IntroScene, MainScene],
+  scene: [PreloadScene, HighMoonScene, BeginningScene, IntroScene, MainScene],
   audio: {
     disableWebAudio: true
   }

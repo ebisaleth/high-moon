@@ -9,35 +9,41 @@ export default class Inventory extends Phaser.GameObjects.Image {
   isOpen: Boolean
   nameText: Phaser.GameObjects.BitmapText
   descriptionText: Phaser.GameObjects.BitmapText
+  scene: Phaser.Scene
 
   constructor(scene: Phaser.Scene, x: integer, y: integer, content: Item[] = []) {
     super(scene, x, y, 'inventory-bg');
     scene.add.existing(this);
 
-    this.setOrigin(0,0).setDepth(10);
+    this.scene=scene;
+
+    this.setOrigin(0,0).setDepth(10).setAlpha(0);
 
     this.nameText = scene.add.bitmapText(x + 10, y + 224, 'profont', '' ).setDepth(11)
     this.descriptionText = scene.add.bitmapText(x + 10, y + 254, 'profont', '' ).setDepth(11)
 
-    this.content = content;
+    this.setContent(content)
 
+    this.isOpen = false;
+
+  }
+
+  setContent(content: Item[]) {
+
+    this.content = content;
     this.contentGameObjs = [];
 
     this.content.forEach((item, index) => {
       let pos = this.calculatePosition(index)
-      this.contentGameObjs[index] = scene.add.image(pos.x, pos.y, item.smallImageKey)
+      this.contentGameObjs[index] = this.scene.add.image(pos.x, pos.y, item.smallImageKey)
         .setAlpha(0)
         .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
         .setDepth(20)
-
       this.contentGameObjs[index].name = item.name;
-
-      scene.input.setDraggable(this.contentGameObjs[index])
-
+      this.scene.input.setDraggable(this.contentGameObjs[index])
       // what to do on hover
       this.contentGameObjs[index].on('pointerover', () => {
-
-        scene.add.tween({
+        this.scene.add.tween({
           targets: this.contentGameObjs[index],
           angle: 20,
           duration: 500,
@@ -45,19 +51,18 @@ export default class Inventory extends Phaser.GameObjects.Image {
           repeat: 1,
           yoyo: true
         })
-
         this.nameText.text = item.name
         this.descriptionText.text = item.description.replace(/(?![^\n]{1,30}$)([^\n]{1,30})\s/g, '$1\n');
-
-
       })
-
     })
+  }
 
+  public addContent(item: Item) {
+    this.setContent(this.content.concat(item))
+  }
 
-
-    this.isOpen = false;
-
+  public removeContent(nameOfTheItemYouWantToRemove: string) {
+    this.setContent(this.content.filter((item) => !(item.name === nameOfTheItemYouWantToRemove)))
   }
 
 
