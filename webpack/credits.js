@@ -19,7 +19,32 @@ console.log(
   'background: none'
 )
 console.log(
-  '%c %c %c %c %c Royalty Free Music from Bensound %c https://www.bensound.com',
+  '%c %c %c %c %c With Music by ',
+  'background: #ff0000',
+  'background: #ffff00',
+  'background: #00ff00',
+  'background: #00ffff',
+  'color: #fff; background: #000000;'
+)
+console.log(
+  '%c %c %c %c %c Bensound %c https://www.bensound.com',
+  'background: #ff0000',
+  'background: #ffff00',
+  'background: #00ff00',
+  'background: #00ffff',
+  'color: #fff; background: #000000;',
+  'background: none'
+)
+console.log(
+  '%c %c %c %c %c as well as ',
+  'background: #ff0000',
+  'background: #ffff00',
+  'background: #00ff00',
+  'background: #00ffff',
+  'color: #fff; background: #000000;'
+)
+console.log(
+  '%c %c %c %c %c The brilliant Patricia Taxxon %c https://erictaxxon.bandcamp.com/',
   'background: #ff0000',
   'background: #ffff00',
   'background: #00ff00',

@@ -2,7 +2,7 @@ import TextBox from '../objects/textBox'
 import Inventory from '../objects/inventory'
 import HighMoonScene from './highMoonScene'
 
-export default class MainScene extends HighMoonScene {
+export default class PortNemScene extends HighMoonScene {
 
   skyClear: Phaser.GameObjects.Image
   skyStars: Phaser.GameObjects.TileSprite
@@ -23,7 +23,7 @@ export default class MainScene extends HighMoonScene {
   spaceBusLeaving: any //sorry TS
 
   constructor() {
-    super('MainScene')
+    super('PortNemScene')
   }
 
   preload() {
@@ -262,6 +262,9 @@ export default class MainScene extends HighMoonScene {
 
     })
 
+    /*
+<<<<<<<<<<<<<<<<<<<   INVENTORY SETUP  >>>>>>>>>>>>>>>>>>>>>
+*/
 
     let items: Item[] = [{
       name: 'Space Bus Ticket + Leaflet',
@@ -278,40 +281,30 @@ export default class MainScene extends HighMoonScene {
 
     this.inventory.setContent(items)
 
+  }
 
-    this.input.on('drag', (pointer, gameObject, dragX, dragY) => {
-      gameObject.x = dragX;
-      gameObject.y = dragY;
-    });
+  dropReact(draggedObject: Phaser.GameObjects.GameObject, dropZoneName: Phaser.GameObjects.Zone): void {
 
-    this.input.on('dragend', (pointer, gameObject, dropped) => {
-      gameObject.x = gameObject.input.dragStartX;
-      gameObject.y = gameObject.input.dragStartY;
-    });
+    if (!this.textBox.isProgressing) {
+      this.inventory.close()
 
-    this.input.on('drop', (pointer, gameObject, dropZone) => {
+      let text: string[] = []
 
-      if (!this.textBox.progressing) {
-        this.inventory.close()
-
-        let text: string[] = []
-
-        switch (gameObject.texture.key) {
-          case 'space-bus-ticket-small' :
-            text = ['That\'s my ticket for the space bus to Port Nem.',
-              'The complementary leaflet they gave me when I booked it marvels the benefits of traveling with semi-public space transit.',
-              'I had nine hours to kill and I still couldn\'t get myself to read it.'];
-            break;
-          case 'shuttle-ticket-small' :
-            text = ['Alright. Let\'s see. This says I need to go to dock 4.',
-              '... Now I only need to find out where dock 4 is.'];
-            break;
-        }
-        this.textBox.close();
-        this.textBox.setStringArrayAsPassage(text);
-        this.textBox.open();
+      switch (draggedObject.name) {
+        case 'Space Bus Ticket + Leaflet' :
+          text = ['That\'s my ticket for the space bus to Port Nem.',
+            'The complementary leaflet they gave me when I booked it marvels the benefits of traveling with semi-public space transit.',
+            'I had nine hours to kill and I still couldn\'t get myself to read it.'];
+          break;
+        case 'Shuttle Ticket' :
+          text = ['Alright. Let\'s see. This says I need to go to dock 4.',
+            '... Now I only need to find out where dock 4 is.'];
+          break;
       }
-    });
+      this.textBox.close();
+      this.textBox.setStringArrayAsPassage(text);
+      this.textBox.open();
+    }
 
   }
 

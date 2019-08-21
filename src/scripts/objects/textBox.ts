@@ -3,30 +3,38 @@ import { collectAllDependants } from 'ts-loader/dist/types/utils'
 import HighMoonScene from '../scenes/highMoonScene'
 
 export default class TextBox extends Phaser.GameObjects.Graphics {
-
   scene: HighMoonScene
-  passageCounter: number
-  lineCounter: number
-  textGameObj: Phaser.GameObjects.BitmapText
-  progressing: Boolean
-  DELAY: number
-  LOOP: Boolean
-  choiceGameObjs: Phaser.GameObjects.BitmapText[]
-  passages: Passage[]
+
   configX: integer
   configY: integer
   configWidth: integer
   configHeight: integer
-  sound: any // sorry TS
-  isOpen: Boolean
-  dropZone: Phaser.GameObjects.Zone
 
-  constructor(scene: HighMoonScene,
-              source: Passage[] = [],
-              x: integer = 0,
-              y: integer = scene.cameras.main.height - 140,
-              width: integer = scene.cameras.main.width,
-              height: integer = 140) {
+  DELAY: number
+  LOOP: Boolean
+
+  passageCounter: number
+  lineCounter: number
+
+  passages: Passage[]
+
+  isOpen: Boolean
+  isProgressing: Boolean
+
+  textGameObj: Phaser.GameObjects.BitmapText
+  dropZone: Phaser.GameObjects.Zone
+  choiceGameObjs: Phaser.GameObjects.BitmapText[]
+
+  sound: any // sorry TS
+
+  constructor(
+    scene: HighMoonScene,
+    source: Passage[] = [],
+    x: integer = 0,
+    y: integer = scene.cameras.main.height - 140,
+    width: integer = scene.cameras.main.width,
+    height: integer = 140
+  ) {
     super(scene)
     scene.add.existing(this)
 
@@ -39,13 +47,16 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
 
     // the text box is also a drop zone, whew, who would have thunk
 
-    this.dropZone = scene.add.zone(x, y, width, height).setRectangleDropZone(width, height).setOrigin(0, 0)
+    this.dropZone = scene.add
+      .zone(x, y, width, height)
+      .setRectangleDropZone(width, height)
+      .setOrigin(0, 0)
 
-    this.dropZone.setInteractive(new Phaser.Geom.Rectangle(x, y, width, height), Phaser.Geom.Rectangle.Contains)
-    // make rect clickable
+    this.dropZone
+      .setInteractive(new Phaser.Geom.Rectangle(x, y, width, height), Phaser.Geom.Rectangle.Contains)
+      // make rect clickable
       .on('pointerdown', () => {
         this.advance()
-
       })
 
     // SOUND EFFECTS!
@@ -64,7 +75,7 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
     this.passageCounter = 0
     this.lineCounter = 0
 
-    this.progressing = false
+    this.isProgressing = false
     this.isOpen = false
 
     this.textGameObj = scene.add.bitmapText(x + 20, y + 20, 'profont', '').setDepth(11)
@@ -73,7 +84,6 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
     this.configWidth = width
     this.configX = x
     this.configY = y
-
   }
 
   public setJsonStringAsPassages(jsonstr: string, passageCounter: integer = 0, lineCounter: integer = 0) {
@@ -95,7 +105,7 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
   }
 
   public toggle() {
-    this.isOpen?this.close():this.open()
+    this.isOpen ? this.close() : this.open()
   }
 
   public open() {
@@ -107,24 +117,19 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
   public close() {
     this.passageCounter = 0
     this.lineCounter = 0
-    this.progressing = false
+    this.isProgressing = false
     this.passages = []
     // this.setAlpha(0)
     this.textGameObj.text = ''
     this.isOpen = false
   }
 
-
   public advance() {
-
-    if (!this.progressing && !this.scene.menu.isOpen) {
-
+    if (!this.isProgressing && !this.scene.menu.isOpen) {
       if (this.passageCounter < this.passages.length) {
-
         let textSource = this.passages[this.passageCounter].lines
 
         if (this.lineCounter < textSource.length) {
-
           this.putLine(this.passages[this.passageCounter].lines[this.lineCounter])
 
           if (this.lineCounter === textSource.length - 1 && this.passages[this.passageCounter].choices.length > 0) {
@@ -135,15 +140,12 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
         } else {
           this.close()
         }
-
       }
     }
-
   }
 
   putLine(line: string) {
-
-    this.progressing = true
+    this.isProgressing = true
 
     let lineSansCommands = this.parseAndExecuteSpecialCommands(line)
 
@@ -159,20 +161,15 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
         volume: 0.05,
         ease: 'Quad.easeOut',
         duration: 250
-
       })
       this.putLetterByLetter(wrappedLine)
     } else {
       this.lineCounter++
     }
-
   }
 
-
   putLetterByLetter(line: string) {
-
     if (line.length > 0) {
-
       this.textGameObj.text = this.textGameObj.text.concat(line.slice(0, 1))
 
       this.scene.time.delayedCall(this.DELAY, this.putLetterByLetter, [line.substring(1)], this)
@@ -182,79 +179,71 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
         volume: 0,
         ease: 'Quad.easeIn',
         duration: 250
-
       })
       this.lineCounter++
-      this.progressing = false
+      this.isProgressing = false
     }
-
-
   }
-
 
   wordWrap(str: string): string {
     return str.replace(/(?![^\n]{1,98}$)([^\n]{1,98})\s/g, '$1\n')
   }
 
   parseAndExecuteSpecialCommands(line: string): string {
-
     let commands = line.match(/§[^§]*\[[^§]*\]/g)
 
     if (!commands) {
-      this.textGameObj.setTint(0xFFFFFF)
+      this.textGameObj.setTint(0xffffff)
       return line
     } else {
       let message = line.slice(commands.join('').length)
 
-      let parsedCommands =
-        commands.map((command) =>
-          command
-            .replace(']', '')
-            .replace('§', '')
-            .split('[')
-        )
-
+      let parsedCommands = commands.map(command =>
+        command
+          .replace(']', '')
+          .replace('§', '')
+          .split('[')
+      )
 
       /* COLOUR */
-      parsedCommands.filter((commandTuple) =>
-        /^colou?r$/.test(commandTuple[0]))
-        .forEach((commandTuple) =>
-          this.textGameObj.setTint(parseInt(commandTuple[1])))
+      parsedCommands
+        .filter(commandTuple => /^colou?r$/.test(commandTuple[0]))
+        .forEach(commandTuple => this.textGameObj.setTint(parseInt(commandTuple[1])))
 
       /* SOUND EFFECTS */
-      parsedCommands.filter((commandTuple) =>
-        commandTuple[0] === 'sound'
-      ).forEach((commandTuple) => {
+      parsedCommands
+        .filter(commandTuple => commandTuple[0] === 'sound')
+        .forEach(commandTuple => {
+          // @ts-ignore
           if (this.scene[commandTuple[1]]) {
+            // @ts-ignore
             this.scene[commandTuple[1]].play()
           }
-        }
-      )
+        })
       return message
     }
   }
 
-  offerChoice(choices) {
-
+  offerChoice(choices: Choice[]) {
     console.log('called offer choices')
 
     if (choices.length > 0) {
-
-      let box = this
-
       this.choiceGameObjs = []
 
-      choices.forEach(function(choice, index) {
-
-        box.choiceGameObjs[index] = box.scene.add.bitmapText(20 + (index == 1 ? choices[0].text.length * 10 + 100 : 0), box.configY + 80, 'profont', choice.text)
+      choices.forEach((choice: Choice, index: number) => {
+        this.choiceGameObjs[index] = this.scene.add
+          .bitmapText(
+            20 + (index == 1 ? choices[0].text.length * 10 + 100 : 0),
+            this.configY + 80,
+            'profont',
+            choice.text
+          )
           .setTint(0x88ddff)
           .setOrigin(0, 0)
           .setInteractive()
 
-        box.choiceGameObjs[index].on('pointerdown', function() {
-
-          box.choiceGameObjs.forEach(function(choice, index) {
-
+        this.choiceGameObjs[index].on('pointerdown', () => {
+          this.choiceGameObjs.forEach((choice: Phaser.GameObjects.BitmapText, index: number) => {
             // fade out
             // box.scene.tweens.add({
             //   targets: box.choiceGameObjs[index],
@@ -269,14 +258,11 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
 
             //kill immediately
             choice.destroy()
-
-
           })
 
-          box.passageCounter = choices[index].goto - 1
-          box.lineCounter = 0
-          box.advance()
-
+          this.passageCounter = choices[index].goto - 1
+          this.lineCounter = 0
+          this.advance()
         })
       })
     }
@@ -285,10 +271,10 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
   // public advance() {
   //
   //   //only allow advance if we're not already advancing
-  //   if(!this.progressing){
+  //   if(!this.isProgressing){
   //
   //     if(this.lineCounter < this.textSource.length){
-  //       this.progressing = true;
+  //       this.isProgressing = true;
   //       this.putLetterByLetter();
   //     } else {
   //       //this.textGameObj.text = '';
@@ -301,6 +287,4 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
   //   }
   //
   // }
-
-
 }

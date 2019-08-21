@@ -1,9 +1,10 @@
 import 'phaser'
-import MainScene from './scenes/mainScene'
+import PortNemScene from './scenes/portNemScene'
 import IntroScene from './scenes/introScene'
 import PreloadScene from './scenes/preloadScene'
-import BeginningScene from './scenes/beginningScene'
+import SpaceBusScene from './scenes/spaceBusScene'
 import HighMoonScene from './scenes/highMoonScene'
+import TestScene from './scenes/testScene'
 
 const DEFAULT_WIDTH = 1228
 const DEFAULT_HEIGHT = 800
@@ -19,7 +20,7 @@ const config: GameConfig = {
     width: DEFAULT_WIDTH,
     height: DEFAULT_HEIGHT
   },
-  scene: [PreloadScene, HighMoonScene, BeginningScene, IntroScene, MainScene],
+  scene: [PreloadScene, HighMoonScene, SpaceBusScene, IntroScene, PortNemScene, TestScene],
   audio: {
     disableWebAudio: true
   }

@@ -24,10 +24,45 @@ export default abstract class HighMoonScene extends Phaser.Scene {
     this.menu = new Menu(this);
 
     this.inventory = new Inventory(this, 100, 100)
+    this.dragSetup()
 
     this.textBox = new TextBox(this);
 
   }
+
+  dragSetup() {
+
+    this.input.on('drag',(pointer: Phaser.Input.Pointer, gameObject: Phaser.GameObjects.Image, dragX: integer, dragY: integer) => {
+      gameObject.x = dragX;
+      gameObject.y = dragY;
+
+      let item: Item | undefined = this.inventory.content.find((item) => item.name === gameObject.name)
+      if (item) {
+        gameObject.setTexture(item.largeImageKey)
+      }
+
+    });
+
+    this.input.on('dragend', (pointer: Phaser.Input.Pointer, gameObject: Phaser.GameObjects.Image, dropped: Boolean) => {
+      // TODO: remember draged position while within inventory
+
+      gameObject.x = gameObject.input.dragStartX;
+      gameObject.y = gameObject.input.dragStartY;
+
+      let item: Item | undefined = this.inventory.content.find((item) => item.name === gameObject.name)
+      if (item) {
+        gameObject.setTexture(item.smallImageKey)
+      }
+    });
+
+    this.input.on('drop', (pointer: Phaser.Input.Pointer, gameObject: Phaser.GameObjects.Image, dropZone: Phaser.GameObjects.Zone) => {
+
+      this.dropReact(gameObject, dropZone)
+    });
+
+  }
+
+  abstract dropReact(draggedObject: Phaser.GameObjects.GameObject, dropZoneName: Phaser.GameObjects.Zone): void
 
   update() {
 

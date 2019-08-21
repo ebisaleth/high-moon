@@ -2,7 +2,7 @@ import TextBox from '../objects/textBox'
 import Inventory from '../objects/inventory'
 import HighMoonScene from './highMoonScene'
 
-export default class BeginningScene extends HighMoonScene {
+export default class SpaceBusScene extends HighMoonScene {
 
   gong: any // sorry TS
   helmetSound: any // sorry TS
@@ -13,7 +13,7 @@ export default class BeginningScene extends HighMoonScene {
   book: Phaser.GameObjects.Image
 
   constructor() {
-    super('BeginningScene')
+    super('SpaceBusScene')
   }
 
   preload() {
@@ -23,12 +23,6 @@ export default class BeginningScene extends HighMoonScene {
     this.load.spritesheet('space-bus-creature', 'assets/img/space_bus_creature_frames.png', {frameWidth: 256, frameHeight: 304})
     this.load.image('space-bus-book', 'assets/img/space_bus_book.png')
     this.load.image('space-bus-sign', 'assets/img/space_bus_sign.png')
-    this.load.image('space-bus-ticket-small', 'assets/img/space_bus_ticket_small.png')
-    this.load.image('space-bus-ticket-large', 'assets/img/space_bus_ticket_large.png')
-    this.load.image('shuttle-ticket-small', 'assets/img/shuttle_ticket_small.png')
-    this.load.image('shuttle-ticket-large', 'assets/img/shuttle_ticket_large_frame1.png')
-    this.load.image('breather-helmet', 'assets/img/breather_helmet_small.png')
-    this.load.image('breather-helmet-large', 'assets/img/breather_helmet_large.png')
     this.load.audio('gong', 'assets/sound/PSA.mp3');
     this.load.audio('breather-helmet-sound', 'assets/sound/breather-helmet.mp3')
   }
@@ -36,7 +30,9 @@ export default class BeginningScene extends HighMoonScene {
   create() {
     super.create()
 
-    /* CAMERA AND TEXTBOX INITIALISE*/
+    /*
+      <<<<<<<<<<<<<<<<<<<  CAMERA AND TEXTBOX SETUP  >>>>>>>>>>>>>>>>>>>>>
+   */
 
     this.cameras.main.fadeFrom(3000)
 
@@ -44,7 +40,9 @@ export default class BeginningScene extends HighMoonScene {
 
     this.time.delayedCall(3000, this.textBox.open, [], this.textBox)
 
-    /* GRAPHICS SETUP */
+    /*
+      <<<<<<<<<<<<<<<<<<<   GRAPHICS SETUP  >>>>>>>>>>>>>>>>>>>>>
+    */
 
     this.skyStars = this.add.tileSprite(0,0, 2228, 660, 'space-bus-sky').setOrigin(0,0)
     this.add.image(0,0,'space-bus-bg').setOrigin(0,0)
@@ -67,19 +65,6 @@ export default class BeginningScene extends HighMoonScene {
       //.setOrigin(0,0)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
 
-    this.anims.create({
-      key: 'creature-blink',
-      frames: this.anims.generateFrameNumbers('space-bus-creature', {frames: [0,1,2,1,0]}),
-      frameRate: 30
-    });
-
-    this.anims.create({
-      key: 'creature-foot',
-      frames: this.anims.generateFrameNumbers('space-bus-creature', {frames: [0,3,4,3,0,3,4,3,0]}),
-      frameRate: 10
-    });
-
-    this.time.delayedCall(Math.random()*5000, this.animateCreature, [], this)
 
     this.creature.on('pointerdown', () => {
       if(!this.textBox.isOpen){
@@ -108,7 +93,23 @@ export default class BeginningScene extends HighMoonScene {
 
     this.moveStars()
 
-    /* SOUND SETUP */
+    this.anims.create({
+      key: 'creature-blink',
+      frames: this.anims.generateFrameNumbers('space-bus-creature', {frames: [0,1,2,1,0]}),
+      frameRate: 30
+    });
+
+    this.anims.create({
+      key: 'creature-foot',
+      frames: this.anims.generateFrameNumbers('space-bus-creature', {frames: [0,3,4,3,0,3,4,3,0]}),
+      frameRate: 10
+    });
+
+    this.time.delayedCall(Math.random()*5000, this.animateCreature, [], this)
+
+    /*
+     <<<<<<<<<<<<<<<<<<<   SOUND SETUP  >>>>>>>>>>>>>>>>>>>>>
+   */
 
 
     this.gong = this.sound.add('gong');
@@ -117,7 +118,9 @@ export default class BeginningScene extends HighMoonScene {
     this.helmetSound = this.sound.add('breather-helmet-sound');
     this.helmetSound .volume = 0.3;
 
-    /* INVENTORY SETUP */
+    /*
+    <<<<<<<<<<<<<<<<<<<   INVENTORY SETUP  >>>>>>>>>>>>>>>>>>>>>
+    */
 
     let items: Item[] = [{
       name: 'Breathing Helmet',
@@ -140,55 +143,52 @@ export default class BeginningScene extends HighMoonScene {
 
     this.inventory.setContent(items);
 
-    /* DRAG SETUP */
+  }
 
-    this.input.on('drag',(pointer, gameObject, dragX, dragY) => {
-      gameObject.x = dragX;
-      gameObject.y = dragY;
-      // @ts-ignore
-      gameObject.setTexture(items.find((item) => item.name === gameObject.name).largeImageKey)
-    });
 
-    this.input.on('dragend', (pointer, gameObject, dropped) => {
-      gameObject.x = gameObject.input.dragStartX;
-      gameObject.y = gameObject.input.dragStartY;
-      // @ts-ignore
-      gameObject.setTexture(items.find((item) => item.name === gameObject.name).smallImageKey)
-    });
+  /*
+    <<<<<<<<<<<<<<<<<<<   DRAG SETUP  >>>>>>>>>>>>>>>>>>>>>
+  */
 
-    this.input.on('drop', (pointer, gameObject, dropZone) => {
 
-      if(!this.textBox.progressing) {
-        this.inventory.close()
+  dropReact(draggedObject: Phaser.GameObjects.GameObject, dropZoneName: Phaser.GameObjects.Zone): void {
 
-        let text: string[] = []
+    if(!this.textBox.isProgressing) {
+      this.inventory.close()
 
-        switch (gameObject.name) {
-          case 'Space Bus Ticket + Leaflet' :
-            text = ['That\'s my ticket for the space bus. It has already been validated.',
+      let text: string[] = []
+
+      switch (draggedObject.name) {
+        case 'Space Bus Ticket + Leaflet' :
+          text = ['That\'s my ticket for the space bus. It has already been validated.',
             'The complementary leaflet they gave me when I booked it marvels the benefits of traveling with semi-public space transit.',
-              'I had nine hours to kill and I still couldn\'t get myself to read it.'];
-            break;
-          case 'Shuttle Ticket' :
-            text = ['I need to change into a shuttle taxi at Nem Station.',
+            'I had nine hours to kill and I still couldn\'t get myself to read it.'];
+          break;
+        case 'Shuttle Ticket' :
+          text = ['I need to change into a shuttle taxi at Nem Station.',
             'I tried to find another space bus connection, but apparently, the space bus stop on High Moon closed down a few years ago.',
             'I also had to book this taxi in advance and the shuttle agency charged me extra, because  ~no  one~  wants to go to that backwater place.',
             'Not even shuttle drivers.'];
-            break;
-          case 'Breathing Helmet' :
-            text = ['Great. Let\'s put this on and get off this weird bus. My back hurts like heck.'];
-            this.time.delayedCall(2500, this.helmetSound.play, [], this.helmetSound);
-            this.time.delayedCall(10000, this.scene.start, ['MainScene'], this.scene);
-            this.time.delayedCall(5000, this.cameras.main.fade, [3000], this.cameras.main);
-            break;
-        }
-        this.textBox.close();
-        this.textBox.setStringArrayAsPassage(text);
-        this.textBox.open();
+          break;
+        case 'Breathing Helmet' :
+          text = ['Great. Let\'s put this on and get off this weird bus. My back hurts like heck.'];
+          this.time.delayedCall(2500, this.helmetSound.play, [], this.helmetSound);
+          this.time.delayedCall(10000, this.scene.start, ['PortNemScene'], this.scene);
+          this.time.delayedCall(5000, this.cameras.main.fade, [3000], this.cameras.main);
+          break;
       }
-    });
+      this.textBox.close();
+      this.textBox.setStringArrayAsPassage(text);
+      this.textBox.open();
+    }
 
   }
+
+  /*
+  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  <<<<<<<<<<<<<<<<<<<  NON-PUBLIC FUNCTIONS >>>>>>>>>>>>>>>>>>>>>
+  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+ */
 
   animateCreature() {
     this.creature.play(Math.round(Math.random())?'creature-blink':'creature-foot')
