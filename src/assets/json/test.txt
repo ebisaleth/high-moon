@@ -1,7 +1,7 @@
 {
   "passages": [
     {
-      "text": "Hello! \nPlease choose one\n[[one]]\n[[two]]",
+      "text": "§sound[gong]§color[0x00FF00]Hello! \nPlease choose one\n[[one]]\n[[two]]",
       "links": [
         {
           "name": "one",
@@ -18,25 +18,48 @@
       "pid": "1",
       "position": {
         "x": "412",
-        "y": "187.5"
+        "y": "187"
       }
     },
     {
-      "text": "well played",
+      "text": "well played\n§set[thing=true]\n[[ok]]",
+      "links": [
+        {
+          "name": "ok",
+          "link": "ok",
+          "pid": "4"
+        }
+      ],
       "name": "one",
       "pid": "2",
       "position": {
-        "x": "337",
-        "y": "337.5"
+        "x": "338",
+        "y": "337"
       }
     },
     {
-      "text": "I told you to choose one!! OMG",
+      "text": "I told you to choose one!! OMG\n[[ok... sorry->ok]]",
+      "links": [
+        {
+          "name": "ok... sorry",
+          "link": "ok",
+          "pid": "4"
+        }
+      ],
       "name": "two",
       "pid": "3",
       "position": {
         "x": "487",
-        "y": "337.5"
+        "y": "337"
+      }
+    },
+    {
+      "text": "unelievable!!!\nyou did the thing: §{{thing}}",
+      "name": "ok",
+      "pid": "4",
+      "position": {
+        "x": "404",
+        "y": "487"
       }
     }
   ],
