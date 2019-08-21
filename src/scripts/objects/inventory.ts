@@ -45,10 +45,9 @@ export default class Inventory extends Phaser.GameObjects.Image {
       this.contentGameObjs[index].on('pointerover', () => {
         this.scene.add.tween({
           targets: this.contentGameObjs[index],
-          angle: 20,
-          duration: 500,
+          angle: 10,
+          duration: 300,
           ease: 'Sine.easeInOut',
-          repeat: 1,
           yoyo: true
         })
         this.nameText.text = item.name

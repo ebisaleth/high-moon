@@ -1,7 +1,5 @@
 import TextBox from '../objects/textBox'
-import PassageParser from '../other/passageParser'
 import Inventory from '../objects/inventory'
-import inventory from '../objects/inventory'
 import HighMoonScene from './highMoonScene'
 
 export default class BeginningScene extends HighMoonScene {
@@ -30,6 +28,7 @@ export default class BeginningScene extends HighMoonScene {
     this.load.image('shuttle-ticket-small', 'assets/img/shuttle_ticket_small.png')
     this.load.image('shuttle-ticket-large', 'assets/img/shuttle_ticket_large_frame1.png')
     this.load.image('breather-helmet', 'assets/img/breather_helmet_small.png')
+    this.load.image('breather-helmet-large', 'assets/img/breather_helmet_large.png')
     this.load.audio('gong', 'assets/sound/PSA.mp3');
     this.load.audio('breather-helmet-sound', 'assets/sound/breather-helmet.mp3')
   }
@@ -56,11 +55,10 @@ export default class BeginningScene extends HighMoonScene {
 
     this.sign.on('pointerdown', () => {
       if(!this.textBox.isOpen){
-        let passages: Passage[] = PassageParser.makePassagesFromListOfStrings([
+        this.textBox.setStringArrayAsPassage([
           '\"Due to recent happenings, we ask all our passengers to please refrain from leaving any mucus on the upholstery.\"',
           '\"In case of an acute phlegmergency, please make use of the plastic sheets that can be found under your seat.\"',
           '\"Your SPACE BUS Team\"'])
-        this.textBox = new TextBox(this, passages).setDepth(10)
         this.textBox.open()
       }
     })
@@ -85,10 +83,9 @@ export default class BeginningScene extends HighMoonScene {
 
     this.creature.on('pointerdown', () => {
       if(!this.textBox.isOpen){
-        let passages: Passage[] = PassageParser.makePassagesFromListOfStrings([
+        this.textBox.setStringArrayAsPassage([
           'They were already on the bus when I got here.',
-        'And they don\'t seem very concerned with packing up now, either.'])
-        this.textBox = new TextBox(this, passages).setDepth(10)
+          'And they don\'t seem very concerned with packing up now, either.'])
         this.textBox.open()
       }
     })
@@ -99,11 +96,10 @@ export default class BeginningScene extends HighMoonScene {
 
     this.book.on('pointerdown', () => {
       if(!this.textBox.isOpen){
-        let passages: Passage[] = PassageParser.makePassagesFromListOfStrings([
+        this.textBox.setStringArrayAsPassage([
           'This person has quite the elegant technique of turning the pages of their book with their eye stalk.',
         'Maybe that\'s the reason they aren\'t using an e-reader.',
         'The visual of them hitting the track pad with their eye would rather lack sophistication, I imagine.'])
-        this.textBox = new TextBox(this, passages).setDepth(10)
         this.textBox.open()
       }
     })
@@ -127,7 +123,7 @@ export default class BeginningScene extends HighMoonScene {
       name: 'Breathing Helmet',
       description: 'A helmet that helps you breathe if there\'s no atmosphere. Like in space.',
       smallImageKey: 'breather-helmet',
-      largeImageKey: 'breather-helmet'
+      largeImageKey: 'breather-helmet-large'
     },
       {
         name: 'Space Bus Ticket + Leaflet',
@@ -165,29 +161,29 @@ export default class BeginningScene extends HighMoonScene {
       if(!this.textBox.progressing) {
         this.inventory.close()
 
-        let passages: Passage[] = []
+        let text: string[] = []
 
         switch (gameObject.name) {
           case 'Space Bus Ticket + Leaflet' :
-            passages = PassageParser.makePassagesFromListOfStrings(['That\'s my ticket for the space bus. It has already been validated.',
+            text = ['That\'s my ticket for the space bus. It has already been validated.',
             'The complementary leaflet they gave me when I booked it marvels the benefits of traveling with semi-public space transit.',
-              'I had nine hours to kill and I still couldn\'t get myself to read it.']);
+              'I had nine hours to kill and I still couldn\'t get myself to read it.'];
             break;
           case 'Shuttle Ticket' :
-            passages = PassageParser.makePassagesFromListOfStrings(['I need to change into a shuttle taxi at Nem Station.',
+            text = ['I need to change into a shuttle taxi at Nem Station.',
             'I tried to find another space bus connection, but apparently, the space bus stop on High Moon closed down a few years ago.',
             'I also had to book this taxi in advance and the shuttle agency charged me extra, because  ~no  one~  wants to go to that backwater place.',
-            'Not even shuttle drivers.']);
+            'Not even shuttle drivers.'];
             break;
           case 'Breathing Helmet' :
-            passages = PassageParser.makePassagesFromListOfStrings(['Great. Let\'s put this on and get off this weird bus. My back hurts like heck.']);
+            text = ['Great. Let\'s put this on and get off this weird bus. My back hurts like heck.'];
             this.time.delayedCall(2500, this.helmetSound.play, [], this.helmetSound);
             this.time.delayedCall(10000, this.scene.start, ['MainScene'], this.scene);
             this.time.delayedCall(5000, this.cameras.main.fade, [3000], this.cameras.main);
             break;
         }
         this.textBox.close();
-        this.textBox.setPassages(passages);
+        this.textBox.setStringArrayAsPassage(text);
         this.textBox.open();
       }
     });

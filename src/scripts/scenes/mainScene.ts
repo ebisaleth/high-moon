@@ -1,5 +1,4 @@
 import TextBox from '../objects/textBox'
-import PassageParser from '../other/passageParser'
 import Inventory from '../objects/inventory'
 import HighMoonScene from './highMoonScene'
 
@@ -94,11 +93,10 @@ export default class MainScene extends HighMoonScene {
     this.houses
       .on('pointerdown', () => {
         if (!this.textBox.isOpen) {
-          let passages: Passage[] = PassageParser.makePassagesFromListOfStrings([
+          this.textBox.setStringArrayAsPassage([
             'That\'s the main hall of this space port.',
             'On a small station like this, there probably used to be a ticket window staffed with an actual person, like, ages ago.',
             'I bet now they have a vending machine with nutrient blocks and an AI hologram that generates a new misunderstanding for any given speech input.'])
-          this.textBox.setPassages(passages)
           this.textBox.open()
         }
       })
@@ -110,15 +108,13 @@ export default class MainScene extends HighMoonScene {
     this.nemcity
       .on('pointerdown', () => {
         if (!this.textBox.isOpen) {
-          let passages: Passage[] = PassageParser.makePassagesFromListOfStrings([
+          this.textBox.setStringArrayAsPassage([
             'I think that is Nem City over there.',
             'They have this fancy dome. That\'s kind of neat.',
             'Although it probably only works because Nem City is not that large.',
             '\'Nem City\' is kind of an overstatement actually.',
             'Maybe \'Nem Town\' would be more apt.',
             '\'Nem Three Houses Next to a Chapel\'?'])
-
-          this.textBox.setPassages(passages)
           this.textBox.open()
         }
       })
@@ -131,11 +127,9 @@ export default class MainScene extends HighMoonScene {
     this.picnic
       .on('pointerdown', () => {
         if (!this.textBox.isOpen) {
-          let passages: Passage[] = PassageParser.makePassagesFromListOfStrings([
+          this.textBox.setStringArrayAsPassage([
             'There is a little picnic ensemble and a small bench over there.',
             'No one is sitting there.'])
-
-          this.textBox.setPassages(passages)
           this.textBox.open()
         }
       })
@@ -155,14 +149,12 @@ export default class MainScene extends HighMoonScene {
 
     this.bigship.on('pointerdown', () => {
       if (!this.textBox.isOpen) {
-        let passages: Passage[] = PassageParser.makePassagesFromListOfStrings([
+        this.textBox.setStringArrayAsPassage([
           'A large passenger ship.',
           'It\'s probably bound to go back to my home system.',
           'I kind of wish I could just go with it...',
           'But I need to find my shuttle.',
           'I should probably look at the ticket I got and find out which dock I need to go to.'])
-
-        this.textBox.setPassages(passages)
         this.textBox.open()
       }
     })
@@ -185,12 +177,10 @@ export default class MainScene extends HighMoonScene {
 
     this.wurstship.on('pointerdown', () => {
       if (!this.textBox.isOpen) {
-        let passages: Passage[] = PassageParser.makePassagesFromListOfStrings([
+        this.textBox.setStringArrayAsPassage([
           'A space bus.',
           'Similar to the one I arrived in.',
           'Except this one has gills?'])
-
-        this.textBox.setPassages(passages)
         this.textBox.open()
       }
     })
@@ -213,9 +203,8 @@ export default class MainScene extends HighMoonScene {
 
     this.dreieckship.on('pointerdown', () => {
       if (!this.textBox.isOpen) {
-        let passages: Passage[] = PassageParser.makePassagesFromListOfStrings([
+        this.textBox.setStringArrayAsPassage([
           'The crystal at the front of this vessel probably shoots lasers or something.'])
-        this.textBox.setPassages(passages)
         this.textBox.open()
       }
     })
@@ -238,11 +227,10 @@ export default class MainScene extends HighMoonScene {
 
     this.kuppelship.on('pointerdown', () => {
       if (!this.textBox.isOpen) {
-        let passages: Passage[] = PassageParser.makePassagesFromListOfStrings([
+        this.textBox.setStringArrayAsPassage([
           'That spaceship looks intensely menacing.',
           'I wonder what kind of creature flies it.'])
 
-        this.textBox.setPassages(passages)
         this.textBox.open()
       }
     })
@@ -266,11 +254,9 @@ export default class MainScene extends HighMoonScene {
     this.boobship.on('pointerdown', () => {
 
       if (!this.textBox.isOpen) {
-        let passages: Passage[] = PassageParser.makePassagesFromListOfStrings([
+        this.textBox.setStringArrayAsPassage([
           'This ufo is looking at me weirdly',
           'I don\'t know how I feel about that.'])
-
-        this.textBox.setPassages(passages)
         this.textBox.open()
       }
 
@@ -308,21 +294,21 @@ export default class MainScene extends HighMoonScene {
       if (!this.textBox.progressing) {
         this.inventory.close()
 
-        let passages: Passage[] = []
+        let text: string[] = []
 
         switch (gameObject.texture.key) {
           case 'space-bus-ticket-small' :
-            passages = PassageParser.makePassagesFromListOfStrings(['That\'s my ticket for the space bus to Port Nem.',
+            text = ['That\'s my ticket for the space bus to Port Nem.',
               'The complementary leaflet they gave me when I booked it marvels the benefits of traveling with semi-public space transit.',
-              'I had nine hours to kill and I still couldn\'t get myself to read it.']);
+              'I had nine hours to kill and I still couldn\'t get myself to read it.'];
             break;
           case 'shuttle-ticket-small' :
-            passages = PassageParser.makePassagesFromListOfStrings(['Alright. Let\'s see. This says I need to go to dock 4.',
-              '... Now I only need to find out where dock 4 is.']);
+            text = ['Alright. Let\'s see. This says I need to go to dock 4.',
+              '... Now I only need to find out where dock 4 is.'];
             break;
         }
         this.textBox.close();
-        this.textBox.setPassages(passages);
+        this.textBox.setStringArrayAsPassage(text);
         this.textBox.open();
       }
     });

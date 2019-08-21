@@ -2,7 +2,7 @@ import Menu from '../objects/menu'
 import Inventory from '../objects/inventory'
 import TextBox from '../objects/textBox'
 
-export default class HighMoonScene extends Phaser.Scene {
+export default abstract class HighMoonScene extends Phaser.Scene {
 
   tab: Phaser.Input.Keyboard.Key
   space: Phaser.Input.Keyboard.Key

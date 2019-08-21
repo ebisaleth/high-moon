@@ -77,14 +77,12 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
   }
 
   public setJsonStringAsPassages(jsonstr: string, passageCounter: integer = 0, lineCounter: integer = 0) {
-
     this.passages = PassageParser.parseJSONStringToPassages(jsonstr)
     this.passageCounter = passageCounter
     this.lineCounter = lineCounter
   }
 
   public setStringArrayAsPassage(strs: string[], passageCounter: integer = 0, lineCounter: integer = 0) {
-
     this.passages = PassageParser.makePassagesFromListOfStrings(strs)
     this.passageCounter = passageCounter
     this.lineCounter = lineCounter
