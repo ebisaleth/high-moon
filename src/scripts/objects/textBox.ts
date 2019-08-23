@@ -54,7 +54,11 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
       .setOrigin(0, 0)
 
     this.dropZone
-      .setInteractive(new Phaser.Geom.Rectangle(x, y, width, height), Phaser.Geom.Rectangle.Contains)
+      .setInteractive({
+        hitArea: new Phaser.Geom.Rectangle(x, y, width, height),
+        hitAreaCallback: Phaser.Geom.Rectangle.Contains,
+        cursor: 'url(assets/img/cursorgreen.png), pointer'
+      })
       // make rect clickable
       .on('pointerdown', () => {
         this.advance()
@@ -111,6 +115,7 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
   }
 
   public open() {
+    this.scene.clickGuard.raise()
     this.isOpen = true
     // this.setAlpha(0.8)
     this.advance()
@@ -124,6 +129,7 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
     // this.setAlpha(0)
     this.textGameObj.text = ''
     this.isOpen = false
+    this.scene.clickGuard.lower()
   }
 
   public advance() {
@@ -180,16 +186,20 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
 
       //offer choices, if appropriate
       if (
-        this.lineCounter === this.passages[this.passageCounter].lines.length - 1 && //are we at the last line of the passage?
-        this.passages[this.passageCounter].choices.length > 0 //are there choices attached to this passage?
+        this.lineCounter ===
+        this.passages[this.passageCounter].lines.length - 1 //are we at the last line of the passage?
       ) {
-        this.isChoosing = true
-        this.scene.time.delayedCall(
-          this.DELAY * 3,
-          this.offerChoice,
-          [this.passages[this.passageCounter].choices],
-          this
-        )
+        if (this.passages[this.passageCounter].choices.length > 0) {
+          this.isChoosing = true
+          this.scene.time.delayedCall(
+            this.DELAY * 3,
+            this.offerChoice,
+            [this.passages[this.passageCounter].choices],
+            this
+          )
+        } else {
+          this.isOpen = false
+        }
       }
 
       //handle administrative stuff
@@ -228,7 +238,10 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
       parsedCommands
         .filter(command => /^set$/.test(command.name))
         .forEach(command => {
-          command.arg.split('=')
+          let varName: string = command.arg.split('=').slice(0, 2)[0]
+          let varValue: string = command.arg.split('=').slice(0, 2)[1]
+          console.log('setting variable: ' + varName + ' ' + varValue)
+          this.scene.customVarScope.add({ name: varName, value: varValue })
         })
 
       /* COLOUR */

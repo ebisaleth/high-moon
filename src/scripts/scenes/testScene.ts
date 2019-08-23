@@ -34,8 +34,7 @@ export default class TestScene extends HighMoonScene {
     this.cameras.main.fadeFrom(3000)
 
     this.textBox.setJsonStringAsPassages(this.cache.text.get('test'))
-
-    this.time.delayedCall(3000, this.textBox.open, [], this.textBox)
+    this.textBox.open()
 
     /*
       <<<<<<<<<<<<<<<<<<<   GRAPHICS SETUP  >>>>>>>>>>>>>>>>>>>>>
@@ -48,10 +47,11 @@ export default class TestScene extends HighMoonScene {
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
 
     this.creature.on('pointerdown', () => {
+      console.dir(this.customVarScope)
       if (!this.textBox.isOpen) {
         this.textBox.setStringArrayAsPassage([
-          'They were already on the bus when I got here.',
-          "And they don't seem very concerned with packing up now, either."
+          'Ill tell you the value of the variable thing:',
+          this.customVarScope.valueOfWithDefault('thing', "oops don't have it")
         ])
         this.textBox.open()
       }

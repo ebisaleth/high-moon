@@ -2,11 +2,14 @@ import Menu from '../objects/menu'
 import Inventory from '../objects/inventory'
 import TextBox from '../objects/textBox'
 import Scope from '../other/Scope'
+import ClickGuard from '../objects/clickGuard'
 
 export default abstract class HighMoonScene extends Phaser.Scene {
   tab: Phaser.Input.Keyboard.Key
   space: Phaser.Input.Keyboard.Key
   esc: Phaser.Input.Keyboard.Key
+
+  clickGuard: ClickGuard
 
   menu: Menu
   inventory: Inventory
@@ -30,6 +33,8 @@ export default abstract class HighMoonScene extends Phaser.Scene {
 
     this.textBox = new TextBox(this)
 
+    this.clickGuard = new ClickGuard(this)
+
     this.customVarScope = new Scope()
   }
 
@@ -41,7 +46,7 @@ export default abstract class HighMoonScene extends Phaser.Scene {
         gameObject.y = dragY
 
         let item: Item | undefined = this.inventory.content.find(item => item.name === gameObject.name)
-        if (item) {
+        if (!!item) {
           gameObject.setTexture(item.largeImageKey)
         }
       }
@@ -56,7 +61,7 @@ export default abstract class HighMoonScene extends Phaser.Scene {
         gameObject.y = gameObject.input.dragStartY
 
         let item: Item | undefined = this.inventory.content.find(item => item.name === gameObject.name)
-        if (item) {
+        if (!!item) {
           gameObject.setTexture(item.smallImageKey)
         }
       }
@@ -72,7 +77,24 @@ export default abstract class HighMoonScene extends Phaser.Scene {
 
   abstract dropReact(draggedObject: Phaser.GameObjects.GameObject, dropZoneName: Phaser.GameObjects.Zone): void
 
+  canClick(): boolean {
+    return !this.textBox.isOpen && !this.menu.isOpen
+  }
+
   update() {
+    // let clickables = Object.values(this).filter(thing => thing.input && thing.texture)
+    //
+    // console.dir(clickables)
+    // console.dir(this.canClick())
+    //
+    // clickables.forEach(gameObj => {
+    //   if (this.canClick()) {
+    //     gameObj.setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
+    //   } else {
+    //     gameObj.setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorblue.png), pointer' })
+    //   }
+    // })
+
     if (Phaser.Input.Keyboard.JustDown(this.esc)) {
       this.menu.isOpen ? this.menu.close() : this.menu.open()
     }

@@ -7,9 +7,8 @@ export default class Menu extends Phaser.GameObjects.Graphics {
 
     scene.add.existing(this)
 
-    // draw rect
     this.fillStyle(0x000000, 1)
-    this.fillRect(0, 0, scene.cameras.main.width, scene.cameras.main.height)
+      .fillRect(0, 0, scene.cameras.main.width, scene.cameras.main.height)
       .setInteractive({
         hitArea: new Phaser.Geom.Rectangle(0, 0, scene.cameras.main.width, scene.cameras.main.height),
         hitAreaCallback: Phaser.Geom.Rectangle.Contains,

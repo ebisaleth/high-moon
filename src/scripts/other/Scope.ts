@@ -5,16 +5,24 @@ export default class Scope {
     this.vars = []
   }
 
-  add(newVariable: Variable) {
-    this.vars.filter(variable => !(variable.name === newVariable.name)).concat(newVariable)
+  public add(newVariable: Variable) {
+    this.vars = this.vars.filter(variable => !(variable.name === newVariable.name)).concat(newVariable)
   }
 
-  valueOf(name: String): string | undefined {
+  public valueOf(name: String): string | undefined {
     let searchedVariable = this.vars.find(variable => variable.name === name)
-    if (searchedVariable) {
+    if (!!searchedVariable) {
       return searchedVariable.value
+    }
+  }
+
+  public valueOfWithDefault(name: String, defaultValue: string): string {
+    let possibleValue = this.valueOf(name)
+
+    if (!!possibleValue) {
+      return possibleValue
     } else {
-      return undefined
+      return defaultValue
     }
   }
 }
