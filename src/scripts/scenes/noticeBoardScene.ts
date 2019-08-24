@@ -24,6 +24,10 @@ export default class NoticeBoardScene extends HighMoonScene {
   create() {
     super.create()
 
+    /* clicky gartdi*/
+
+    this.clickGuard.raise()
+
     /*
   <<<<<<<<<<<<<<<<<<<  CAMERA AND TEXTBOX SETUP  >>>>>>>>>>>>>>>>>>>>>
 */
@@ -31,13 +35,14 @@ export default class NoticeBoardScene extends HighMoonScene {
     this.cameras.main.fadeFrom(3000)
 
     this.textBox.setStringArrayAsPassage([
-      'Hmm...',
-      '',
-      'There is a site plan, but the dock numerals are... in... what, exactly?',
-      'Not sure what I should do now.'
+      'Hmm...'
+      // 'Maybe some of the plans on this notice board will help me figure out where I need to go to catch my shuttle.',
+      // this.memory.hasCheckedShuttleTicket
+      //   ? "I think my ticket said Dock 4... let's see..."
+      //   : 'I should probably also check my shuttle ticket.'
     ])
 
-    this.time.delayedCall(3000, this.textBox.open, [], this.textBox)
+    this.time.delayedCall(500, this.textBox.open, [], this.textBox)
 
     let planY = 200
     let planX = 590
@@ -48,15 +53,12 @@ export default class NoticeBoardScene extends HighMoonScene {
       .setOrigin(0, 0)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
       .on('pointerdown', () => {
-        if (!this.textBox.isOpen) {
-          this.textBox.setStringArrayAsPassage([
-            'Oh no, this looks like a poster for a missing pet.',
-            '... Or pets?',
-            'Anyway, I hope they get found soon.',
-            'I should keep my eyes open I guess.'
-          ])
-          this.textBox.open()
-        }
+        this.textBox.startWithStringArray([
+          'Oh no, this looks like a poster for a missing pet.',
+          '... Or pets?',
+          'Anyway, I hope they get found soon.',
+          'I should keep my eyes open I guess.'
+        ])
       })
 
     this.add
@@ -64,32 +66,72 @@ export default class NoticeBoardScene extends HighMoonScene {
       .setOrigin(0, 0)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
       .on('pointerdown', () => {
-        if (!this.textBox.isOpen) {
-          this.textBox.setStringArrayAsPassage([
-            'This departure schedule is helpfully bilingual.',
-            'But unfortunately, individual shuttle tours are not listed there.',
-            'I assume that the little dot combinations represent the dock numbers written directly above them.',
-            'So I guess I could cross reference them with the ones on the site plan.',
-            "...But dock 4 doesn't seem to appear here. Bother."
-          ])
-          this.textBox.open()
-        }
+        this.textBox.startWithStringArray([
+          'This departure schedule is helpfully bilingual.',
+          "But I don't think that individual shuttle tours are listed there.",
+          this.memory.hasCheckedShuttleTicket
+            ? 'I assume that the little dot combinations represent the dock numbers written directly above them.'
+            : '',
+          this.memory.hasCheckedShuttleTicket
+            ? 'So I guess I could cross reference them with the ones on the site plan.'
+            : '',
+          this.memory.hasCheckedShuttleTicket ? "...But dock 4 doesn't seem to appear here. Bother." : ''
+        ])
       })
 
     this.add.image(planX, planY, 'noticeboard-plan-skeleton').setOrigin(0, 0)
+
+    /*
+     *  TODO: SITE PLAN
+     * */
 
     this.add
       .image(planX, planY, 'noticeboard-plan-city-arrow')
       .setOrigin(0, 0)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
+      .on('pointerdown', () => {
+        this.textBox.startWithStringArray([
+          "I guess if that's the exit to Nem City, then this is the dock where I am right now."
+        ])
+      })
+
     this.add
       .image(planX, planY, 'noticeboard-plan-dock-1')
       .setOrigin(0, 0)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
+      .on('pointerdown', () => {
+        this.textBox.startWithStringArray(['If I am reading this plan correctly, then this is where I am right now.'])
+      })
+
     this.add
       .image(planX, planY, 'noticeboard-plan-dock-2')
       .setOrigin(0, 0)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
+      .on('pointerdown', () => {
+        this.textBox.startWithStringArray(['Should I go to that dock?'], ['yes', 'no'], choice => {
+          switch (choice) {
+            case 'yes':
+              this.clickGuard.raise()
+              this.fadeOut(1500)
+              this.time.delayedCall(
+                2000,
+                this.textBox.startWithStringArray,
+                [
+                  ['Oh no this is a weird dock, why did I go here?', 'I should go back.'],
+                  [],
+                  () => {},
+                  () => {
+                    this.fadeIn(1500)
+                  }
+                ],
+                this.textBox
+              )
+              break
+            case 'no':
+              console.log('not going to the dock.')
+          }
+        })
+      })
     this.add
       .image(planX, planY, 'noticeboard-plan-dock-3')
       .setOrigin(0, 0)
@@ -114,6 +156,95 @@ export default class NoticeBoardScene extends HighMoonScene {
       .image(planX, planY, 'noticeboard-plan-dock-8')
       .setOrigin(0, 0)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
+
+    /*
+     *  Go back tongle
+     * */
+
+    let tongle = this.add
+      .graphics()
+      .fillStyle(0x000000, 0.8)
+      .fillTriangle(
+        this.cameras.main.width / 2,
+        this.cameras.main.height - 170,
+        this.cameras.main.width / 2 + 15,
+        this.cameras.main.height - 170 - 15,
+        this.cameras.main.width / 2 - 15,
+        this.cameras.main.height - 170 - 15
+      )
+      .setInteractive({
+        hitArea: new Phaser.Geom.Triangle(
+          this.cameras.main.width / 2,
+          this.cameras.main.height - 170,
+          this.cameras.main.width / 2 + 15,
+          this.cameras.main.height - 170 - 15,
+          this.cameras.main.width / 2 - 15,
+          this.cameras.main.height - 170 - 15
+        ),
+        hitAreaCallback: Phaser.Geom.Triangle.Contains,
+        cursor: 'url(assets/img/cursorgreen.png), pointer'
+      })
+      .on('pointerdown', () => {
+        this.scene.stop('NoticeBoardScene')
+        this.scene.start('PortNemScene')
+      })
+
+    this.add.tween({
+      targets: tongle,
+      duration: 1000,
+      y: 5,
+      yoyo: true,
+      ease: 'Sine.InOut',
+      repeat: -1
+    })
+
+    /*
+    <<<<<<<<<<<<<<<<<<<   INVENTORY SETUP  >>>>>>>>>>>>>>>>>>>>>
+    */
+
+    let items: Item[] = [
+      {
+        name: 'Space Bus Ticket + Magazine',
+        description:
+          'A ticket for the space bus journey from my home planet to Port Nem. They also gave me a magazine when I booked it.',
+        smallImageKey: 'space-bus-ticket-small',
+        largeImageKey: 'space-bus-ticket-large'
+      },
+      {
+        name: 'Shuttle Ticket',
+        description: 'A ticket for the individual shuttle service I booked to High Moon. No space buses stop there.',
+        smallImageKey: 'shuttle-ticket-small',
+        largeImageKey: 'shuttle-ticket-large'
+      }
+    ]
+
+    this.inventory.setContent(items)
+  }
+
+  dropReact(draggedObject: Phaser.GameObjects.GameObject, dropZoneName: Phaser.GameObjects.Zone): void {
+    if (!this.textBox.isOpen) {
+      this.inventory.close()
+
+      let text: string[] = []
+
+      switch (draggedObject.name) {
+        case 'Space Bus Ticket + Magazine':
+          text = [
+            "That's my ticket for the space bus to Port Nem.",
+            'The complementary magazine they gave me when I booked it marvels the benefits of traveling with semi-public space transit.',
+            "I had nine hours to kill and I still couldn't get myself to read it."
+          ]
+          break
+        case 'Shuttle Ticket':
+          text = [
+            "Alright. Let's see. This says I need to go to dock 4.",
+            '... Now I only need to find out where dock 4 is.'
+          ]
+          this.memory.hasCheckedShuttleTicket = true
+          break
+      }
+      this.textBox.startWithStringArray(text)
+    }
   }
 
   update() {

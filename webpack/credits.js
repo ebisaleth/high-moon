@@ -44,7 +44,7 @@ console.log(
   'color: #fff; background: #000000;'
 )
 console.log(
-  '%c %c %c %c %c The brilliant Patricia Taxxon %c https://erictaxxon.bandcamp.com/',
+  '%c %c %c %c %c The brilliant Patricia Taxxon %c https://patriciataxxon.bandcamp.com/',
   'background: #ff0000',
   'background: #ffff00',
   'background: #00ff00',

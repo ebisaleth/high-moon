@@ -17,6 +17,8 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
   lineCounter: number
 
   passages: Passage[]
+  madeChoiceCallBack: (choice: string) => void
+  closeCallBack: () => void
 
   isOpen: Boolean
   isProgressing: Boolean
@@ -72,6 +74,9 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
     // initialise stuff
     this.passages = source
 
+    this.madeChoiceCallBack = (choice: string) => {}
+    this.closeCallBack = () => {}
+
     // DEFAULT -- MAGIC NUMBERS
     this.DELAY = 20
     this.LOOP = false
@@ -92,6 +97,26 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
     this.configY = y
   }
 
+  public startWithStringArray(
+    source: string[],
+    choices: string[] = [],
+    madeChoiceCallBack: (choice: string) => void = () => {},
+    closeCallBack: () => void = () => {}
+  ) {
+    if (!this.isOpen) {
+      this.setStringArrayAsPassage(source)
+      this.passages[this.passages.length - 1].choices = choices.map(choice => {
+        return {
+          text: choice,
+          goto: this.passages.length + 1
+        }
+      })
+      this.madeChoiceCallBack = madeChoiceCallBack
+      this.closeCallBack = closeCallBack
+      this.open()
+    }
+  }
+
   public setJsonStringAsPassages(jsonstr: string, passageCounter: integer = 0, lineCounter: integer = 0) {
     this.passages = PassageParser.parseJSONStringToPassages(jsonstr)
     this.passageCounter = passageCounter
@@ -110,10 +135,6 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
     this.lineCounter = lineCounter
   }
 
-  public toggle() {
-    this.isOpen ? this.close() : this.open()
-  }
-
   public open() {
     this.scene.clickGuard.raise()
     this.isOpen = true
@@ -130,6 +151,7 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
     this.textGameObj.text = ''
     this.isOpen = false
     this.scene.clickGuard.lower()
+    this.closeCallBack()
   }
 
   public advance() {
@@ -143,6 +165,8 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
         } else {
           this.close()
         }
+      } else {
+        this.close()
       }
     }
   }
@@ -308,32 +332,12 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
             choice.destroy()
             this.isChoosing = false
           })
-
           this.passageCounter = choices[index].goto - 1
           this.lineCounter = 0
           this.advance()
+          this.madeChoiceCallBack(choice.text)
         })
       })
     }
   }
-
-  // public advance() {
-  //
-  //   //only allow advance if we're not already advancing
-  //   if(!this.isProgressing){
-  //
-  //     if(this.lineCounter < this.textSource.length){
-  //       this.isProgressing = true;
-  //       this.putLetterByLetter();
-  //     } else {
-  //       //this.textGameObj.text = '';
-  //       this.offerChoice([{text: 'yes'}, {text: 'no'}])
-  //       if(this.LOOP){
-  //         this.lineCounter = 0;
-  //       }
-  //
-  //     }
-  //   }
-  //
-  // }
 }

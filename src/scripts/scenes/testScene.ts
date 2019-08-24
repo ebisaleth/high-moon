@@ -14,9 +14,9 @@ export default class TestScene extends HighMoonScene {
   preload() {
     this.load.text('start-text', 'assets/json/intro-port-nem')
 
-    this.load.image('space-bus-bg', 'assets/img/space_bus_bg.png')
+    this.load.image('space-bus-bg', 'assets/img/spacebus/space_bus_bg.png')
 
-    this.load.spritesheet('space-bus-creature', 'assets/img/space_bus_creature_frames.png', {
+    this.load.spritesheet('space-bus-creature', 'assets/img/spacebus/space_bus_creature_frames.png', {
       frameWidth: 256,
       frameHeight: 304
     })

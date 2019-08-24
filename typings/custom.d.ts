@@ -1,3 +1,5 @@
+//Inventory related
+
 interface Item {
   name: string
   description: string
@@ -5,10 +7,7 @@ interface Item {
   largeImageKey: string
 }
 
-interface Command {
-  name: string
-  arg: string
-}
+//Text Box related
 
 interface Passage {
   lines: string[]
@@ -19,6 +18,13 @@ interface Passage {
 interface Choice {
   text: string
   goto: number
+}
+
+//Text Box Command Parsing related
+
+interface Command {
+  name: string
+  arg: string
 }
 
 interface Variable {

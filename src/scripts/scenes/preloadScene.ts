@@ -1,4 +1,5 @@
 import inventory from '../objects/inventory'
+import Memory from '../other/memory'
 
 let DEBUG = true
 
@@ -58,7 +59,10 @@ export default class PreloadScene extends Phaser.Scene {
 
   nextScene() {
     if (DEBUG) {
-      this.scene.start('NoticeBoardScene')
+      let memory = new Memory()
+      memory.hasCheckedShuttleTicket = true
+      memory.hasArrivedAtPortNemBefore = true
+      this.scene.start('NoticeBoardScene', memory)
     } else {
       this.scene.start('IntroScene')
     }

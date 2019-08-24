@@ -3,13 +3,13 @@ import Inventory from '../objects/inventory'
 import HighMoonScene from './highMoonScene'
 
 export default class PortNemScene extends HighMoonScene {
-
   skyClear: Phaser.GameObjects.Image
   skyStars: Phaser.GameObjects.TileSprite
 
   dock: Phaser.GameObjects.Image
   bridge: Phaser.GameObjects.Image
   houses: Phaser.GameObjects.Image
+  noticeboard: Phaser.GameObjects.Image
   nemcity: Phaser.GameObjects.Image
   picnic: Phaser.GameObjects.Image
 
@@ -31,6 +31,7 @@ export default class PortNemScene extends HighMoonScene {
     this.load.image('portnem-background-dock', 'assets/img/portnem/portnem_background_dock.png')
     this.load.image('portnem-background-bridge', 'assets/img/portnem/portnem_background_bridge.png')
     this.load.image('portnem-background-houses', 'assets/img/portnem/portnem_background_houses.png')
+    this.load.image('portnem-background-noticeboard', 'assets/img/portnem/portnem_background_noticeboard.png')
     this.load.image('portnem-background-nemcity', 'assets/img/portnem/portnem_background_nemcity.png')
     this.load.image('portnem-background-picnic', 'assets/img/portnem/portnem_background_picnic.png')
     /* SKY IMAGES */
@@ -44,35 +45,38 @@ export default class PortNemScene extends HighMoonScene {
     this.load.image('portnem-sprite-wurstship', 'assets/img/portnem/portnem_sprite_wurstship.png')
     /* SOUND EFFECTS */
     this.load.audio('space-bus-leaving', 'assets/sound/leaving-spacebus.mp3')
-
   }
 
   create() {
-
     super.create()
-
-    /* CAMERA INITIALISE */
-
-    this.cameras.main.fade(0)
-    this.time.delayedCall(18000, this.cameras.main.fadeFrom, [3000], this.cameras.main)
+    this.clickGuard.raise()
 
     /* SOUND */
-    this.music = this.sound.add('cavern', { loop: true });
-    this.music.volume = 0;
+    this.music = this.sound.add('cavern', { loop: true })
+    this.music.volume = 0
 
+    /* CAMERA & MUSIC INITIALISE */
 
-    this.time.delayedCall(18000, this.fadeInMusic, [], this)
+    if (this.memory.hasArrivedAtPortNemBefore) {
+      this.cameras.main.fadeFrom(3000)
+      this.time.delayedCall(2000, this.clickGuard.lower, [], this.clickGuard)
+    } else {
+      this.cameras.main.fade(0)
+      this.time.delayedCall(18000, this.cameras.main.fadeFrom, [3000], this.cameras.main)
+      this.time.delayedCall(16000, this.clickGuard.lower, [], this.clickGuard)
 
-    this.spaceBusLeaving = this.sound.add('space-bus-leaving');
-    this.spaceBusLeaving.play();
-
+      this.time.delayedCall(18000, this.fadeInMusic, [], this)
+      this.spaceBusLeaving = this.sound.add('space-bus-leaving')
+      this.spaceBusLeaving.play()
+      this.memory.hasArrivedAtPortNemBefore = true
+    }
 
     /*
      * ----------------------------------------
      * SETUP & ANIMATE GRAPHICS & CLICK EVENTS
      * THERE ARE A LOT
      * ---------------------------------------
-    */
+     */
 
     /* SKY */
 
@@ -83,56 +87,64 @@ export default class PortNemScene extends HighMoonScene {
 
     /* BACKGROUND */
 
-    this.dock = this.add.image(0, 0, 'portnem-background-dock').setOrigin(0, 0).setDepth(1)
-    this.bridge = this.add.image(0, 0, 'portnem-background-bridge').setOrigin(0, 0).setDepth(1)
-    this.houses = this.add.image(0, 0, 'portnem-background-houses')
+    this.dock = this.add
+      .image(0, 0, 'portnem-background-dock')
+      .setOrigin(0, 0)
+      .setDepth(1)
+    this.bridge = this.add
+      .image(0, 0, 'portnem-background-bridge')
+      .setOrigin(0, 0)
+      .setDepth(1)
+    this.houses = this.add
+      .image(0, 0, 'portnem-background-houses')
       .setOrigin(0, 0)
       .setDepth(1)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
 
-    this.houses
-      .on('pointerdown', () => {
-        if (!this.textBox.isOpen) {
-          this.textBox.setStringArrayAsPassage([
-            'That\'s the main hall of this space port.',
-            'On a small station like this, there probably used to be a ticket window staffed with an actual person, like, ages ago.',
-            'I bet now they have a vending machine with nutrient blocks and an AI hologram that generates a new misunderstanding for any given speech input.'])
-          this.textBox.open()
-        }
-      })
+    this.houses.on('pointerdown', () => {
+      this.textBox.startWithStringArray([
+        "That's the main hall of this space port.",
+        'On a small station like this, there probably used to be a ticket window staffed with an actual person, like, ages ago.',
+        'I bet now all they have is a vending machine with nutrient blocks and an AI hologram that generates a new misunderstanding for any given speech input.'
+      ])
+    })
 
-    this.nemcity = this.add.image(0, 0, 'portnem-background-nemcity')
+    this.noticeboard = this.add
+      .image(0, 0, 'portnem-background-noticeboard')
       .setOrigin(0, 0)
       .setDepth(1)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
-    this.nemcity
-      .on('pointerdown', () => {
-        if (!this.textBox.isOpen) {
-          this.textBox.setStringArrayAsPassage([
-            'I think that is Nem City over there.',
-            'They have this fancy dome. That\'s kind of neat.',
-            'Although it probably only works because Nem City is not that large.',
-            '\'Nem City\' is kind of an overstatement actually.',
-            'Maybe \'Nem Town\' would be more apt.',
-            '\'Nem Three Houses Next to a Chapel\'?'])
-          this.textBox.open()
-        }
-      })
+    this.noticeboard.on('pointerdown', () => {
+      this.scene.start('NoticeBoardScene', this.memory)
+    })
+    this.nemcity = this.add
+      .image(0, 0, 'portnem-background-nemcity')
+      .setOrigin(0, 0)
+      .setDepth(1)
+      .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
+    this.nemcity.on('pointerdown', () => {
+      this.textBox.startWithStringArray([
+        'I think that is Nem City over there.',
+        "They have this fancy dome. That's kind of neat.",
+        'Although it probably only works because Nem City is not that large.',
+        "'Nem City' is kind of an overstatement actually.",
+        "Maybe 'Nem Town' would be more apt.",
+        "'Nem Three Houses Next to a Chapel'?"
+      ])
+    })
 
-    this.picnic = this.add.image(0, 0, 'portnem-background-picnic')
+    this.picnic = this.add
+      .image(0, 0, 'portnem-background-picnic')
       .setOrigin(0, 0)
       .setDepth(1)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
 
-    this.picnic
-      .on('pointerdown', () => {
-        if (!this.textBox.isOpen) {
-          this.textBox.setStringArrayAsPassage([
-            'There is a little picnic ensemble and a small bench over there.',
-            'No one is sitting there.'])
-          this.textBox.open()
-        }
-      })
+    this.picnic.on('pointerdown', () => {
+      this.textBox.startWithStringArray([
+        'There is a little picnic ensemble and a small bench over there.',
+        'No one is sitting there.'
+      ])
+    })
 
     /*
      * - -  - - - - - - - -
@@ -142,21 +154,22 @@ export default class PortNemScene extends HighMoonScene {
 
     /* BIG SHIP */
 
-    this.bigship = this.add.image(0, 0, 'portnem-sprite-bigship')
+    this.bigship = this.add
+      .image(0, 0, 'portnem-sprite-bigship')
       .setOrigin(0, 0)
       .setDepth(2)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
 
     this.bigship.on('pointerdown', () => {
-      if (!this.textBox.isOpen) {
-        this.textBox.setStringArrayAsPassage([
-          'A large passenger ship.',
-          'It\'s probably bound to go back to my home system.',
-          'I kind of wish I could just go with it...',
-          'But I need to find my shuttle.',
-          'I should probably look at the ticket I got and find out which dock I need to go to.'])
-        this.textBox.open()
-      }
+      this.textBox.startWithStringArray([
+        'A large passenger ship.',
+        "It's probably bound to go back to my home system.",
+        'I kind of wish I could just go with it...',
+        'But I need to find my shuttle.',
+        this.memory.hasCheckedShuttleTicket
+          ? ''
+          : 'I should probably look at the ticket I got and find out which dock I need to go to.'
+      ])
     })
 
     this.add.tween({
@@ -170,19 +183,18 @@ export default class PortNemScene extends HighMoonScene {
 
     /* WURST SHIP */
 
-    this.wurstship = this.add.image(0, 0, 'portnem-sprite-wurstship')
+    this.wurstship = this.add
+      .image(0, 0, 'portnem-sprite-wurstship')
       .setOrigin(0, 0)
       .setDepth(0)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
 
     this.wurstship.on('pointerdown', () => {
-      if (!this.textBox.isOpen) {
-        this.textBox.setStringArrayAsPassage([
-          'A space bus.',
-          'Similar to the one I arrived in.',
-          'Except this one has gills?'])
-        this.textBox.open()
-      }
+      this.textBox.startWithStringArray([
+        'A space bus.',
+        'Similar to the one I arrived in.',
+        'Except this one has gills?'
+      ])
     })
 
     this.add.tween({
@@ -196,17 +208,16 @@ export default class PortNemScene extends HighMoonScene {
 
     /* DREIECKSHIP */
 
-    this.dreieckship = this.add.image(0, 0, 'portnem-sprite-dreieckship')
+    this.dreieckship = this.add
+      .image(0, 0, 'portnem-sprite-dreieckship')
       .setOrigin(0, 0)
       .setDepth(0)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
 
     this.dreieckship.on('pointerdown', () => {
-      if (!this.textBox.isOpen) {
-        this.textBox.setStringArrayAsPassage([
-          'The crystal at the front of this vessel probably shoots lasers or something.'])
-        this.textBox.open()
-      }
+      this.textBox.startWithStringArray([
+        'The crystal at the front of this vessel probably shoots lasers or something.'
+      ])
     })
 
     this.add.tween({
@@ -220,19 +231,17 @@ export default class PortNemScene extends HighMoonScene {
 
     /* KUPPELSHIP */
 
-    this.kuppelship = this.add.image(0, 0, 'portnem-sprite-kuppelship')
+    this.kuppelship = this.add
+      .image(0, 0, 'portnem-sprite-kuppelship')
       .setOrigin(0, 0)
       .setDepth(0)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
 
     this.kuppelship.on('pointerdown', () => {
-      if (!this.textBox.isOpen) {
-        this.textBox.setStringArrayAsPassage([
-          'That spaceship looks intensely menacing.',
-          'I wonder what kind of creature flies it.'])
-
-        this.textBox.open()
-      }
+      this.textBox.startWithStringArray([
+        'That spaceship looks intensely menacing.',
+        'I wonder what kind of creature flies it.'
+      ])
     })
 
     this.add.tween({
@@ -246,66 +255,63 @@ export default class PortNemScene extends HighMoonScene {
 
     /* BOOBSHIP */
 
-    this.boobship = this.add.image(0, 0, 'portnem-sprite-boobship')
+    this.boobship = this.add
+      .image(0, 0, 'portnem-sprite-boobship')
       .setOrigin(0, 0)
       .setDepth(0)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
 
     this.boobship.on('pointerdown', () => {
-
-      if (!this.textBox.isOpen) {
-        this.textBox.setStringArrayAsPassage([
-          'This ufo is looking at me weirdly',
-          'I don\'t know how I feel about that.'])
-        this.textBox.open()
-      }
-
+      this.textBox.startWithStringArray(['This ufo is looking at me weirdly', "I don't know how I feel about that."])
     })
 
     /*
 <<<<<<<<<<<<<<<<<<<   INVENTORY SETUP  >>>>>>>>>>>>>>>>>>>>>
 */
 
-    let items: Item[] = [{
-      name: 'Space Bus Ticket + Leaflet',
-      description: 'A ticket for the space bus journey from my home planet to Port Nem. They also gave me an infoleaflet.',
-      smallImageKey: 'space-bus-ticket-small',
-      largeImageKey: 'space-bus-ticket-sma  ll'
-    },
+    let items: Item[] = [
+      {
+        name: 'Space Bus Ticket + Magazine',
+        description:
+          'A ticket for the space bus journey from my home planet to Port Nem. They also gave me a magazine when I booked it.',
+        smallImageKey: 'space-bus-ticket-small',
+        largeImageKey: 'space-bus-ticket-large'
+      },
       {
         name: 'Shuttle Ticket',
         description: 'A ticket for the individual shuttle service I booked to High Moon. No space buses stop there.',
         smallImageKey: 'shuttle-ticket-small',
-        largeImageKey: 'shuttle-ticket-small'
-      }]
+        largeImageKey: 'shuttle-ticket-large'
+      }
+    ]
 
     this.inventory.setContent(items)
-
   }
 
   dropReact(draggedObject: Phaser.GameObjects.GameObject, dropZoneName: Phaser.GameObjects.Zone): void {
-
-    if (!this.textBox.isProgressing) {
+    if (!this.textBox.isOpen) {
       this.inventory.close()
 
       let text: string[] = []
 
       switch (draggedObject.name) {
-        case 'Space Bus Ticket + Leaflet' :
-          text = ['That\'s my ticket for the space bus to Port Nem.',
-            'The complementary leaflet they gave me when I booked it marvels the benefits of traveling with semi-public space transit.',
-            'I had nine hours to kill and I still couldn\'t get myself to read it.'];
-          break;
-        case 'Shuttle Ticket' :
-          text = ['Alright. Let\'s see. This says I need to go to dock 4.',
-            '... Now I only need to find out where dock 4 is.'];
-          break;
+        case 'Space Bus Ticket + Magazine':
+          text = [
+            "That's my ticket for the space bus to Port Nem.",
+            'The complementary magazine they gave me when I booked it marvels the benefits of traveling with semi-public space transit.',
+            "I had nine hours to kill and I still couldn't get myself to read it."
+          ]
+          break
+        case 'Shuttle Ticket':
+          text = [
+            "Alright. Let's see. This says I need to go to dock 4.",
+            '... Now I only need to find out where dock 4 is.'
+          ]
+          this.memory.hasCheckedShuttleTicket = true
+          break
       }
-      this.textBox.close();
-      this.textBox.setStringArrayAsPassage(text);
-      this.textBox.open();
+      this.textBox.startWithStringArray(text)
     }
-
   }
 
   moveStars() {
@@ -321,20 +327,17 @@ export default class PortNemScene extends HighMoonScene {
   }
 
   fadeInMusic() {
-    this.music.play();
+    this.music.play()
     this.tweens.add({
       targets: this.music,
       volume: 0.3,
 
       ease: 'Quad.easeIn',
-      duration: 2000,
-
-    });
+      duration: 2000
+    })
   }
 
-
   update() {
-
     super.update()
   }
 }

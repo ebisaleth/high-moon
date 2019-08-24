@@ -3,6 +3,7 @@ import Inventory from '../objects/inventory'
 import TextBox from '../objects/textBox'
 import Scope from '../other/Scope'
 import ClickGuard from '../objects/clickGuard'
+import Memory from '../other/memory'
 
 export default abstract class HighMoonScene extends Phaser.Scene {
   tab: Phaser.Input.Keyboard.Key
@@ -10,6 +11,7 @@ export default abstract class HighMoonScene extends Phaser.Scene {
   esc: Phaser.Input.Keyboard.Key
 
   clickGuard: ClickGuard
+  blackScreen: Phaser.GameObjects.Graphics
 
   menu: Menu
   inventory: Inventory
@@ -17,8 +19,19 @@ export default abstract class HighMoonScene extends Phaser.Scene {
 
   customVarScope: Scope
 
-  constructor(name: string) {
+  memory: Memory
+
+  protected constructor(name: string) {
     super({ key: name })
+  }
+
+  init(config: Memory) {
+    if (!!config) {
+      this.memory = config
+    } else {
+      this.memory = new Memory()
+    }
+    console.dir(this.memory)
   }
 
   create() {
@@ -35,7 +48,30 @@ export default abstract class HighMoonScene extends Phaser.Scene {
 
     this.clickGuard = new ClickGuard(this)
 
+    this.blackScreen = this.add
+      .graphics()
+      .fillStyle(0x000000, 1)
+      .fillRect(0, 0, this.cameras.main.width, this.cameras.main.height - this.textBox.configHeight)
+      .setDepth(10)
+      .setAlpha(0)
+
     this.customVarScope = new Scope()
+  }
+
+  fadeOut(duration: integer) {
+    this.add.tween({
+      targets: this.blackScreen,
+      alpha: 1,
+      duration: duration
+    })
+  }
+
+  fadeIn(duration: integer) {
+    this.add.tween({
+      targets: this.blackScreen,
+      alpha: 0,
+      duration: duration
+    })
   }
 
   dragSetup() {

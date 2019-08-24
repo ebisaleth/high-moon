@@ -61,14 +61,11 @@ export default class SpaceBusScene extends HighMoonScene {
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
 
     this.sign.on('pointerdown', () => {
-      if (!this.textBox.isOpen) {
-        this.textBox.setStringArrayAsPassage([
-          '"Due to recent happenings, we ask all our passengers to please refrain from leaving any mucus on the upholstery."',
-          '"In case of an acute phlegmergency, please make use of the plastic sheets that can be found under your seat."',
-          '"Your SPACE BUS Team"'
-        ])
-        this.textBox.open()
-      }
+      this.textBox.startWithStringArray([
+        '"Due to recent happenings, we ask all our passengers to please refrain from leaving any mucus on the upholstery."',
+        '"In case of an acute phlegmergency, please make use of the plastic sheets that can be found under your seat."',
+        '"Your SPACE BUS Team"'
+      ])
     })
 
     this.creature = this.add
@@ -77,13 +74,10 @@ export default class SpaceBusScene extends HighMoonScene {
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
 
     this.creature.on('pointerdown', () => {
-      if (!this.textBox.isOpen) {
-        this.textBox.setStringArrayAsPassage([
-          'They were already on the bus when I got here.',
-          "And they don't seem very concerned with packing up now, either."
-        ])
-        this.textBox.open()
-      }
+      this.textBox.startWithStringArray([
+        'They were already on the bus when I got here.',
+        "And they don't seem very concerned with packing up now, either."
+      ])
     })
 
     this.book = this.add
@@ -92,14 +86,11 @@ export default class SpaceBusScene extends HighMoonScene {
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
 
     this.book.on('pointerdown', () => {
-      if (!this.textBox.isOpen) {
-        this.textBox.setStringArrayAsPassage([
-          'This person has quite the elegant technique of turning the pages of their book with their eye stalk.',
-          "Maybe that's the reason they aren't using an e-reader.",
-          'The visual of them hitting the track pad with their eye would rather lack sophistication, I imagine.'
-        ])
-        this.textBox.open()
-      }
+      this.textBox.startWithStringArray([
+        'This person has quite the elegant technique of turning the pages of their book with their eye stalk.',
+        "Maybe that's the reason they aren't using an e-reader.",
+        'The visual of them hitting the track pad with their eye would rather lack sophistication, I imagine.'
+      ])
     })
 
     /* ANIMATE GRAPHICS */
@@ -142,9 +133,9 @@ export default class SpaceBusScene extends HighMoonScene {
         largeImageKey: 'breather-helmet-large'
       },
       {
-        name: 'Space Bus Ticket + Leaflet',
+        name: 'Space Bus Ticket + Magazine',
         description:
-          'A ticket for the space bus journey from my home planet to Port Nem. They also gave me an infoleaflet.',
+          'A ticket for the space bus journey from my home planet to Port Nem. They also gave me a magazine when I booked it.',
         smallImageKey: 'space-bus-ticket-small',
         largeImageKey: 'space-bus-ticket-large'
       },
@@ -164,7 +155,7 @@ export default class SpaceBusScene extends HighMoonScene {
   */
 
   dropReact(draggedObject: Phaser.GameObjects.GameObject, dropZoneName: Phaser.GameObjects.Zone): void {
-    if (!this.textBox.isProgressing) {
+    if (!this.textBox.isOpen) {
       this.inventory.close()
 
       let text: string[] = []
@@ -173,7 +164,7 @@ export default class SpaceBusScene extends HighMoonScene {
         case 'Space Bus Ticket + Leaflet':
           text = [
             "That's my ticket for the space bus. It has already been validated.",
-            'The complementary leaflet they gave me when I booked it marvels the benefits of traveling with semi-public space transit.',
+            'The complementary magazine they gave me when I booked it marvels the benefits of traveling with semi-public space transit.',
             "I had nine hours to kill and I still couldn't get myself to read it."
           ]
           break
@@ -192,9 +183,7 @@ export default class SpaceBusScene extends HighMoonScene {
           this.time.delayedCall(5000, this.cameras.main.fade, [3000], this.cameras.main)
           break
       }
-      this.textBox.close()
-      this.textBox.setStringArrayAsPassage(text)
-      this.textBox.open()
+      this.textBox.startWithStringArray(text)
     }
   }
 
