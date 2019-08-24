@@ -32,7 +32,7 @@ export default class NoticeBoardScene extends HighMoonScene {
   <<<<<<<<<<<<<<<<<<<  CAMERA AND TEXTBOX SETUP  >>>>>>>>>>>>>>>>>>>>>
 */
 
-    this.cameras.main.fadeFrom(3000)
+    this.cameras.main.fadeFrom(1500)
 
     this.textBox.setStringArrayAsPassage([
       'Hmm...'
@@ -108,54 +108,142 @@ export default class NoticeBoardScene extends HighMoonScene {
       .setOrigin(0, 0)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
       .on('pointerdown', () => {
-        this.textBox.startWithStringArray(['Should I go to that dock?'], ['yes', 'no'], choice => {
-          switch (choice) {
-            case 'yes':
-              this.clickGuard.raise()
-              this.fadeOut(1500)
-              this.time.delayedCall(
-                2000,
-                this.textBox.startWithStringArray,
-                [
-                  ['Oh no this is a weird dock, why did I go here?', 'I should go back.'],
-                  [],
-                  () => {},
-                  () => {
-                    this.fadeIn(1500)
-                  }
-                ],
-                this.textBox
-              )
-              break
-            case 'no':
-              console.log('not going to the dock.')
+        this.textBox.startWithStringArray(
+          ["Hmmm. The dock up to the left here is marked with 'ÙÙÚÙ'.", 'Should I go to that one?'],
+          ['yes', 'no'],
+          choice => {
+            switch (choice) {
+              case 'yes':
+                this.textBoxWithFadedOutScreen(['wrong dock lol'])
+                break
+              case 'no':
+                console.log('not going to the dock.')
+            }
           }
-        })
+        )
       })
+
     this.add
       .image(planX, planY, 'noticeboard-plan-dock-3')
       .setOrigin(0, 0)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
+      .on('pointerdown', () => {
+        this.textBox.startWithStringArray(
+          ["Hmmm. The dock up top there is marked with 'ÙÙÚÚ'.", 'Should I go to that one?'],
+          ['yes', 'no'],
+          choice => {
+            switch (choice) {
+              case 'yes':
+                this.textBoxWithFadedOutScreen(['wrong dock lol'])
+                break
+              case 'no':
+                console.log('not going to the dock.')
+            }
+          }
+        )
+      })
+
     this.add
       .image(planX, planY, 'noticeboard-plan-dock-4')
       .setOrigin(0, 0)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
+      .on('pointerdown', () => {
+        this.textBox.startWithStringArray(
+          ["Hmmm. The dock up to the right here is marked with 'ÙÚÙÙ'.", 'Should I go to that one?'],
+          ['yes', 'no'],
+          choice => {
+            switch (choice) {
+              case 'yes':
+                this.clickGuard.raise()
+                this.fadeOut(1500)
+                console.log('GO TO DOCK 4!!!! WOW CORRECT DOCK!!!!!!')
+                break
+              case 'no':
+                console.log('not going to the dock.')
+            }
+          }
+        )
+      })
+
     this.add
       .image(planX, planY, 'noticeboard-plan-dock-5')
       .setOrigin(0, 0)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
+      .on('pointerdown', () => {
+        this.textBox.startWithStringArray(
+          ["Hmmm. The dock over on the other side is marked with 'ÙÚÙÚ'.", 'Should I go to that one?'],
+          ['yes', 'no'],
+          choice => {
+            switch (choice) {
+              case 'yes':
+                this.textBoxWithFadedOutScreen(['wrong dock lol'])
+                break
+              case 'no':
+                console.log('not going to the dock.')
+            }
+          }
+        )
+      })
+
     this.add
       .image(planX, planY, 'noticeboard-plan-dock-6')
       .setOrigin(0, 0)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
+      .on('pointerdown', () => {
+        this.textBox.startWithStringArray(
+          ["Hmmm. The second dock in the middle there is marked with 'ÙÚÚÙ'.", 'Should I go to that one?'],
+          ['yes', 'no'],
+          choice => {
+            switch (choice) {
+              case 'yes':
+                this.textBoxWithFadedOutScreen(['wrong dock lol'])
+                break
+              case 'no':
+                console.log('not going to the dock.')
+            }
+          }
+        )
+      })
+
     this.add
       .image(planX, planY, 'noticeboard-plan-dock-7')
       .setOrigin(0, 0)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
+      .on('pointerdown', () => {
+        this.textBox.startWithStringArray(
+          ["Hmmm. The one dock in the middle there is marked with 'ÙÚÚÚ'.", 'Should I go to that one?'],
+          ['yes', 'no'],
+          choice => {
+            switch (choice) {
+              case 'yes':
+                this.textBoxWithFadedOutScreen(['wrong dock lol'])
+                break
+              case 'no':
+                console.log('not going to the dock.')
+            }
+          }
+        )
+      })
+
     this.add
       .image(planX, planY, 'noticeboard-plan-dock-8')
       .setOrigin(0, 0)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
+      .on('pointerdown', () => {
+        this.textBox.startWithStringArray(
+          ["Hmmm. The dock up in the middle here is marked with 'ÚÙÙÙ'.", 'Should I go to that one?'],
+          ['yes', 'no'],
+          choice => {
+            switch (choice) {
+              case 'yes':
+                this.textBoxWithFadedOutScreen(['wrong dock lol'])
+                break
+              case 'no':
+                console.log('not going to the dock.')
+            }
+          }
+        )
+      })
 
     /*
      *  Go back tongle

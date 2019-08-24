@@ -58,8 +58,8 @@ export default class PortNemScene extends HighMoonScene {
     /* CAMERA & MUSIC INITIALISE */
 
     if (this.memory.hasArrivedAtPortNemBefore) {
-      this.cameras.main.fadeFrom(3000)
-      this.time.delayedCall(2000, this.clickGuard.lower, [], this.clickGuard)
+      this.cameras.main.fadeFrom(1500)
+      this.time.delayedCall(1500, this.clickGuard.lower, [], this.clickGuard)
     } else {
       this.cameras.main.fade(0)
       this.time.delayedCall(18000, this.cameras.main.fadeFrom, [3000], this.cameras.main)

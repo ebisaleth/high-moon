@@ -54,6 +54,16 @@ export default abstract class HighMoonScene extends Phaser.Scene {
       .fillRect(0, 0, this.cameras.main.width, this.cameras.main.height - this.textBox.configHeight)
       .setDepth(10)
       .setAlpha(0)
+      .setInteractive({
+        hitArea: new Phaser.Geom.Rectangle(
+          0,
+          0,
+          this.cameras.main.width,
+          this.cameras.main.height - this.textBox.configHeight
+        ),
+        hitAreaCallback: Phaser.Geom.Rectangle.Contains,
+        cursor: 'url(assets/img/cursorblue.png), pointer'
+      })
 
     this.customVarScope = new Scope()
   }
@@ -72,6 +82,24 @@ export default abstract class HighMoonScene extends Phaser.Scene {
       alpha: 0,
       duration: duration
     })
+  }
+
+  textBoxWithFadedOutScreen(source: string[]) {
+    this.clickGuard.raise()
+    this.fadeOut(1500)
+    this.time.delayedCall(
+      2000,
+      this.textBox.startWithStringArray,
+      [
+        source,
+        [],
+        () => {},
+        () => {
+          this.fadeIn(1500)
+        }
+      ],
+      this.textBox
+    )
   }
 
   dragSetup() {
