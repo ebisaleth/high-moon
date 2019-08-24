@@ -32,6 +32,7 @@ export default class NoticeBoardScene extends HighMoonScene {
 
     this.textBox.setStringArrayAsPassage([
       'Hmm...',
+      '',
       'There is a site plan, but the dock numerals are... in... what, exactly?',
       'Not sure what I should do now.'
     ])

@@ -151,9 +151,7 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
     this.isProgressing = true
 
     let lineSansCommands = this.parseAndExecuteSpecialCommands(line)
-
     /* WORD WRAP */
-
     let wrappedLine = this.wordWrap(lineSansCommands)
 
     console.log(line)
@@ -164,7 +162,45 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
       ease: 'Quad.easeOut',
       duration: 250
     })
-    this.putLetterByLetter(wrappedLine)
+    if (wrappedLine.length > 0) {
+      this.putLetterByLetter(wrappedLine)
+    } else {
+      this.finishedALine()
+      //if the whole line is empty to begin with, we can just skip it
+      this.advance()
+    }
+  }
+
+  finishedALine() {
+    //fade out brrrrp
+    this.scene.tweens.add({
+      targets: this.sound,
+      volume: 0,
+      ease: 'Quad.easeIn',
+      duration: 250
+    })
+
+    //offer choices, if appropriate
+    if (
+      this.lineCounter ===
+      this.passages[this.passageCounter].lines.length - 1 //are we at the last line of the passage?
+    ) {
+      if (this.passages[this.passageCounter].choices.length > 0) {
+        this.isChoosing = true
+        this.scene.time.delayedCall(
+          this.DELAY * 3,
+          this.offerChoice,
+          [this.passages[this.passageCounter].choices],
+          this
+        )
+      } else {
+        this.isOpen = false
+      }
+    }
+
+    //handle administrative stuff
+    this.lineCounter++
+    this.isProgressing = false
   }
 
   putLetterByLetter(line: string) {
@@ -176,35 +212,7 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
     } else {
       //Base Case (we are at the last letter)
 
-      //fade out brrrrp
-      this.scene.tweens.add({
-        targets: this.sound,
-        volume: 0,
-        ease: 'Quad.easeIn',
-        duration: 250
-      })
-
-      //offer choices, if appropriate
-      if (
-        this.lineCounter ===
-        this.passages[this.passageCounter].lines.length - 1 //are we at the last line of the passage?
-      ) {
-        if (this.passages[this.passageCounter].choices.length > 0) {
-          this.isChoosing = true
-          this.scene.time.delayedCall(
-            this.DELAY * 3,
-            this.offerChoice,
-            [this.passages[this.passageCounter].choices],
-            this
-          )
-        } else {
-          this.isOpen = false
-        }
-      }
-
-      //handle administrative stuff
-      this.lineCounter++
-      this.isProgressing = false
+      this.finishedALine()
     }
   }
 
