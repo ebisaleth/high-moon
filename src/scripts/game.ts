@@ -3,8 +3,8 @@ import PortNemScene from './scenes/portNemScene'
 import IntroScene from './scenes/introScene'
 import PreloadScene from './scenes/preloadScene'
 import SpaceBusScene from './scenes/spaceBusScene'
-import HighMoonScene from './scenes/highMoonScene'
 import TestScene from './scenes/testScene'
+import NoticeBoardScene from './scenes/noticeBoardScene'
 
 const DEFAULT_WIDTH = 1228
 const DEFAULT_HEIGHT = 800
@@ -20,7 +20,7 @@ const config: GameConfig = {
     width: DEFAULT_WIDTH,
     height: DEFAULT_HEIGHT
   },
-  scene: [PreloadScene, HighMoonScene, SpaceBusScene, IntroScene, PortNemScene, TestScene],
+  scene: [PreloadScene, IntroScene, TestScene, SpaceBusScene, PortNemScene, NoticeBoardScene],
   audio: {
     disableWebAudio: true
   }

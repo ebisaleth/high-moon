@@ -75,7 +75,7 @@ export default abstract class HighMoonScene extends Phaser.Scene {
     )
   }
 
-  abstract dropReact(draggedObject: Phaser.GameObjects.GameObject, dropZoneName: Phaser.GameObjects.Zone): void
+  dropReact(draggedObject: Phaser.GameObjects.GameObject, dropZoneName: Phaser.GameObjects.Zone): void {}
 
   canClick(): boolean {
     return !this.textBox.isOpen && !this.menu.isOpen

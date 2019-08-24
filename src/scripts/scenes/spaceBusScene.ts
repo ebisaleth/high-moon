@@ -17,14 +17,14 @@ export default class SpaceBusScene extends HighMoonScene {
 
   preload() {
     this.load.text('start-text', 'assets/json/intro-port-nem')
-    this.load.image('space-bus-bg', 'assets/img/space_bus_bg.png')
-    this.load.image('space-bus-sky', 'assets/img/space_bus_sky.png')
-    this.load.spritesheet('space-bus-creature', 'assets/img/space_bus_creature_frames.png', {
+    this.load.image('space-bus-bg', 'assets/img/spacebus/space_bus_bg.png')
+    this.load.image('space-bus-sky', 'assets/img/spacebus/space_bus_sky.png')
+    this.load.spritesheet('space-bus-creature', 'assets/img/spacebus/space_bus_creature_frames.png', {
       frameWidth: 256,
       frameHeight: 304
     })
-    this.load.image('space-bus-book', 'assets/img/space_bus_book.png')
-    this.load.image('space-bus-sign', 'assets/img/space_bus_sign.png')
+    this.load.image('space-bus-book', 'assets/img/spacebus/space_bus_book.png')
+    this.load.image('space-bus-sign', 'assets/img/spacebus/space_bus_sign.png')
     this.load.audio('gong', 'assets/sound/PSA.mp3')
     this.load.audio('breather-helmet-sound', 'assets/sound/breather-helmet.mp3')
   }

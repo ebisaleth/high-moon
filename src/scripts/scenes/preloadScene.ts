@@ -35,7 +35,7 @@ export default class PreloadScene extends Phaser.Scene {
   create() {
     this.input.setDefaultCursor('url(assets/img/cursorblue.png), pointer')
 
-    this.time.delayedCall(2000, this.nextScene, [], this)
+    this.time.delayedCall(200, this.nextScene, [], this)
 
     this.loadingText = this.add
       .bitmapText(this.cameras.main.width / 2, 400, 'profont', 'Loading . . .')
@@ -58,7 +58,7 @@ export default class PreloadScene extends Phaser.Scene {
 
   nextScene() {
     if (DEBUG) {
-      this.scene.start('SpaceBusScene')
+      this.scene.start('NoticeBoardScene')
     } else {
       this.scene.start('IntroScene')
     }
