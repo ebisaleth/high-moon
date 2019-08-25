@@ -209,8 +209,4 @@ export default class SpaceBusScene extends HighMoonScene {
     })
     this.time.delayedCall(10000, this.moveStars, [], this)
   }
-
-  update() {
-    super.update()
-  }
 }

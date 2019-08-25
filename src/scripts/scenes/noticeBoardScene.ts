@@ -114,10 +114,15 @@ export default class NoticeBoardScene extends HighMoonScene {
           choice => {
             switch (choice) {
               case 'yes':
-                this.textBoxWithFadedOutScreen(['wrong dock lol'])
+                this.textBoxWithFadedOutScreen([
+                  '...',
+                  '...',
+                  'A creature with very many eyes looks at me with noticeable disdain in at least some of them as I walk up to the ship that is docked here.',
+                  "I don't think that this is the right dock."
+                ])
                 break
               case 'no':
-                console.log('not going to the dock.')
+                break
             }
           }
         )
@@ -134,10 +139,17 @@ export default class NoticeBoardScene extends HighMoonScene {
           choice => {
             switch (choice) {
               case 'yes':
-                this.textBoxWithFadedOutScreen(['wrong dock lol'])
+                this.textBoxWithFadedOutScreen([
+                  '...',
+                  '...',
+                  'The breeze up here on this gangway is stiffer than down on the lower docks.',
+                  'A large vehicle with long, scrawny metal legs is parked here.',
+                  'As I approach, it crouches down and the spotlights mounted to its hull are turning vaguely in my direction, but never close in on me.',
+                  "I don't think that this is the right dock."
+                ])
                 break
               case 'no':
-                console.log('not going to the dock.')
+                break
             }
           }
         )
@@ -159,7 +171,7 @@ export default class NoticeBoardScene extends HighMoonScene {
                 console.log('GO TO DOCK 4!!!! WOW CORRECT DOCK!!!!!!')
                 break
               case 'no':
-                console.log('not going to the dock.')
+                break
             }
           }
         )
@@ -179,7 +191,7 @@ export default class NoticeBoardScene extends HighMoonScene {
                 this.textBoxWithFadedOutScreen(['wrong dock lol'])
                 break
               case 'no':
-                console.log('not going to the dock.')
+                break
             }
           }
         )
@@ -199,7 +211,7 @@ export default class NoticeBoardScene extends HighMoonScene {
                 this.textBoxWithFadedOutScreen(['wrong dock lol'])
                 break
               case 'no':
-                console.log('not going to the dock.')
+                break
             }
           }
         )
@@ -219,7 +231,7 @@ export default class NoticeBoardScene extends HighMoonScene {
                 this.textBoxWithFadedOutScreen(['wrong dock lol'])
                 break
               case 'no':
-                console.log('not going to the dock.')
+                break
             }
           }
         )
@@ -239,7 +251,7 @@ export default class NoticeBoardScene extends HighMoonScene {
                 this.textBoxWithFadedOutScreen(['wrong dock lol'])
                 break
               case 'no':
-                console.log('not going to the dock.')
+                break
             }
           }
         )
@@ -333,9 +345,5 @@ export default class NoticeBoardScene extends HighMoonScene {
       }
       this.textBox.startWithStringArray(text)
     }
-  }
-
-  update() {
-    super.update()
   }
 }

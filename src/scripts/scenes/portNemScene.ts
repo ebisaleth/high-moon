@@ -288,6 +288,7 @@ export default class PortNemScene extends HighMoonScene {
     this.inventory.setContent(items)
   }
 
+  // TODO: make this... idk... better
   dropReact(draggedObject: Phaser.GameObjects.GameObject, dropZoneName: Phaser.GameObjects.Zone): void {
     if (!this.textBox.isOpen) {
       this.inventory.close()
@@ -336,9 +337,4 @@ export default class PortNemScene extends HighMoonScene {
       duration: 2000
     })
   }
-
-  update() {
-    super.update()
-  }
 }
-//

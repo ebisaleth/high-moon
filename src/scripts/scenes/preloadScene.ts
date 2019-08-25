@@ -62,7 +62,7 @@ export default class PreloadScene extends Phaser.Scene {
       let memory = new Memory()
       memory.hasCheckedShuttleTicket = true
       memory.hasArrivedAtPortNemBefore = true
-      this.scene.start('PortNemScene', memory)
+      this.scene.start('Dock4Scene', memory)
     } else {
       this.scene.start('IntroScene')
     }
