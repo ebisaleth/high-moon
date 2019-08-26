@@ -18,7 +18,7 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
 
   passages: Passage[]
   madeChoiceCallBack: (choice: string) => void
-  closeCallBack: () => void
+  closeCallBack: Function
 
   isOpen: Boolean
   isProgressing: Boolean
@@ -97,11 +97,12 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
     this.configY = y
   }
 
-  public startWithStringArray(
+  public startWithStringArrayAndChoices(
     source: string[],
     choices: string[] = [],
     madeChoiceCallBack: (choice: string) => void = () => {},
-    closeCallBack: () => void = () => {}
+    closeCallBack: Function = () => {},
+    closeCallBackScope: any = this
   ) {
     if (!this.isOpen) {
       this.setStringArrayAsPassage(source)
@@ -112,7 +113,16 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
         }
       })
       this.madeChoiceCallBack = madeChoiceCallBack
-      this.closeCallBack = closeCallBack
+      this.closeCallBack = closeCallBack.bind(closeCallBackScope)
+      console.dir(this)
+      this.open()
+    }
+  }
+
+  public startWithStringArray(source: string[], closeCallBack: Function = () => {}, closeCallBackScope: any = this) {
+    if (!this.isOpen) {
+      this.setStringArrayAsPassage(source)
+      this.closeCallBack = closeCallBack.bind(closeCallBackScope)
       this.open()
     }
   }
@@ -316,19 +326,6 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
 
         this.choiceGameObjs[index].on('pointerdown', () => {
           this.choiceGameObjs.forEach((choice: Phaser.GameObjects.BitmapText, index: number) => {
-            // fade out
-            // box.scene.tweens.add({
-            //   targets: box.choiceGameObjs[index],
-            //   alpha: 0,
-            //   duration: 1000,
-            //   ease: 'Quart.easeIn',
-            //   yoyo: false,
-            //   repeat: 0
-            // });
-            //box.scene.time.delayedCall(1000, choice.destroy, [], choice);
-            //choice.removeAllListeners();
-
-            //kill immediately
             choice.destroy()
             this.isChoosing = false
           })

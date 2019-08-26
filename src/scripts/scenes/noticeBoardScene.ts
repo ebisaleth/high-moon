@@ -82,7 +82,7 @@ export default class NoticeBoardScene extends HighMoonScene {
     this.add.image(planX, planY, 'noticeboard-plan-skeleton').setOrigin(0, 0)
 
     /*
-     *  TODO: SITE PLAN
+     *  SITE PLAN
      * */
 
     this.add
@@ -108,7 +108,7 @@ export default class NoticeBoardScene extends HighMoonScene {
       .setOrigin(0, 0)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
       .on('pointerdown', () => {
-        this.textBox.startWithStringArray(
+        this.textBox.startWithStringArrayAndChoices(
           ["Hmmm. The dock up to the left here is marked with 'ÙÙÚÙ'.", 'Should I go to that one?'],
           ['yes', 'no'],
           choice => {
@@ -133,7 +133,7 @@ export default class NoticeBoardScene extends HighMoonScene {
       .setOrigin(0, 0)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
       .on('pointerdown', () => {
-        this.textBox.startWithStringArray(
+        this.textBox.startWithStringArrayAndChoices(
           ["Hmmm. The dock up top there is marked with 'ÙÙÚÚ'.", 'Should I go to that one?'],
           ['yes', 'no'],
           choice => {
@@ -142,7 +142,7 @@ export default class NoticeBoardScene extends HighMoonScene {
                 this.textBoxWithFadedOutScreen([
                   '...',
                   '...',
-                  'The breeze up here on this gangway is stiffer than down on the lower docks.',
+                  'The breeze up here on this light bridge is stiffer than down on the lower docks.',
                   'A large vehicle with long, scrawny metal legs is parked here.',
                   'As I approach, it crouches down and the spotlights mounted to its hull are turning vaguely in my direction, but never close in on me.',
                   "I don't think that this is the right dock."
@@ -160,7 +160,7 @@ export default class NoticeBoardScene extends HighMoonScene {
       .setOrigin(0, 0)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
       .on('pointerdown', () => {
-        this.textBox.startWithStringArray(
+        this.textBox.startWithStringArrayAndChoices(
           ["Hmmm. The dock up to the right here is marked with 'ÙÚÙÙ'.", 'Should I go to that one?'],
           ['yes', 'no'],
           choice => {
@@ -168,7 +168,7 @@ export default class NoticeBoardScene extends HighMoonScene {
               case 'yes':
                 this.clickGuard.raise()
                 this.fadeOut(1500)
-                console.log('GO TO DOCK 4!!!! WOW CORRECT DOCK!!!!!!')
+                this.scene.start('Dock4Scene', this.memory)
                 break
               case 'no':
                 break
@@ -182,13 +182,21 @@ export default class NoticeBoardScene extends HighMoonScene {
       .setOrigin(0, 0)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
       .on('pointerdown', () => {
-        this.textBox.startWithStringArray(
+        this.textBox.startWithStringArrayAndChoices(
           ["Hmmm. The dock over on the other side is marked with 'ÙÚÙÚ'.", 'Should I go to that one?'],
           ['yes', 'no'],
           choice => {
             switch (choice) {
               case 'yes':
-                this.textBoxWithFadedOutScreen(['wrong dock lol'])
+                this.textBoxWithFadedOutScreen([
+                  '...',
+                  '...',
+                  'There is a large passenger ship docked here.',
+                  'But there are no people boarding it.',
+                  "After a while, the headlights go out, and a small creature carrying a cleaning bucket hops out of it's door.",
+                  'They give me a small nod as they pass me.',
+                  "I don't think that this is the right dock."
+                ])
                 break
               case 'no':
                 break
@@ -202,13 +210,20 @@ export default class NoticeBoardScene extends HighMoonScene {
       .setOrigin(0, 0)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
       .on('pointerdown', () => {
-        this.textBox.startWithStringArray(
+        this.textBox.startWithStringArrayAndChoices(
           ["Hmmm. The second dock in the middle there is marked with 'ÙÚÚÙ'.", 'Should I go to that one?'],
           ['yes', 'no'],
           choice => {
             switch (choice) {
               case 'yes':
-                this.textBoxWithFadedOutScreen(['wrong dock lol'])
+                this.textBoxWithFadedOutScreen([
+                  '...',
+                  '...',
+                  'A large blue space bus is docked here.',
+                  'I walk closer to it, and I can see through the narrow, crescent windows.',
+                  'The vehicle appears to be filled with water.',
+                  "I don't think that this is the right dock."
+                ])
                 break
               case 'no':
                 break
@@ -222,13 +237,13 @@ export default class NoticeBoardScene extends HighMoonScene {
       .setOrigin(0, 0)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
       .on('pointerdown', () => {
-        this.textBox.startWithStringArray(
+        this.textBox.startWithStringArrayAndChoices(
           ["Hmmm. The one dock in the middle there is marked with 'ÙÚÚÚ'.", 'Should I go to that one?'],
           ['yes', 'no'],
           choice => {
             switch (choice) {
               case 'yes':
-                this.textBoxWithFadedOutScreen(['wrong dock lol'])
+                this.textBoxWithFadedOutScreen(['...', '...', 'There is nothing here.'])
                 break
               case 'no':
                 break
@@ -242,13 +257,19 @@ export default class NoticeBoardScene extends HighMoonScene {
       .setOrigin(0, 0)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
       .on('pointerdown', () => {
-        this.textBox.startWithStringArray(
+        this.textBox.startWithStringArrayAndChoices(
           ["Hmmm. The dock up in the middle here is marked with 'ÚÙÙÙ'.", 'Should I go to that one?'],
           ['yes', 'no'],
           choice => {
             switch (choice) {
               case 'yes':
-                this.textBoxWithFadedOutScreen(['wrong dock lol'])
+                this.textBoxWithFadedOutScreen([
+                  'There is one light bridge above and one below me.',
+                  'My steps are reverberating back between them.',
+                  'As I pass the black space ship with the thorns sticking out of it, the sound changes.',
+                  "The echo of my steps becomes distorted, and it's always like I can make out a faint whispering within it.",
+                  "I don't think that this is the right dock."
+                ])
                 break
               case 'no':
                 break
@@ -286,7 +307,7 @@ export default class NoticeBoardScene extends HighMoonScene {
       })
       .on('pointerdown', () => {
         this.scene.stop('NoticeBoardScene')
-        this.scene.start('PortNemScene')
+        this.scene.start('PortNemScene', this.memory)
       })
 
     this.add.tween({
@@ -343,7 +364,7 @@ export default class NoticeBoardScene extends HighMoonScene {
           this.memory.hasCheckedShuttleTicket = true
           break
       }
-      this.textBox.startWithStringArray(text)
+      this.textBox.startWithStringArrayAndChoices(text)
     }
   }
 }

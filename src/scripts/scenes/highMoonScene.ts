@@ -89,7 +89,7 @@ export default abstract class HighMoonScene extends Phaser.Scene {
     this.fadeOut(1500)
     this.time.delayedCall(
       2000,
-      this.textBox.startWithStringArray,
+      this.textBox.startWithStringArrayAndChoices,
       [
         source,
         [],

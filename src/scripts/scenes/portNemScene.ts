@@ -102,7 +102,7 @@ export default class PortNemScene extends HighMoonScene {
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
 
     this.houses.on('pointerdown', () => {
-      this.textBox.startWithStringArray([
+      this.textBox.startWithStringArrayAndChoices([
         "That's the main hall of this space port.",
         'On a small station like this, there probably used to be a ticket window staffed with an actual person, like, ages ago.',
         'I bet now all they have is a vending machine with nutrient blocks and an AI hologram that generates a new misunderstanding for any given speech input.'
@@ -123,7 +123,7 @@ export default class PortNemScene extends HighMoonScene {
       .setDepth(1)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
     this.nemcity.on('pointerdown', () => {
-      this.textBox.startWithStringArray([
+      this.textBox.startWithStringArrayAndChoices([
         'I think that is Nem City over there.',
         "They have this fancy dome. That's kind of neat.",
         'Although it probably only works because Nem City is not that large.',
@@ -140,7 +140,7 @@ export default class PortNemScene extends HighMoonScene {
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
 
     this.picnic.on('pointerdown', () => {
-      this.textBox.startWithStringArray([
+      this.textBox.startWithStringArrayAndChoices([
         'There is a little picnic ensemble and a small bench over there.',
         'No one is sitting there.'
       ])
@@ -161,7 +161,7 @@ export default class PortNemScene extends HighMoonScene {
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
 
     this.bigship.on('pointerdown', () => {
-      this.textBox.startWithStringArray([
+      this.textBox.startWithStringArrayAndChoices([
         'A large passenger ship.',
         "It's probably bound to go back to my home system.",
         'I kind of wish I could just go with it...',
@@ -190,7 +190,7 @@ export default class PortNemScene extends HighMoonScene {
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
 
     this.wurstship.on('pointerdown', () => {
-      this.textBox.startWithStringArray([
+      this.textBox.startWithStringArrayAndChoices([
         'A space bus.',
         'Similar to the one I arrived in.',
         'Except this one has gills?'
@@ -215,7 +215,7 @@ export default class PortNemScene extends HighMoonScene {
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
 
     this.dreieckship.on('pointerdown', () => {
-      this.textBox.startWithStringArray([
+      this.textBox.startWithStringArrayAndChoices([
         'The crystal at the front of this vessel probably shoots lasers or something.'
       ])
     })
@@ -238,7 +238,7 @@ export default class PortNemScene extends HighMoonScene {
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
 
     this.kuppelship.on('pointerdown', () => {
-      this.textBox.startWithStringArray([
+      this.textBox.startWithStringArrayAndChoices([
         'That spaceship looks intensely menacing.',
         'I wonder what kind of creature flies it.'
       ])
@@ -262,7 +262,10 @@ export default class PortNemScene extends HighMoonScene {
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
 
     this.boobship.on('pointerdown', () => {
-      this.textBox.startWithStringArray(['This ufo is looking at me weirdly', "I don't know how I feel about that."])
+      this.textBox.startWithStringArrayAndChoices([
+        'This ufo is looking at me weirdly',
+        "I don't know how I feel about that."
+      ])
     })
 
     /*
@@ -311,7 +314,7 @@ export default class PortNemScene extends HighMoonScene {
           this.memory.hasCheckedShuttleTicket = true
           break
       }
-      this.textBox.startWithStringArray(text)
+      this.textBox.startWithStringArrayAndChoices(text)
     }
   }
 

@@ -61,7 +61,7 @@ export default class SpaceBusScene extends HighMoonScene {
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
 
     this.sign.on('pointerdown', () => {
-      this.textBox.startWithStringArray([
+      this.textBox.startWithStringArrayAndChoices([
         '"Due to recent happenings, we ask all our passengers to please refrain from leaving any mucus on the upholstery."',
         '"In case of an acute phlegmergency, please make use of the plastic sheets that can be found under your seat."',
         '"Your SPACE BUS Team"'
@@ -74,7 +74,7 @@ export default class SpaceBusScene extends HighMoonScene {
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
 
     this.creature.on('pointerdown', () => {
-      this.textBox.startWithStringArray([
+      this.textBox.startWithStringArrayAndChoices([
         'They were already on the bus when I got here.',
         "And they don't seem very concerned with packing up now, either."
       ])
@@ -86,7 +86,7 @@ export default class SpaceBusScene extends HighMoonScene {
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
 
     this.book.on('pointerdown', () => {
-      this.textBox.startWithStringArray([
+      this.textBox.startWithStringArrayAndChoices([
         'This person has quite the elegant technique of turning the pages of their book with their eye stalk.',
         "Maybe that's the reason they aren't using an e-reader.",
         'The visual of them hitting the track pad with their eye would rather lack sophistication, I imagine.'
@@ -183,7 +183,7 @@ export default class SpaceBusScene extends HighMoonScene {
           this.time.delayedCall(5000, this.cameras.main.fade, [3000], this.cameras.main)
           break
       }
-      this.textBox.startWithStringArray(text)
+      this.textBox.startWithStringArrayAndChoices(text)
     }
   }
 
