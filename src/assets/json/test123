@@ -1,106 +1,67 @@
 {
   "passages": [
     {
-      "text": "Hello! \nWhat would you like to know about? \n[[drama]]\n[[the question whether or not existence and adversity are the same thing, or not]]\n[[strawberries]]",
+      "text": "hello yes\n[[aaaaaaaaaaaaaaaaaaaaaaaa]]\n[[aaaaaaaaaaaaaaaaaaaaaaaa]]\n[[aaaaaaaaaaaaaaaaaaaaaaaa]]\n[[aaaaaaaaaaaaaaaaaaaaaaaa]]\n",
       "links": [
         {
-          "name": "drama",
-          "link": "drama",
+          "name": "aaaaaaaaaaaaaaaaaaaaaaaa",
+          "link": "aaaaaaaaaaaaaaaaaaaaaaaa",
           "pid": "2"
         },
         {
-          "name": "the question whether or not existence and adversity are the same thing, or not",
-          "link": "the question whether or not existence and adversity are the same thing, or not",
-          "pid": "6"
+          "name": "aaaaaaaaaaaaaaaaaaaaaaaa",
+          "link": "aaaaaaaaaaaaaaaaaaaaaaaa",
+          "pid": "2"
         },
         {
-          "name": "strawberries",
-          "link": "strawberries",
-          "pid": "4"
+          "name": "aaaaaaaaaaaaaaaaaaaaaaaa",
+          "link": "aaaaaaaaaaaaaaaaaaaaaaaa",
+          "pid": "2"
+        },
+        {
+          "name": "aaaaaaaaaaaaaaaaaaaaaaaa",
+          "link": "aaaaaaaaaaaaaaaaaaaaaaaa",
+          "pid": "2"
         }
       ],
-      "name": "start",
+      "name": "a",
       "pid": "1",
       "position": {
-        "x": "412",
-        "y": "187.5"
-      }
-    },
-    {
-      "text": "the greeks invented it. \n[[start]]",
-      "links": [
-        {
-          "name": "start",
-          "link": "start",
-          "pid": "1"
-        }
-      ],
-      "name": "drama",
-      "pid": "2",
-      "position": {
-        "x": "262",
-        "y": "337.5"
-      }
-    },
-    {
-      "text": "you'll know it when you see it\n[[start]]\n[[wow]]",
-      "links": [
-        {
-          "name": "start",
-          "link": "start",
-          "pid": "1"
-        },
-        {
-          "name": "wow",
-          "link": "wow",
-          "pid": "5"
-        }
-      ],
-      "name": "love",
-      "pid": "3",
-      "position": {
-        "x": "412",
-        "y": "337.5"
-      }
-    },
-    {
-      "text": "oh! here you go! \n§set[gotStrawberry=true]\n[[start]]",
-      "links": [
-        {
-          "name": "start",
-          "link": "start",
-          "pid": "1"
-        }
-      ],
-      "name": "strawberries",
-      "pid": "4",
-      "position": {
-        "x": "561",
-        "y": "338.5"
-      }
-    },
-    {
-      "text": "wow",
-      "name": "wow",
-      "pid": "5",
-      "position": {
-        "x": "414",
-        "y": "493.5"
+        "x": "411",
+        "y": "188.5"
       }
     },
     {
       "text": "Double-click this passage to edit it.",
-      "name": "the question whether or not existence and adversity are the same thing, or not",
-      "pid": "6",
+      "name": "aaaaaaaaaaaaaaaaaaaaaaaa",
+      "pid": "2",
       "position": {
-        "x": "441",
-        "y": "337.5"
+        "x": "411",
+        "y": "338.5"
+      }
+    },
+    {
+      "text": "Double-click this passage to edit it.",
+      "name": "cccc",
+      "pid": "3",
+      "position": {
+        "x": "291",
+        "y": "338.5"
+      }
+    },
+    {
+      "text": "Double-click this passage to edit it.",
+      "name": "d",
+      "pid": "4",
+      "position": {
+        "x": "531",
+        "y": "338.5"
       }
     }
   ],
-  "name": "high-moon-test234",
+  "name": "aaaa",
   "startnode": "1",
   "creator": "Twine",
   "creator-version": "2.3.3",
-  "ifid": "371ADCC1-28E2-49B5-92A5-08CED315FE6D"
+  "ifid": "4E8FDC59-39B7-40CD-AD98-636E0F635D2B"
 }

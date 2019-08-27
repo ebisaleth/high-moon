@@ -327,12 +327,13 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
       this.choiceGameObjs = []
       choices.forEach((choice: Choice, index: number) => {
 
+        let lineLength = 93
         let lengthOfPrecedingChoices  = choices.slice(0, index).reduce((acc: number, c: Choice) => acc + c.text.length, 0)
 
         this.choiceGameObjs[index] = this.scene.add
           .bitmapText(
-            index===0?20:100*index + (lengthOfPrecedingChoices * 11),
-            this.configY + (lengthOfPrecedingChoices + choice.text.length > 93 ? 100:80),
+            index===0||lengthOfPrecedingChoices + choice.text.length > 93?20:100*index + ((lengthOfPrecedingChoices - (lengthOfPrecedingChoices + choice.text.length > 93 ?93:0)) * 11),
+            this.configY + (lengthOfPrecedingChoices + choice.text.length > 93 ? 120:80),
             'profont',
             choice.text
           )
