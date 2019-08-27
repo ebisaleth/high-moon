@@ -35,11 +35,11 @@ export default class NoticeBoardScene extends HighMoonScene {
     this.cameras.main.fadeFrom(1500)
 
     this.textBox.setStringArrayAsPassage([
-      'Hmm...'
-      // 'Maybe some of the plans on this notice board will help me figure out where I need to go to catch my shuttle.',
-      // this.memory.hasCheckedShuttleTicket
-      //   ? "I think my ticket said Dock 4... let's see..."
-      //   : 'I should probably also check my shuttle ticket.'
+      'Hmm...',
+      'Maybe some of the plans on this notice board will help me figure out where I need to go to catch my shuttle.',
+      this.memory.hasCheckedShuttleTicket
+        ? "I think my ticket said Dock 4... let's see..."
+        : 'I should probably also check my shuttle ticket.'
     ])
 
     this.time.delayedCall(500, this.textBox.open, [], this.textBox)

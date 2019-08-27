@@ -162,6 +162,7 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
     this.isOpen = false
     this.scene.clickGuard.lower()
     this.closeCallBack()
+    this.closeCallBack = () => {}
   }
 
   public advance() {
