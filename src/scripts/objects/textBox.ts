@@ -23,6 +23,7 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
   isOpen: Boolean
   isProgressing: Boolean
   isChoosing: Boolean
+  skippingThisLine: Boolean
 
   textGameObj: Phaser.GameObjects.BitmapText
   dropZone: Phaser.GameObjects.Zone
@@ -45,7 +46,7 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
 
     // draw rect
     this.fillStyle(0x000000, 1)
-    this.fillRect(x, y, width, height)
+    this.fillRect(x, y, width, height).setDepth(10)
     // this.setAlpha(0);
 
     // the text box is also a drop zone, whew, who would have thunk
@@ -88,6 +89,7 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
     this.isProgressing = false
     this.isOpen = false
     this.isChoosing = false
+    this.skippingThisLine = false
 
     this.textGameObj = scene.add.bitmapText(x + 20, y + 20, 'profont', '').setDepth(11)
 
@@ -179,6 +181,8 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
       } else {
         this.close()
       }
+    } else if ( !this.isChoosing && !this.scene.menu.isOpen) {
+      this.skippingThisLine = true
     }
   }
 
@@ -236,10 +240,15 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
     //handle administrative stuff
     this.lineCounter++
     this.isProgressing = false
+    this.skippingThisLine = false
   }
 
   putLetterByLetter(line: string) {
-    if (line.length > 0) {
+    if(this.skippingThisLine) {
+      this.textGameObj.text = this.textGameObj.text.concat(line)
+      this.finishedALine()
+    }
+    else if (line.length > 0) {
       //Recursive Case (we are not the last letter yet)
 
       this.textGameObj.text = this.textGameObj.text.concat(line.slice(0, 1))
@@ -249,6 +258,10 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
 
       this.finishedALine()
     }
+  }
+
+  skipToEndOfLine() {
+    this.skippingThisLine = true
   }
 
   wordWrap(str: string): string {
@@ -312,18 +325,21 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
     //only do stuff if there are any choices!
     if (choices.length > 0) {
       this.choiceGameObjs = []
-
       choices.forEach((choice: Choice, index: number) => {
+
+        let lengthOfPrecedingChoices  = choices.slice(0, index).reduce((acc: number, c: Choice) => acc + c.text.length, 0)
+
         this.choiceGameObjs[index] = this.scene.add
           .bitmapText(
-            20 + (index == 1 ? choices[0].text.length * 10 + 100 : 0),
-            this.configY + 80,
+            index===0?20:100*index + (lengthOfPrecedingChoices * 11),
+            this.configY + (lengthOfPrecedingChoices + choice.text.length > 93 ? 100:80),
             'profont',
             choice.text
           )
           .setTint(0x88ddff)
           .setOrigin(0, 0)
           .setInteractive()
+          .setDepth(11)
 
         this.choiceGameObjs[index].on('pointerdown', () => {
           this.choiceGameObjs.forEach((choice: Phaser.GameObjects.BitmapText, index: number) => {

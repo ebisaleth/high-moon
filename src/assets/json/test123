@@ -1,0 +1,106 @@
+{
+  "passages": [
+    {
+      "text": "Hello! \nWhat would you like to know about? \n[[drama]]\n[[the question whether or not existence and adversity are the same thing, or not]]\n[[strawberries]]",
+      "links": [
+        {
+          "name": "drama",
+          "link": "drama",
+          "pid": "2"
+        },
+        {
+          "name": "the question whether or not existence and adversity are the same thing, or not",
+          "link": "the question whether or not existence and adversity are the same thing, or not",
+          "pid": "6"
+        },
+        {
+          "name": "strawberries",
+          "link": "strawberries",
+          "pid": "4"
+        }
+      ],
+      "name": "start",
+      "pid": "1",
+      "position": {
+        "x": "412",
+        "y": "187.5"
+      }
+    },
+    {
+      "text": "the greeks invented it. \n[[start]]",
+      "links": [
+        {
+          "name": "start",
+          "link": "start",
+          "pid": "1"
+        }
+      ],
+      "name": "drama",
+      "pid": "2",
+      "position": {
+        "x": "262",
+        "y": "337.5"
+      }
+    },
+    {
+      "text": "you'll know it when you see it\n[[start]]\n[[wow]]",
+      "links": [
+        {
+          "name": "start",
+          "link": "start",
+          "pid": "1"
+        },
+        {
+          "name": "wow",
+          "link": "wow",
+          "pid": "5"
+        }
+      ],
+      "name": "love",
+      "pid": "3",
+      "position": {
+        "x": "412",
+        "y": "337.5"
+      }
+    },
+    {
+      "text": "oh! here you go! \n§set[gotStrawberry=true]\n[[start]]",
+      "links": [
+        {
+          "name": "start",
+          "link": "start",
+          "pid": "1"
+        }
+      ],
+      "name": "strawberries",
+      "pid": "4",
+      "position": {
+        "x": "561",
+        "y": "338.5"
+      }
+    },
+    {
+      "text": "wow",
+      "name": "wow",
+      "pid": "5",
+      "position": {
+        "x": "414",
+        "y": "493.5"
+      }
+    },
+    {
+      "text": "Double-click this passage to edit it.",
+      "name": "the question whether or not existence and adversity are the same thing, or not",
+      "pid": "6",
+      "position": {
+        "x": "441",
+        "y": "337.5"
+      }
+    }
+  ],
+  "name": "high-moon-test234",
+  "startnode": "1",
+  "creator": "Twine",
+  "creator-version": "2.3.3",
+  "ifid": "371ADCC1-28E2-49B5-92A5-08CED315FE6D"
+}

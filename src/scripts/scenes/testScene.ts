@@ -33,7 +33,7 @@ export default class TestScene extends HighMoonScene {
 
     this.cameras.main.fadeFrom(3000)
 
-    this.textBox.setJsonStringAsPassages(this.cache.text.get('test'))
+    this.textBox.setJsonStringAsPassages(this.cache.text.get('test123'))
     this.textBox.open()
 
     /*
