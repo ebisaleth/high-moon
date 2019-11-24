@@ -243,7 +243,11 @@ export default class NoticeBoardScene extends HighMoonScene {
           choice => {
             switch (choice) {
               case 'yes':
-                this.textBoxWithFadedOutScreen(['...', '...', 'There is nothing here.'])
+                this.textBoxWithFadedOutScreen([
+                  'I walk down the middle dock.',
+                  'No vehicles are docked here.',
+                  'The air around me is nearly still.'
+                ])
                 break
               case 'no':
                 break
@@ -267,7 +271,7 @@ export default class NoticeBoardScene extends HighMoonScene {
                   'There is one light bridge above and one below me.',
                   'My steps are reverberating back between them.',
                   'As I pass the black space ship with the thorns sticking out of it, the sound changes.',
-                  "The echo of my steps becomes distorted, and it's always like I can make out a faint whispering within it.",
+                  "The echo of my steps becomes distorted, and it's almost like I can make out a faint whispering within it.",
                   "I don't think that this is the right dock."
                 ])
                 break

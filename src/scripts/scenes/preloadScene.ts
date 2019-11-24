@@ -1,7 +1,7 @@
 import inventory from '../objects/inventory'
 import Memory from '../other/memory'
 
-let DEBUG = true
+let DEBUG = false
 
 export default class PreloadScene extends Phaser.Scene {
   loadingText: Phaser.GameObjects.BitmapText

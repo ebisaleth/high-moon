@@ -181,7 +181,7 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
       } else {
         this.close()
       }
-    } else if ( !this.isChoosing && !this.scene.menu.isOpen) {
+    } else if (!this.isChoosing && !this.scene.menu.isOpen) {
       this.skippingThisLine = true
     }
   }
@@ -244,11 +244,10 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
   }
 
   putLetterByLetter(line: string) {
-    if(this.skippingThisLine) {
+    if (this.skippingThisLine) {
       this.textGameObj.text = this.textGameObj.text.concat(line)
       this.finishedALine()
-    }
-    else if (line.length > 0) {
+    } else if (line.length > 0) {
       //Recursive Case (we are not the last letter yet)
 
       this.textGameObj.text = this.textGameObj.text.concat(line.slice(0, 1))
@@ -326,14 +325,16 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
     if (choices.length > 0) {
       this.choiceGameObjs = []
       choices.forEach((choice: Choice, index: number) => {
-
-        let lineLength = 93
-        let lengthOfPrecedingChoices  = choices.slice(0, index).reduce((acc: number, c: Choice) => acc + c.text.length, 0)
+        let lengthOfPrecedingChoices = choices
+          .slice(0, index)
+          .reduce((acc: number, c: Choice) => acc + c.text.length, 0)
 
         this.choiceGameObjs[index] = this.scene.add
           .bitmapText(
-            index===0||lengthOfPrecedingChoices + choice.text.length > 93?20:100*index + ((lengthOfPrecedingChoices - (lengthOfPrecedingChoices + choice.text.length > 93 ?93:0)) * 11),
-            this.configY + (lengthOfPrecedingChoices + choice.text.length > 93 ? 120:80),
+            index === 0 || lengthOfPrecedingChoices + choice.text.length > 93
+              ? 20
+              : 100 * index + lengthOfPrecedingChoices * 11,
+            this.configY + 80,
             'profont',
             choice.text
           )

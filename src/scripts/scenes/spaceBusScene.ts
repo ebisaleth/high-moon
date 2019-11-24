@@ -161,7 +161,7 @@ export default class SpaceBusScene extends HighMoonScene {
       let text: string[] = []
 
       switch (draggedObject.name) {
-        case 'Space Bus Ticket + Leaflet':
+        case 'Space Bus Ticket + Magazine':
           text = [
             "That's my ticket for the space bus. It has already been validated.",
             'The complementary magazine they gave me when I booked it marvels the benefits of traveling with semi-public space transit.',
