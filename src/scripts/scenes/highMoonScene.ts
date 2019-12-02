@@ -71,7 +71,7 @@ export default abstract class HighMoonScene extends Phaser.Scene {
 
     this.customVarScope = new Scope()
 
-    this.events.on('test', this.handleTextBoxEvent, this)
+    this.events.on('textBoxEvent', this.handleTextBoxEvent, this)
 
   }
 
@@ -156,9 +156,21 @@ export default abstract class HighMoonScene extends Phaser.Scene {
 
   /* event handling (text box events) */
 
-  handleTextBoxEvent() {
-    console.dir('wiu wiu')
+  handleTextBoxEvent(funAndArgs: string[]) {
+    // @ts-ignore
+    let fun: any = this[funAndArgs[0]]
+    let args: string[] = funAndArgs.slice(1)
+
+    if(fun) {
+      fun(...args)
+    }
   }
+
+  f(a: string, b: string){
+    console.log("hi im the function f and was called with the parameters: " + a + " " + b)
+  }
+
+
 
   update() {
     // let clickables = Object.values(this).filter(thing => thing.input && thing.texture)

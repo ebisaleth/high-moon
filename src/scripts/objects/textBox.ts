@@ -320,9 +320,10 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
 
       /* */
       parsedCommands
-        .filter(command => command.name === 'fire-event')
+        .filter(command => command.name === 'call')
         .forEach(command => {
-          this.scene.events.emit('test', 'arg1', 'arg2')
+          let argslist: string[] = command.arg.split(" ")
+          this.scene.events.emit('textBoxEvent', argslist)
       })
 
       /* DONE! */
