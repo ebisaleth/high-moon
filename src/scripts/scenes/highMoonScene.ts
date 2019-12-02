@@ -21,9 +21,13 @@ export default abstract class HighMoonScene extends Phaser.Scene {
 
   memory: Memory
 
+  /* We don't want anyone to create a HighMoonScene directly, instead you're supposed to extend it. */
+
   protected constructor(name: string) {
     super({ key: name })
   }
+
+  /* Playing with variables. Might be scrapped. */
 
   init(config: Memory) {
     if (!!config) {
@@ -66,6 +70,9 @@ export default abstract class HighMoonScene extends Phaser.Scene {
       })
 
     this.customVarScope = new Scope()
+
+    this.events.on('test', this.handleTextBoxEvent, this)
+
   }
 
   fadeOut(duration: integer) {
@@ -101,6 +108,8 @@ export default abstract class HighMoonScene extends Phaser.Scene {
       this.textBox
     )
   }
+
+  /* DRAGGING SHIT AROUND! YAY */
 
   dragSetup() {
     this.input.on(
@@ -143,6 +152,12 @@ export default abstract class HighMoonScene extends Phaser.Scene {
 
   canClick(): boolean {
     return !this.textBox.isOpen && !this.menu.isOpen
+  }
+
+  /* event handling (text box events) */
+
+  handleTextBoxEvent() {
+    console.dir('wiu wiu')
   }
 
   update() {

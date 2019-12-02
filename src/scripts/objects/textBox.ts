@@ -268,6 +268,8 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
   }
 
   parseAndExecuteSpecialCommands(line: string): string {
+
+    //matches things of the shape §command[arg]
     let commands = line.match(/§[^§]*\[[^§]*\]/g)
 
     if (!commands) {
@@ -290,6 +292,7 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
       })
 
       /* SETTING VARIABLES! WOW!*/
+      /*EDIT: MIGHT SCRAP THIS*/
       parsedCommands
         .filter(command => /^set$/.test(command.name))
         .forEach(command => {
@@ -314,6 +317,15 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
             this.scene[command.arg].play()
           }
         })
+
+      /* */
+      parsedCommands
+        .filter(command => command.name === 'fire-event')
+        .forEach(command => {
+          this.scene.events.emit('test', 'arg1', 'arg2')
+      })
+
+      /* DONE! */
       return message
     }
   }

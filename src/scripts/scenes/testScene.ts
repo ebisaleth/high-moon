@@ -13,7 +13,7 @@ export default class TestScene extends HighMoonScene {
 
   preload() {
     this.load.text('start-text', 'assets/json/intro-port-nem')
-
+    this.load.text('test123', 'assets/json/test123')
     this.load.image('space-bus-bg', 'assets/img/spacebus/space_bus_bg.png')
 
     this.load.spritesheet('space-bus-creature', 'assets/img/spacebus/space_bus_creature_frames.png', {
@@ -51,7 +51,7 @@ export default class TestScene extends HighMoonScene {
       if (!this.textBox.isOpen) {
         this.textBox.setStringArrayAsPassage([
           'Ill tell you the value of the variable thing:',
-          this.customVarScope.valueOfWithDefault('thing', "oops don't have it")
+          this.customVarScope.valueOfWithDefault('thing', "oops don't have it").toString()
         ])
         this.textBox.open()
       }

@@ -1,7 +1,7 @@
 {
   "passages": [
     {
-      "text": "hello there  \n[[aaaaaaaaaaaaaa]]\n[[abbbbbbbbbbbbb]]\n[[cccccccccccccc]]\n[[dddddddddddddd]]\n[[eeeeeeeeeeeeee]]\n[[ffffffffffffff]]\n",
+      "text": "§set[thing=thong]§fire-event[event]hello there  \n[[aaaaaaaaaaaaaa]]\n[[abbbbbbbbbbbbb]]\n[[cccccccccccccc]]\n[[dddddddddddddd]]\n[[eeeeeeeeeeeeee]]\n[[ffffffffffffff]]\n",
       "links": [
         {
           "name": "aaaaaaaaaaaaaa",

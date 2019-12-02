@@ -1,7 +1,7 @@
 import inventory from '../objects/inventory'
 import Memory from '../other/memory'
 
-let DEBUG = false
+let DEBUG = true
 
 export default class PreloadScene extends Phaser.Scene {
   loadingText: Phaser.GameObjects.BitmapText
@@ -18,7 +18,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('stars-bg-text', 'assets/img/intro_bg_text.png')
     this.load.bitmapFont('profont', 'assets/font/profont/font.png', 'assets/font/profont/font.fnt')
     this.load.text('test', 'assets/json/test.txt')
-    this.load.text('test123', 'assets/json/test123')
+
     this.load.audio('theme', 'assets/sound/bensound-scifi.mp3')
     this.load.audio('cavern', 'assets/sound/Eric Taxxon - Nostalgia - 05 Cavern.mp3')
     this.load.audio('brrrr', 'assets/sound/s440long.mp3')
