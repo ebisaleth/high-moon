@@ -318,12 +318,19 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
           }
         })
 
-      /* */
+      /* FUNCTION CALL WOW */
       parsedCommands
-        .filter(command => command.name === 'call')
+        .filter(command => command.name === 'call' && /^\w+\((\w+(:\s*\w+)?)(,\s*\w+(:\s*\w+)?)*\)$/.test(command.arg))
         .forEach(command => {
-          let argslist: string[] = command.arg.split(" ")
-          this.scene.events.emit('textBoxEvent', argslist)
+          let funname: string = command.arg.split("(")[0]
+          let argslist: [string, string][] = command.arg.split("(")[1].slice(0,-1).split(",")
+            .map(argAndTypeString => {
+              let splitted = argAndTypeString.split(":")
+              let typestring = splitted[1]?splitted[1]:""
+              let valuestring = splitted[0]
+              return [typestring,valuestring]
+            })
+          this.scene.events.emit('textBoxEvent', [funname,argslist])
       })
 
       /* DONE! */

@@ -156,10 +156,11 @@ export default abstract class HighMoonScene extends Phaser.Scene {
 
   /* event handling (text box events) */
 
-  handleTextBoxEvent(funAndArgs: string[]) {
+  handleTextBoxEvent(funAndArgs: [string, [string, string][]]) {
     // @ts-ignore
     let fun: any = this[funAndArgs[0]]
-    let args: string[] = funAndArgs.slice(1)
+    let args: [string, string][] = funAndArgs[1]
+    console.log("tring to call function "+ fun + " with args " + args)
 
     if(fun) {
       fun(...args)
