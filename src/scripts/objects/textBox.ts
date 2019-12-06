@@ -325,7 +325,7 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
           let funname: string = command.arg.split("(")[0]
           let argslist: [string, string][] = command.arg.split("(")[1].slice(0,-1).split(",")
             .map(argAndTypeString => {
-              let splitted = argAndTypeString.split(":")
+              let splitted = argAndTypeString.split(":").map(string => string.trim())
               let typestring = splitted[1]?splitted[1]:""
               let valuestring = splitted[0]
               return [typestring,valuestring]

@@ -4,6 +4,7 @@ import TextBox from '../objects/textBox'
 import Scope from '../other/Scope'
 import ClickGuard from '../objects/clickGuard'
 import Memory from '../other/memory'
+import ParserCenter from '../other/ParserCenter'
 
 export default abstract class HighMoonScene extends Phaser.Scene {
   tab: Phaser.Input.Keyboard.Key
@@ -162,13 +163,15 @@ export default abstract class HighMoonScene extends Phaser.Scene {
     let args: [string, string][] = funAndArgs[1]
     console.log("tring to call function "+ fun + " with args " + args)
 
+    let parsedArgs: any[] = args.map(argAndType => ParserCenter.read(argAndType[0], argAndType[1]))
+
     if(fun) {
-      fun(...args)
+      fun(...parsedArgs)
     }
   }
 
-  f(a: string, b: string){
-    console.log("hi im the function f and was called with the parameters: " + a + " " + b)
+  f(a: any, b: any){
+    console.log("hi im the function f and was called with the parameters: " + a + " of type " + typeof a + " and " + b + " of type " + typeof b)
   }
 
 
