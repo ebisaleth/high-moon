@@ -28,6 +28,7 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
   textGameObj: Phaser.GameObjects.BitmapText
   dropZone: Phaser.GameObjects.Zone
   choiceGameObjs: Phaser.GameObjects.BitmapText[]
+  tongle: Phaser.GameObjects.Graphics
 
   sound: any // sorry TS
 
@@ -41,8 +42,12 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
   ) {
     super(scene)
     scene.add.existing(this)
-
     this.scene = scene
+
+    this.configHeight = height
+    this.configWidth = width
+    this.configX = x
+    this.configY = y
 
     // draw rect
     this.fillStyle(0x000000, 1)
@@ -93,10 +98,19 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
 
     this.textGameObj = scene.add.bitmapText(x + 20, y + 20, 'profont', '').setDepth(11)
 
-    this.configHeight = height
-    this.configWidth = width
-    this.configX = x
-    this.configY = y
+    let tongleposx = scene.cameras.main.width - 20
+    let tongleposy = y + 20
+
+    this.tongle = scene.add.graphics()
+
+    scene.add.tween({
+      targets: this.tongle,
+      duration: 500,
+      x: 5,
+      yoyo: true,
+      ease: 'Sine.InOut',
+      repeat: -1
+    })
   }
 
   public startWithStringArrayAndChoices(
@@ -168,6 +182,7 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
   }
 
   public advance() {
+    this.hideTongle()
     if (!this.isProgressing && !this.isChoosing && !this.scene.menu.isOpen) {
       if (this.passageCounter < this.passages.length) {
         let textSource = this.passages[this.passageCounter].lines
@@ -184,6 +199,17 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
     } else if (!this.isChoosing && !this.scene.menu.isOpen) {
       this.skippingThisLine = true
     }
+  }
+
+  hideTongle() {
+    this.tongle.clear()
+  }
+
+  drawTongle(tongleposx: number, tongleposy: number) {
+    this.tongle
+      .fillStyle(0xffffff, 1)
+      .fillTriangle(tongleposx, tongleposy, tongleposx, tongleposy + 20, tongleposx + 15, tongleposy + 10)
+      .setDepth(11)
   }
 
   putLine(line: string) {
@@ -218,6 +244,10 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
       ease: 'Quad.easeIn',
       duration: 250
     })
+    this.drawTongle(
+      this.textGameObj.x + this.textGameObj.width + 14,
+      this.textGameObj.y + this.textGameObj.height / 2 - 8
+    )
 
     //offer choices, if appropriate
     if (
@@ -268,7 +298,6 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
   }
 
   parseAndExecuteSpecialCommands(line: string): string {
-
     //matches things of the shape §command[arg]
     let commands = line.match(/§[^§]*\[[^§]*\]/g)
 
@@ -322,16 +351,19 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
       parsedCommands
         .filter(command => command.name === 'call' && /^\w+\((\w+(:\s*\w+)?)(,\s*\w+(:\s*\w+)?)*\)$/.test(command.arg))
         .forEach(command => {
-          let funname: string = command.arg.split("(")[0]
-          let argslist: [string, string][] = command.arg.split("(")[1].slice(0,-1).split(",")
+          let funname: string = command.arg.split('(')[0]
+          let argslist: [string, string][] = command.arg
+            .split('(')[1]
+            .slice(0, -1)
+            .split(',')
             .map(argAndTypeString => {
-              let splitted = argAndTypeString.split(":").map(string => string.trim())
-              let typestring = splitted[1]?splitted[1]:""
+              let splitted = argAndTypeString.split(':').map(string => string.trim())
+              let typestring = splitted[1] ? splitted[1] : ''
               let valuestring = splitted[0]
-              return [typestring,valuestring]
+              return [typestring, valuestring]
             })
-          this.scene.events.emit('textBoxEvent', [funname,argslist])
-      })
+          this.scene.events.emit('textBoxEvent', [funname, argslist])
+        })
 
       /* DONE! */
       return message
