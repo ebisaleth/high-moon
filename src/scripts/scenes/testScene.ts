@@ -12,7 +12,7 @@ export default class TestScene extends HighMoonScene {
   }
 
   preload() {
-    this.load.text('start-text', 'assets/json/intro-port-nem')
+    this.load.text('start-text', 'assets/json/space-bus-intro')
     this.load.text('test123', 'assets/json/test123')
     this.load.image('space-bus-bg', 'assets/img/spacebus/space_bus_bg.png')
 

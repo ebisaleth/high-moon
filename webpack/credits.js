@@ -9,6 +9,25 @@
 
 // Of course you can remove it if you really want to, but it would be nice if you would leave it there :)
 
+
+console.log(
+  '%c %c %c %c %c Made by e-beth',
+  'background: #ff0000',
+  'background: #ffff00',
+  'background: #00ff00',
+  'background: #00ffff',
+  'color: #fff; background: #000000;',
+)
+
+console.log(
+  '%c %c %c %c %c With phaser and typescript!',
+  'background: #ff0000',
+  'background: #ffff00',
+  'background: #00ff00',
+  'background: #00ffff',
+  'color: #fff; background: #000000;',
+)
+
 console.log(
   '%c %c %c %c %c Built using phaser-project-template %c https://github.com/yandeu/phaser-project-template',
   'background: #ff0000',

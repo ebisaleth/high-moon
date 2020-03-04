@@ -1,0 +1,18 @@
+{
+  "passages": [
+    {
+      "text": "So...\nThis is it.\nWe're almost there.\nI've sat on this bus for almost nine hours.\nAnd the person across from me still hasn't finished reading their book.\nI wonder what it's about.\n...\nI've never been this far away from home.\nBut they told me that this was my last chance...\n...\nAfter ~the incident~.\nBetter not think about it. ",
+      "name": "start",
+      "pid": "1",
+      "position": {
+        "x": "412",
+        "y": "187"
+      }
+    }
+  ],
+  "name": "spacebusintro",
+  "startnode": "1",
+  "creator": "Twine",
+  "creator-version": "2.3.3",
+  "ifid": "DC4B03F3-CA3E-475E-934F-41C97A79715A"
+}

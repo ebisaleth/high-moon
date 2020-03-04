@@ -11,12 +11,16 @@ export default class SpaceBusScene extends HighMoonScene {
   sign: Phaser.GameObjects.Image
   book: Phaser.GameObjects.Image
 
+  leaving: boolean
+  clickedSomething: boolean
+
   constructor() {
     super('SpaceBusScene')
   }
 
   preload() {
-    this.load.text('start-text', 'assets/json/intro-port-nem')
+    this.load.text('start-text', 'assets/json/space-bus-intro')
+    this.load.text('announcement-text', 'assets/json/leaving-the-bus')
     this.load.image('space-bus-bg', 'assets/img/spacebus/space_bus_bg.png')
     this.load.image('space-bus-sky', 'assets/img/spacebus/space_bus_sky.png')
     this.load.spritesheet('space-bus-creature', 'assets/img/spacebus/space_bus_creature_frames.png', {
@@ -31,6 +35,8 @@ export default class SpaceBusScene extends HighMoonScene {
 
   create() {
     super.create()
+
+    this.leaving = false
 
     /*
       <<<<<<<<<<<<<<<<<<<  make no clicky you boob  >>>>>>>>>>>>>>>>>>>>>
@@ -61,11 +67,15 @@ export default class SpaceBusScene extends HighMoonScene {
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
 
     this.sign.on('pointerdown', () => {
-      this.textBox.startWithStringArrayAndChoices([
-        '"Due to recent happenings, we ask all our passengers to please refrain from leaving any mucus on the upholstery."',
-        '"In case of an acute phlegmergency, please make use of the plastic sheets that can be found under your seat."',
-        '"Your SPACE BUS Team"'
-      ])
+      this.textBox.startWithStringArray(
+        [
+          '"Due to recent happenings, we ask all our passengers to please refrain from leaving any mucus on the upholstery."',
+          '"In case of an acute phlegmergency, please make use of the plastic sheets that can be found under your seat."',
+          '"Your SPACE BUS Team"'
+        ],
+        this.announcement,
+        this
+      )
     })
 
     this.creature = this.add
@@ -74,10 +84,15 @@ export default class SpaceBusScene extends HighMoonScene {
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
 
     this.creature.on('pointerdown', () => {
-      this.textBox.startWithStringArrayAndChoices([
-        'They were already on the bus when I got here.',
-        "And they don't seem very concerned with packing up now, either."
-      ])
+      this.textBox.startWithStringArray(
+        [
+          'They were already on the bus when I got here.',
+          "I don't know where they're going.",
+          "I don't want to disturb their reading, so I won't ask."
+        ],
+        this.announcement,
+        this
+      )
     })
 
     this.book = this.add
@@ -86,11 +101,15 @@ export default class SpaceBusScene extends HighMoonScene {
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
 
     this.book.on('pointerdown', () => {
-      this.textBox.startWithStringArrayAndChoices([
-        'This person has quite the elegant technique of turning the pages of their book with their eye stalk.',
-        "Maybe that's the reason they aren't using an e-reader.",
-        'The visual of them hitting the track pad with their eye would rather lack sophistication, I imagine.'
-      ])
+      this.textBox.startWithStringArray(
+        [
+          'This person has quite the elegant technique of turning the pages of their book with their eye stalk.',
+          "Maybe that's the reason they aren't using an e-reader.",
+          'The visual of them hitting the track pad with their eye would rather lack sophistication, I imagine.'
+        ],
+        this.announcement,
+        this
+      )
     })
 
     /* ANIMATE GRAPHICS */
@@ -177,10 +196,15 @@ export default class SpaceBusScene extends HighMoonScene {
           ]
           break
         case 'Breathing Helmet':
-          text = ["Great. Let's put this on and get off this weird bus. My back hurts like heck."]
-          this.time.delayedCall(2500, this.helmetSound.play, [], this.helmetSound)
-          this.time.delayedCall(10000, this.scene.start, ['PortNemScene'], this.scene)
-          this.time.delayedCall(5000, this.cameras.main.fade, [3000], this.cameras.main)
+          if (this.leaving) {
+            text = ["Great. Let's put this on and get off this weird bus. My back hurts like heck."]
+            this.time.delayedCall(2500, this.helmetSound.play, [], this.helmetSound)
+            this.time.delayedCall(10000, this.scene.start, ['PortNemScene'], this.scene)
+            this.time.delayedCall(5000, this.cameras.main.fade, [3000], this.cameras.main)
+          } else {
+            text = ['The air quality in this bus is a bit bad, but not that bad.']
+          }
+
           break
       }
       this.textBox.startWithStringArrayAndChoices(text)
@@ -192,6 +216,21 @@ export default class SpaceBusScene extends HighMoonScene {
   <<<<<<<<<<<<<<<<<<<  NON-PUBLIC FUNCTIONS >>>>>>>>>>>>>>>>>>>>>
   <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
  */
+
+  announcement() {
+    this.clickGuard.raise()
+    this.time.delayedCall(
+      1000,
+      this.textBox.startWithPassages,
+      [this.cache.text.get('announcement-text'), this.leave, this],
+      this.textBox
+    )
+  }
+
+  leave() {
+    console.log('WE ARE LEAVING')
+    this.leaving = true
+  }
 
   animateCreature() {
     this.creature.play(Math.round(Math.random()) ? 'creature-blink' : 'creature-foot')

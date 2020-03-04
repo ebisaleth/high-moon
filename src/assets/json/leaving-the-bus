@@ -1,0 +1,18 @@
+{
+  "passages": [
+    {
+      "text": "§sound[gong]*gong*\n... oh?\n§color[0x00FFFF]Attention passengers.\n§color[0x00FFFF]We'll soon arrive at: Nem Station Port.\n§color[0x00FFFF]Please exit the space bus on the left.\n§color[0x00FFFF]For your own safety, please make sure to put on your breathing devices if you rely on breathing oxygen, nitrogen, or any carbon derivatives.\n... Right.\nI should probably do that.\n§color[0xADADAD](Press TAB to open your inventory!)\n§color[0xADADAD](If you are ready to leave the bus, drag the breathing helmet down to where this text is in order to put it on.) \n§color[0xADADAD](But it's also okay if you would like to click on some things, first.) ",
+      "name": "Untitled Passage",
+      "pid": "1",
+      "position": {
+        "x": "412",
+        "y": "187.5"
+      }
+    }
+  ],
+  "name": "spacebusintro-leavingthebus",
+  "startnode": "1",
+  "creator": "Twine",
+  "creator-version": "2.3.3",
+  "ifid": "58B2B71B-FC42-44AF-A614-22A5EB6FBEA6"
+}

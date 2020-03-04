@@ -143,6 +143,12 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
     }
   }
 
+  public startWithPassages(jsonstr: string, closeCallBack: Function = () => {}, closeCallBackScope: any = this) {
+    this.setJsonStringAsPassages(jsonstr)
+    this.closeCallBack = closeCallBack.bind(closeCallBackScope)
+    this.open()
+  }
+
   public setJsonStringAsPassages(jsonstr: string, passageCounter: integer = 0, lineCounter: integer = 0) {
     this.passages = PassageParser.parseJSONStringToPassages(jsonstr)
     this.passageCounter = passageCounter
@@ -179,6 +185,11 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
     this.scene.clickGuard.lower()
     this.closeCallBack()
     this.closeCallBack = () => {}
+  }
+
+  public softClose() {
+    this.isOpen = false
+    this.scene.clickGuard.lower()
   }
 
   public advance() {
@@ -244,10 +255,6 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
       ease: 'Quad.easeIn',
       duration: 250
     })
-    this.drawTongle(
-      this.textGameObj.x + this.textGameObj.width + 14,
-      this.textGameObj.y + this.textGameObj.height / 2 - 8
-    )
 
     //offer choices, if appropriate
     if (
@@ -263,8 +270,13 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
           this
         )
       } else {
-        this.isOpen = false
+        this.softClose()
       }
+    } else {
+      this.drawTongle(
+        this.textGameObj.x + this.textGameObj.width + 14,
+        this.textGameObj.y + this.textGameObj.height / 2 - 10
+      )
     }
 
     //handle administrative stuff
