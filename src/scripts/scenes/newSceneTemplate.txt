@@ -129,7 +129,7 @@ export default class SCENENAME extends HighMoonScene {
 
   dropReact(draggedObject: Phaser.GameObjects.GameObject, dropZoneName: Phaser.GameObjects.Zone): void {
 
-    if (!this.textBox.progressing) {
+    if (!this.textBox.isProgressing) {
       this.inventory.close()
 
       let text: string[] = []

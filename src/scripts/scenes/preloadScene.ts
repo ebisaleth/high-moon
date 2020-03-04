@@ -1,7 +1,7 @@
 import inventory from '../objects/inventory'
 import Memory from '../other/memory'
 
-let SKIPINTRO = true
+let SKIPINTRO = false
 
 export default class PreloadScene extends Phaser.Scene {
   loadingText: Phaser.GameObjects.BitmapText
