@@ -37,6 +37,7 @@ export default class SpaceBusScene extends HighMoonScene {
     super.create()
 
     this.leaving = false
+    this.announced = false
 
     /*
       <<<<<<<<<<<<<<<<<<<  make no clicky you boob  >>>>>>>>>>>>>>>>>>>>>

@@ -11,11 +11,14 @@ export default class IntroScene extends Phaser.Scene {
   music: any
   rect: Phaser.GameObjects.Graphics
 
+  spaceAlreadyPressed: boolean
+
   constructor() {
     super({ key: 'IntroScene' })
   }
 
   create() {
+    this.spaceAlreadyPressed = false
     this.rect = this.add.graphics()
     this.rect.fillStyle(0x000000, 1)
     this.rect.fillRect(0, 660, 1228, 140)
@@ -74,7 +77,7 @@ export default class IntroScene extends Phaser.Scene {
 
     this.music.volume = 0
     //I think the delay makes it less likely that we get a dom exception?
-    this.time.delayedCall(100, this.music.play, [], this.music)
+    this.music.play()
 
     this.tweens.add({
       targets: this.music,
@@ -172,7 +175,7 @@ export default class IntroScene extends Phaser.Scene {
   }
 
   update() {
-    if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
+    if (Phaser.Input.Keyboard.JustDown(this.spacebar) && !this.spaceAlreadyPressed) {
       this.tweens.add({
         targets: this.music,
         volume: 0,
@@ -180,15 +183,16 @@ export default class IntroScene extends Phaser.Scene {
         ease: 'Quad.easeIn',
         duration: 3000
       })
-
       this.pressKeyText.destroy()
-
       this.time.delayedCall(4000, this.nextScene, [], this)
+      this.time.delayedCall(3000, this.music.stop, [], this.music)
       this.cameras.main.fade(3000)
+      this.spaceAlreadyPressed = true
     }
   }
 
   nextScene() {
     this.scene.start('SpaceBusScene')
+    // this.scene.stop('IntroScene')
   }
 }

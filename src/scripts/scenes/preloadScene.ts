@@ -4,7 +4,7 @@ import Memory from '../other/memory'
 let SKIPINTRO = false
 
 export default class PreloadScene extends Phaser.Scene {
-  loadingText: Phaser.GameObjects.BitmapText
+  text: Phaser.GameObjects.BitmapText
 
   constructor() {
     super({ key: 'PreloadScene' })
@@ -37,11 +37,9 @@ export default class PreloadScene extends Phaser.Scene {
   create() {
     this.input.setDefaultCursor('url(assets/img/cursorblue.png), pointer')
 
-    this.time.delayedCall(200, this.nextScene, [], this)
+    this.text = this.add.bitmapText(this.cameras.main.width / 2, 400, 'profont', 'Loading . . .').setOrigin(0.5, 0.5)
 
-    this.loadingText = this.add
-      .bitmapText(this.cameras.main.width / 2, 400, 'profont', 'Loading . . .')
-      .setOrigin(0.5, 0.5)
+    this.time.delayedCall(200, this.clickToBegin, [], this)
 
     /**
      * This is how you would dynamically import the mainScene class (with code splitting),
@@ -56,6 +54,18 @@ export default class PreloadScene extends Phaser.Scene {
     //     this.scene.add('PortNemScene', mainScene.default, true)
     //   })
     // else console.log('The mainScene class will not even be loaded by the browser')
+  }
+
+  clickToBegin() {
+    this.text.text = 'Click anywhere to begin!'
+
+    this.input.on(
+      'pointerdown',
+      () => {
+        this.nextScene()
+      },
+      this
+    )
   }
 
   nextScene() {
