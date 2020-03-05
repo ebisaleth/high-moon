@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  <a href="#summary">Summary</a> •
+  <a href="#summary">Summary</a> • 
   <a href="#credits">Credits</a> •
   <a href="#license">License</a>
 </p>
@@ -32,5 +32,11 @@ Built using phaser-project-template by Yannick Deubel https://github.com/yandeu/
 
 A huge thank you to Rich [@photonstorm](https://github.com/photonstorm) for creating Phaser 
 
+intro music by http://bensound.com
+background music by [Patricia Taxxon](https://patriciataxxon.bandcamp.com/)
+i'm also thinking about using some from [Lewis Lancaster](https://soundcloud.com/lewislancastermusic) but I'm not sure if I will
 
+## License 
+
+IDK YET SORRY 
 

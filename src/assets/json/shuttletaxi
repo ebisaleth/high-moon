@@ -1,0 +1,92 @@
+{
+  "passages": [
+    {
+      "text": "...\n§color[0x217554]...\n...\n§color[0x217554]So... \n§color[0x217554]Business or pleasure? \n(...?)\n(What?)\n[[What?]]\n[[Sorry, what?]]\n[[<Say nothing.>->(Say nothing.)]]",
+      "links": [
+        {
+          "name": "What?",
+          "link": "What?",
+          "pid": "2"
+        },
+        {
+          "name": "Sorry, what?",
+          "link": "Sorry, what?",
+          "pid": "3"
+        },
+        {
+          "name": "<Say nothing.>",
+          "link": "(Say nothing.)",
+          "pid": "4"
+        }
+      ],
+      "name": "Untitled Passage",
+      "pid": "1",
+      "position": {
+        "x": "905",
+        "y": "344"
+      }
+    },
+    {
+      "text": "§color[0x217554]Hmm. I was asking if you're going to High Moon for business, or for pleasure. \n§goto[notalotoftraffic]",
+      "name": "What?",
+      "pid": "2",
+      "position": {
+        "x": "708",
+        "y": "543"
+      }
+    },
+    {
+      "text": "§color[0x217554]Heh. I was asking if you're going to High Moon for business, or for pleasure. \n§goto[notalotoftraffic]",
+      "name": "Sorry, what?",
+      "pid": "3",
+      "position": {
+        "x": "860",
+        "y": "544"
+      }
+    },
+    {
+      "text": "§color[0x217554]...\n§color[0x217554]I see. \n§color[0x217554]Not a talker. \n§color[0x217554]Not a bad thing! \n§color[0x217554]So, I'm just going to keep asking things, and you can just start answering the ones you feel like, alright? \n[[Alright.]]\n[[<Say nothing.>->Alright.]]",
+      "links": [
+        {
+          "name": "Alright.",
+          "link": "Alright.",
+          "pid": "5"
+        },
+        {
+          "name": "<Say nothing.>",
+          "link": "Alright.",
+          "pid": "5"
+        }
+      ],
+      "name": "(Say nothing.)",
+      "pid": "4",
+      "position": {
+        "x": "1017",
+        "y": "537"
+      }
+    },
+    {
+      "text": "§color[0x217554](This is where all paths should lead to!)",
+      "name": "Alright.",
+      "pid": "5",
+      "position": {
+        "x": "976",
+        "y": "711"
+      }
+    },
+    {
+      "text": "§color[0x217554]Well, the place doesn't get a lot of traffic of either sort.\n§goto[Alright.]",
+      "name": "notalotoftraffic",
+      "pid": "6",
+      "position": {
+        "x": "781",
+        "y": "664"
+      }
+    }
+  ],
+  "name": "shuttle",
+  "startnode": "1",
+  "creator": "Twine",
+  "creator-version": "2.3.3",
+  "ifid": "96A1F437-06F5-437A-8FB3-63D181E37E7D"
+}

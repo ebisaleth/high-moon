@@ -1,20 +1,18 @@
 import HighMoonScene from './highMoonScene'
+import TextInput from '../objects/textInput'
 
 export default class ShuttleScene extends HighMoonScene {
   sky: Phaser.GameObjects.TileSprite
   lightsImage: Phaser.GameObjects.Image
   eye: Phaser.GameObjects.Image
-  creature: Phaser.GameObjects.Sprite
-  sign: Phaser.GameObjects.Image
-
-  gong: any //sorry TS
+  inputField: TextInput
 
   constructor() {
     super('ShuttleScene')
   }
 
   preload() {
-    this.load.text('start-text', 'assets/json/multiplelinkstest')
+    this.load.text('start-text', 'assets/json/shuttletaxi')
 
     this.load.image('shuttleskybg', 'assets/img/shuttle/shuttleskybg.png')
     this.load.image('shuttlestars', 'assets/img/shuttle/shuttlestars.png')
@@ -35,6 +33,8 @@ export default class ShuttleScene extends HighMoonScene {
     this.textBox.setJsonStringAsPassages(this.cache.text.get('start-text'))
 
     this.time.delayedCall(3000, this.textBox.open, [], this.textBox)
+
+    this.inputField = new TextInput(this, 100, 100, 1000, 'aaaaaaa')
 
     /*
       <<<<<<<<<<<<<<<<<<<   GRAPHICS SETUP  >>>>>>>>>>>>>>>>>>>>>
@@ -156,7 +156,7 @@ export default class ShuttleScene extends HighMoonScene {
     this.add.tween({
       targets: this.sky,
       tilePositionX: this.sky.tilePositionX + 300,
-      tilePositionY: this.sky.tilePositionY + 60,
+      //  tilePositionY: this.sky.tilePositionY + 60,
       rotation: this.sky.rotation + 0.01,
       duration: 10000,
       ease: 'Linear',
@@ -174,5 +174,6 @@ export default class ShuttleScene extends HighMoonScene {
 
   update() {
     super.update()
+    this.inputField.update()
   }
 }
