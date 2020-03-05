@@ -1,0 +1,66 @@
+{
+  "passages": [
+    {
+      "text": "hello there. \nwhat letters do you like?\n[[a]] [[b]]",
+      "links": [
+        {
+          "name": "a",
+          "link": "a",
+          "pid": "2"
+        },
+        {
+          "name": "b",
+          "link": "b",
+          "pid": "3"
+        }
+      ],
+      "name": "one",
+      "pid": "1",
+      "position": {
+        "x": "412",
+        "y": "185"
+      }
+    },
+    {
+      "text": "hello from a \n§goto[c]",
+      "name": "a",
+      "pid": "2",
+      "position": {
+        "x": "303",
+        "y": "339"
+      }
+    },
+    {
+      "text": "bbbb",
+      "name": "b",
+      "pid": "3",
+      "position": {
+        "x": "544",
+        "y": "336"
+      }
+    },
+    {
+      "text": "hello from c\ni really want to exist! hey! \nhey!!!!!",
+      "name": "c",
+      "pid": "4",
+      "position": {
+        "x": "423",
+        "y": "473"
+      }
+    },
+    {
+      "text": "i'm d, i also exist",
+      "name": "d",
+      "pid": "5",
+      "position": {
+        "x": "423",
+        "y": "594"
+      }
+    }
+  ],
+  "name": "multiple links test",
+  "startnode": "1",
+  "creator": "Twine",
+  "creator-version": "2.3.3",
+  "ifid": "05673994-5987-48D3-B3BE-DE7B643B1F44"
+}

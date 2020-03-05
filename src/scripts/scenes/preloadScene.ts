@@ -1,7 +1,7 @@
 import inventory from '../objects/inventory'
 import Memory from '../other/memory'
 
-let SKIPINTRO = false
+let SKIPINTRO = true
 
 export default class PreloadScene extends Phaser.Scene {
   text: Phaser.GameObjects.BitmapText
@@ -70,7 +70,7 @@ export default class PreloadScene extends Phaser.Scene {
 
   nextScene() {
     if (SKIPINTRO) {
-      this.scene.start('SpaceBusScene')
+      this.scene.start('ShuttleScene')
     } else {
       this.scene.start('IntroScene')
     }

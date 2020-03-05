@@ -10,6 +10,7 @@ interface Item {
 //Text Box related
 
 interface Passage {
+  title: string
   lines: string[]
   choices: Choice[]
   pid: number

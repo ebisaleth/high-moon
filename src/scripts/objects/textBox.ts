@@ -193,6 +193,10 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
   }
 
   public advance() {
+    console.log('CALLED ADVANCE!')
+    console.log('in passage ' + this.passageCounter)
+    console.log('at line ' + this.lineCounter)
+
     this.hideTongle()
     if (!this.isProgressing && !this.isChoosing && !this.scene.menu.isOpen) {
       if (this.passageCounter < this.passages.length) {
@@ -231,6 +235,7 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
     let wrappedLine = this.wordWrap(lineSansCommands)
 
     console.log(line)
+
     this.textGameObj.text = ''
     this.scene.tweens.add({
       targets: this.sound,
@@ -375,6 +380,22 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
               return [typestring, valuestring]
             })
           this.scene.events.emit('textBoxEvent', [funname, argslist])
+        })
+
+      /* GOTO! OH NO! */
+      parsedCommands
+        .filter(command => command.name === 'goto')
+        .forEach(command => {
+          console.log('GOING SOMEWHERE!!!!')
+          let goto = this.passages.find(passage => command.arg == passage.title)
+
+          if (goto) {
+            // I AM SO SORRY, BUT THIS NEEDS TO BE HERE, OTHERWISE IT SKIPS THE FIRST LINE
+            this.lineCounter = -1
+            // AGAIN REALLY SORRY
+            this.passageCounter = goto.pid - 1
+            this.advance()
+          }
         })
 
       /* DONE! */

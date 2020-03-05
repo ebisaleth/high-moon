@@ -262,7 +262,7 @@ export default class Dock4Scene extends HighMoonScene {
             text = [
               "That's my shuttle ticket.",
               this.clickedShuttle ? "I'll need to give it to the shuttle driver." : '',
-              this.clickedShuttle ? '§color[0xADADAD]Drag the ticket towards the shuttle!' : ''
+              this.clickedShuttle ? '§color[0xADADAD](Drag the ticket towards the shuttle!)' : ''
             ]
             this.memory.hasCheckedShuttleTicket = true
             break

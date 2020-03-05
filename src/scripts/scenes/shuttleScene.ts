@@ -1,27 +1,26 @@
 import HighMoonScene from './highMoonScene'
 
-export default class SCENENAME extends HighMoonScene {
+export default class ShuttleScene extends HighMoonScene {
   sky: Phaser.GameObjects.TileSprite
+  lightsImage: Phaser.GameObjects.Image
+  eye: Phaser.GameObjects.Image
   creature: Phaser.GameObjects.Sprite
   sign: Phaser.GameObjects.Image
 
   gong: any //sorry TS
 
   constructor() {
-    super('SCENENAME')
+    super('ShuttleScene')
   }
 
   preload() {
-    this.load.text('start-text', 'assets/json/intro-port-nem')
+    this.load.text('start-text', 'assets/json/multiplelinkstest')
 
-    this.load.image('space-bus-bg', 'assets/img/space_bus_bg.png')
-
-    this.load.spritesheet('space-bus-creature', 'assets/img/space_bus_creature_frames.png', {
-      frameWidth: 256,
-      frameHeight: 304
-    })
-
-    this.load.audio('gong', 'assets/sound/PSA.mp3')
+    this.load.image('shuttleskybg', 'assets/img/shuttle/shuttleskybg.png')
+    this.load.image('shuttlestars', 'assets/img/shuttle/shuttlestars.png')
+    this.load.image('shuttle', 'assets/img/shuttle/shuttle.png')
+    this.load.image('shuttlelights', 'assets/img/shuttle/shuttlelights.png')
+    this.load.image('eye', 'assets/img/shuttle/eyeframe1.png')
   }
 
   create() {
@@ -33,7 +32,7 @@ export default class SCENENAME extends HighMoonScene {
 
     this.cameras.main.fadeFrom(3000)
 
-    this.textBox.setJsonStringAsPassages(this.cache.text.get('SCENENAME-start-text-or-something'))
+    this.textBox.setJsonStringAsPassages(this.cache.text.get('start-text'))
 
     this.time.delayedCall(3000, this.textBox.open, [], this.textBox)
 
@@ -42,68 +41,28 @@ export default class SCENENAME extends HighMoonScene {
     */
 
     /* EXAMPLE FOR A TILE SPRITE */
-
-    this.sky = this.add.tileSprite(0, 0, 2228, 660, 'space-bus-sky').setOrigin(0, 0)
-    this.add.image(0, 0, 'space-bus-bg').setOrigin(0, 0)
+    this.add.image(0, 0, 'shuttleskybg').setOrigin(0, 0)
+    this.sky = this.add.tileSprite(0, 0, 2228, 660, 'shuttlestars').setOrigin(0.5, 0.5)
+    this.add.image(0, 0, 'shuttle').setOrigin(0, 0)
+    this.lightsImage = this.add.image(0, 0, 'shuttlelights').setOrigin(0, 0)
+    this.eye = this.add.image(0, 0, 'eye').setOrigin(0, 0)
 
     /* EXAMPLE FOR AN IMAGE */
 
-    this.sign = this.add
-      .image(0, 0, 'space-bus-sign')
-      .setOrigin(0, 0)
-      .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
-
-    this.sign.on('pointerdown', () => {
-      if (!this.textBox.isOpen) {
-        this.textBox.setStringArrayAsPassage([
-          '"Due to recent happenings, we ask all our passengers to please refrain from leaving any mucus on the upholstery."',
-          '"In case of an acute phlegmergency, please make use of the plastic sheets that can be found under your seat."',
-          '"Your SPACE BUS Team"'
-        ])
-        this.textBox.open()
-      }
-    })
-
     /* EXAMPLE FOR AN ANIMATED SPRITE */
 
-    this.creature = this.add
-      .sprite(826, 508, 'space-bus-creature')
-      .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
-
-    this.creature.on('pointerdown', () => {
-      if (!this.textBox.isOpen) {
-        this.textBox.setStringArrayAsPassage([
-          'They were already on the bus when I got here.',
-          "And they don't seem very concerned with packing up now, either."
-        ])
-        this.textBox.open()
-      }
-    })
-
+    // this.creature = this.add
+    //   .sprite(826, 508, 'space-bus-creature')
+    //   .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
+    //
     /* ANIMATE GRAPHICS */
 
     this.moveStars()
-
-    this.anims.create({
-      key: 'creature-blink',
-      frames: this.anims.generateFrameNumbers('space-bus-creature', { frames: [0, 1, 2, 1, 0] }),
-      frameRate: 30
-    })
-
-    this.anims.create({
-      key: 'creature-foot',
-      frames: this.anims.generateFrameNumbers('space-bus-creature', { frames: [0, 3, 4, 3, 0, 3, 4, 3, 0] }),
-      frameRate: 10
-    })
-
-    this.time.delayedCall(Math.random() * 5000, this.animateCreature, [], this)
+    this.blinkLights()
 
     /*
       <<<<<<<<<<<<<<<<<<<   SOUND SETUP  >>>>>>>>>>>>>>>>>>>>>
     */
-
-    this.gong = this.sound.add('gong')
-    this.gong.volume = 0.3
 
     /*
     <<<<<<<<<<<<<<<<<<<   INVENTORY SETUP  >>>>>>>>>>>>>>>>>>>>>
@@ -111,10 +70,23 @@ export default class SCENENAME extends HighMoonScene {
 
     let items: Item[] = [
       {
-        name: 'Example Item',
-        description: "An Item that's an example.",
-        smallImageKey: 'example-texture',
-        largeImageKey: 'example-texture-large'
+        name: 'Breathing Helmet',
+        description: "A helmet that helps you breathe if there's no atmosphere. Like in space.",
+        smallImageKey: 'breather-helmet',
+        largeImageKey: 'breather-helmet-large'
+      },
+      {
+        name: 'Space Bus Ticket + Magazine',
+        description:
+          'A ticket for the space bus journey from my home planet to Port Nem. They also gave me a magazine when I booked it.',
+        smallImageKey: 'space-bus-ticket-small',
+        largeImageKey: 'space-bus-ticket-large'
+      },
+      {
+        name: 'Shuttle Ticket',
+        description: 'A ticket for the individual shuttle service I booked to High Moon. No space buses stop there.',
+        smallImageKey: 'shuttle-ticket-small',
+        largeImageKey: 'shuttle-ticket-large'
       }
     ]
 
@@ -148,10 +120,7 @@ export default class SCENENAME extends HighMoonScene {
           ]
           break
         case 'Breathing Helmet':
-          text = ["Great. Let's put this on and get off this weird bus. My back hurts like heck."]
-          this.time.delayedCall(2500, this.gong.play, [], this.gong)
-          this.time.delayedCall(10000, this.scene.start, ['NEXT'], this.scene)
-          this.time.delayedCall(5000, this.cameras.main.fade, [3000], this.cameras.main)
+          text = ['It would be really impolite to put on a breathing helmet right now.']
           break
       }
       this.textBox.close()
@@ -172,15 +141,23 @@ export default class SCENENAME extends HighMoonScene {
    <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   */
 
-  animateCreature() {
-    this.creature.play(Math.round(Math.random()) ? 'creature-blink' : 'creature-foot')
-    this.time.delayedCall(Math.random() * 10000, this.animateCreature, [], this)
+  blinkLights() {
+    this.add.tween({
+      targets: this.lightsImage,
+      duration: 1500,
+      alpha: 0.6,
+      ease: 'Sine.InOut',
+      yoyo: true,
+      repeat: -1
+    })
   }
 
   moveStars() {
     this.add.tween({
       targets: this.sky,
-      tilePositionX: this.sky.tilePositionX + 100,
+      tilePositionX: this.sky.tilePositionX + 300,
+      tilePositionY: this.sky.tilePositionY + 60,
+      rotation: this.sky.rotation + 0.01,
       duration: 10000,
       ease: 'Linear',
       yoyo: false,

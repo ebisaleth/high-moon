@@ -203,7 +203,7 @@ export default class SpaceBusScene extends HighMoonScene {
             this.time.delayedCall(10000, this.scene.start, ['PortNemScene'], this.scene)
             this.time.delayedCall(5000, this.cameras.main.fade, [3000], this.cameras.main)
           } else {
-            text = ['The air quality in this bus is a bit bad, but not that bad.']
+            text = ['The bus is a little smelly, but not _that_ smelly.']
           }
 
           break
@@ -228,6 +228,10 @@ export default class SpaceBusScene extends HighMoonScene {
         this.textBox
       )
       this.announced = true
+    } else {
+      this.textBox.startWithStringArray([
+        "§color[0xADADAD](Once you're ready to leave the bus, press TAB and drag the breathing helmet down here!)"
+      ])
     }
   }
 

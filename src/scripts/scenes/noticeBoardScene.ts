@@ -37,6 +37,7 @@ export default class NoticeBoardScene extends HighMoonScene {
     this.textBox.setStringArrayAsPassage([
       'Hmm...',
       'Maybe some of the plans on this notice board will help me figure out where I need to go to catch my shuttle.',
+      'I should look at them really closely.',
       this.memory.hasCheckedShuttleTicket
         ? "I think my ticket said Dock 4... let's see..."
         : 'I should probably also check my shuttle ticket.'
