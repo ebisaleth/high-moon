@@ -12,7 +12,7 @@ export default class SpaceBusScene extends HighMoonScene {
   book: Phaser.GameObjects.Image
 
   leaving: boolean
-  clickedSomething: boolean
+  announced: boolean
 
   constructor() {
     super('SpaceBusScene')
@@ -218,13 +218,16 @@ export default class SpaceBusScene extends HighMoonScene {
  */
 
   announcement() {
-    this.clickGuard.raise()
-    this.time.delayedCall(
-      1000,
-      this.textBox.startWithPassages,
-      [this.cache.text.get('announcement-text'), this.leave, this],
-      this.textBox
-    )
+    if (!this.announced) {
+      this.clickGuard.raise()
+      this.time.delayedCall(
+        1000,
+        this.textBox.startWithPassages,
+        [this.cache.text.get('announcement-text'), this.leave, this],
+        this.textBox
+      )
+      this.announced = true
+    }
   }
 
   leave() {
