@@ -5,6 +5,7 @@ import Scope from '../other/Scope'
 import ClickGuard from '../objects/clickGuard'
 import Memory from '../other/memory'
 import ParserCenter from '../other/ParserCenter'
+import TextInput from '../objects/textInput'
 
 export default abstract class HighMoonScene extends Phaser.Scene {
   tab: Phaser.Input.Keyboard.Key
@@ -17,6 +18,7 @@ export default abstract class HighMoonScene extends Phaser.Scene {
   menu: Menu
   inventory: Inventory
   textBox: TextBox
+  textInputs: TextInput[]
 
   customVarScope: Scope
 
@@ -34,6 +36,7 @@ export default abstract class HighMoonScene extends Phaser.Scene {
     if (!!config) {
       this.memory = config
     } else {
+      console.log('I INITIALISED THE SCENE AND I DID NOT GET A MEMORY NO')
       this.memory = new Memory()
     }
     console.dir(this.memory)
@@ -50,6 +53,14 @@ export default abstract class HighMoonScene extends Phaser.Scene {
     this.dragSetup()
 
     this.textBox = new TextBox(this)
+    this.textInputs = []
+    this.input.on('gameobjectdown', (pointer: any, gameObject: any) => {
+      this.textInputs.forEach(i => {
+        if (!(gameObject === i)) {
+          i.active = false
+        }
+      })
+    })
 
     this.clickGuard = new ClickGuard(this)
 
@@ -73,7 +84,6 @@ export default abstract class HighMoonScene extends Phaser.Scene {
     this.customVarScope = new Scope()
 
     this.events.on('textBoxEvent', this.handleTextBoxEvent, this)
-
   }
 
   fadeOut(duration: integer) {
@@ -161,20 +171,27 @@ export default abstract class HighMoonScene extends Phaser.Scene {
     // @ts-ignore
     let fun: any = this[funAndArgs[0]]
     let args: [string, string][] = funAndArgs[1]
-    console.log("tring to call function "+ fun + " with args " + args)
+    console.log('tring to call function ' + fun + ' with args ' + args)
 
     let parsedArgs: any[] = args.map(argAndType => ParserCenter.read(argAndType[0], argAndType[1]))
 
-    if(fun) {
+    if (fun) {
       fun(...parsedArgs)
     }
   }
 
-  f(a: any, b: any){
-    console.log("hi im the function f and was called with the parameters: " + a + " of type " + typeof a + " and " + b + " of type " + typeof b)
+  f(a: any, b: any) {
+    console.log(
+      'hi im the function f. i exist only for testing purposes and i and was called with the parameters: ' +
+        a +
+        ' of type ' +
+        typeof a +
+        ' and ' +
+        b +
+        ' of type ' +
+        typeof b
+    )
   }
-
-
 
   update() {
     // let clickables = Object.values(this).filter(thing => thing.input && thing.texture)
@@ -198,7 +215,7 @@ export default abstract class HighMoonScene extends Phaser.Scene {
       this.inventory.isOpen ? this.inventory.close() : this.inventory.open()
     }
 
-    if (Phaser.Input.Keyboard.JustDown(this.space) && !this.menu.isOpen) {
+    if (Phaser.Input.Keyboard.JustDown(this.space) && !this.menu.isOpen && this.textInputs.every(i => !i.active)) {
       this.textBox.advance()
     }
   }

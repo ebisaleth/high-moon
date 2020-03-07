@@ -5,6 +5,10 @@ export default class TextInput extends Phaser.GameObjects.Graphics {
 
   posX: number
   posY: number
+
+  thewidth: number
+  theheight: number
+
   content: string
   allowedLetters: number
   active: boolean
@@ -22,10 +26,36 @@ export default class TextInput extends Phaser.GameObjects.Graphics {
     active = true
   ) {
     super(scene)
+    scene.add.existing(this)
     this.scene = scene
     this.posX = posX
     this.posY = posY
     this.allowedLetters = allowedLetters
+
+    this.theheight = 30
+    this.thewidth = this.allowedLetters * 12 + 6
+
+    this.fillStyle(0x0000ff, 1)
+    this.fillRect(
+      this.posX - this.thewidth / 2,
+      this.posY - this.theheight / 2,
+      this.thewidth,
+      this.theheight
+    ).setDepth(11)
+
+    this.setInteractive({
+      hitArea: new Phaser.Geom.Rectangle(
+        this.posX - this.thewidth / 2,
+        this.posY - this.theheight / 2,
+        this.thewidth,
+        this.theheight
+      ),
+      hitAreaCallback: Phaser.Geom.Rectangle.Contains,
+      cursor: 'url(assets/img/cursorgreen.png), pointer'
+    }).on('pointerdown', () => {
+      this.active = true
+    })
+
     this.content = content
     this.active = active
     this.textGameObj = scene.add.bitmapText(posX, posY, 'profont', '').setDepth(12)
@@ -43,15 +73,22 @@ export default class TextInput extends Phaser.GameObjects.Graphics {
     })
 
     this.scene.input.keyboard.on('keydown', (event: { key: string }) => {
-      if (this.content.length < allowedLetters && this.active) {
-        if (event.key.length === 1) {
-          this.content = this.content.concat(event.key)
+      console.log(event.key)
+
+      if (this.active) {
+        if (this.content.length < allowedLetters) {
+          if (event.key.length === 1) {
+            this.content = this.content.concat(event.key)
+            this.cursor.clear()
+          }
+        }
+        if (event.key === 'Backspace') {
+          this.content = this.content.slice(0, -1) //delete last char
           this.cursor.clear()
         }
-      }
-      if (event.key === 'Backspace') {
-        this.content = this.content.slice(0, -1) //delete last char
-        this.cursor.clear()
+        if (event.key === 'Enter') {
+          this.active = false
+        }
       }
     })
   }
@@ -67,6 +104,13 @@ export default class TextInput extends Phaser.GameObjects.Graphics {
   hideCursor() {
     this.cursor.clear()
     this.cursorHidden = true
+  }
+
+  destroy() {
+    this.active = false
+    this.textGameObj.destroy()
+    this.cursor.destroy()
+    super.destroy()
   }
 
   update() {

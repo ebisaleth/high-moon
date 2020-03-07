@@ -1,6 +1,7 @@
 import PassageParser from '../other/passageParser'
 import { collectAllDependants } from 'ts-loader/dist/types/utils'
 import HighMoonScene from '../scenes/highMoonScene'
+import TextInput from './textInput'
 
 export default class TextBox extends Phaser.GameObjects.Graphics {
   scene: HighMoonScene
@@ -22,7 +23,7 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
 
   isOpen: Boolean
   isProgressing: Boolean
-  isChoosing: Boolean
+  isWaitingForPlayerAction: Boolean
   skippingThisLine: Boolean
 
   textGameObj: Phaser.GameObjects.BitmapText
@@ -93,7 +94,7 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
 
     this.isProgressing = false
     this.isOpen = false
-    this.isChoosing = false
+    this.isWaitingForPlayerAction = false
     this.skippingThisLine = false
 
     this.textGameObj = scene.add.bitmapText(x + 20, y + 20, 'profont', '').setDepth(11)
@@ -130,7 +131,6 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
       })
       this.madeChoiceCallBack = madeChoiceCallBack
       this.closeCallBack = closeCallBack.bind(closeCallBackScope)
-      console.dir(this)
       this.open()
     }
   }
@@ -193,12 +193,8 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
   }
 
   public advance() {
-    console.log('CALLED ADVANCE!')
-    console.log('in passage ' + this.passageCounter)
-    console.log('at line ' + this.lineCounter)
-
     this.hideTongle()
-    if (!this.isProgressing && !this.isChoosing && !this.scene.menu.isOpen) {
+    if (!this.isProgressing && !this.isWaitingForPlayerAction && !this.scene.menu.isOpen) {
       if (this.passageCounter < this.passages.length) {
         let textSource = this.passages[this.passageCounter].lines
 
@@ -211,7 +207,7 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
       } else {
         this.close()
       }
-    } else if (!this.isChoosing && !this.scene.menu.isOpen) {
+    } else if (!this.isWaitingForPlayerAction && !this.scene.menu.isOpen) {
       this.skippingThisLine = true
     }
   }
@@ -234,7 +230,7 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
     /* WORD WRAP */
     let wrappedLine = this.wordWrap(lineSansCommands)
 
-    console.log(line)
+    //console.log(line)
 
     this.textGameObj.text = ''
     this.scene.tweens.add({
@@ -267,7 +263,7 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
       this.passages[this.passageCounter].lines.length - 1 //are we at the last line of the passage?
     ) {
       if (this.passages[this.passageCounter].choices.length > 0) {
-        this.isChoosing = true
+        this.isWaitingForPlayerAction = true
         this.scene.time.delayedCall(
           this.DELAY * 3,
           this.offerChoice,
@@ -344,7 +340,6 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
         .forEach(command => {
           let varName: string = command.arg.split('=').slice(0, 2)[0]
           let varValue: string = command.arg.split('=').slice(0, 2)[1]
-          console.log('setting variable: ' + varName + ' ' + varValue)
           this.scene.customVarScope.add({ name: varName, value: varValue })
         })
 
@@ -364,7 +359,7 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
           }
         })
 
-      /* FUNCTION CALL WOW */
+      /* FUNCTION CALL WOW. I *WILL* SCRAP THIS! */
       parsedCommands
         .filter(command => command.name === 'call' && /^\w+\((\w+(:\s*\w+)?)(,\s*\w+(:\s*\w+)?)*\)$/.test(command.arg))
         .forEach(command => {
@@ -382,11 +377,18 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
           this.scene.events.emit('textBoxEvent', [funname, argslist])
         })
 
+      /* ASK PLAYER FOR TEXT INPUT */
+      parsedCommands
+        .filter(command => command.name === 'askfor')
+        .forEach(command => {
+          this.isWaitingForPlayerAction = true
+          this.scene.time.delayedCall(this.DELAY * 3, this.askForInput, [command.arg], this)
+        })
+
       /* GOTO! OH NO! */
       parsedCommands
         .filter(command => command.name === 'goto')
         .forEach(command => {
-          console.log('GOING SOMEWHERE!!!!')
           let goto = this.passages.find(passage => command.arg == passage.title)
 
           if (goto) {
@@ -403,9 +405,28 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
     }
   }
 
-  offerChoice(choices: Choice[]) {
-    console.log('called offer choices')
+  askForInput(prompt: string) {
+    let allowedLetters = 12 // TODO
+    let inputObj = new TextInput(this.scene, 40 + allowedLetters * 6, this.configY + 80, allowedLetters)
+    this.scene.textInputs.push(inputObj)
+    let confirmObj = this.scene.add
+      .bitmapText(40 + inputObj.allowedLetters * 12 + 30, this.configY + 80, 'profont', 'ok')
+      .setTint(0x88ddff)
+      .setOrigin(0, 0)
+      .setInteractive()
+      .setDepth(11)
+    confirmObj.on('pointerdown', () => {
+      inputObj.active = false
+      // @ts-ignore
+      this.scene.memory[prompt] = inputObj.content
+      confirmObj.destroy()
+      inputObj.destroy()
+      this.isWaitingForPlayerAction = false
+      this.advance()
+    })
+  }
 
+  offerChoice(choices: Choice[]) {
     //only do stuff if there are any choices!
     if (choices.length > 0) {
       this.choiceGameObjs = []
@@ -431,7 +452,7 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
         this.choiceGameObjs[index].on('pointerdown', () => {
           this.choiceGameObjs.forEach((choice: Phaser.GameObjects.BitmapText, index: number) => {
             choice.destroy()
-            this.isChoosing = false
+            this.isWaitingForPlayerAction = false
           })
           this.passageCounter = choices[index].goto - 1
           this.lineCounter = 0

@@ -236,7 +236,6 @@ export default class SpaceBusScene extends HighMoonScene {
   }
 
   leave() {
-    console.log('WE ARE LEAVING')
     this.leaving = true
   }
 

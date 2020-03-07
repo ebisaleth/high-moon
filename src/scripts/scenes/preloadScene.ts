@@ -1,5 +1,6 @@
 import inventory from '../objects/inventory'
 import Memory from '../other/memory'
+import TextInput from '../objects/textInput'
 
 let SKIPINTRO = true
 
@@ -70,7 +71,7 @@ export default class PreloadScene extends Phaser.Scene {
 
   nextScene() {
     if (SKIPINTRO) {
-      this.scene.start('ShuttleScene')
+      this.scene.start('TestScene')
     } else {
       this.scene.start('IntroScene')
     }

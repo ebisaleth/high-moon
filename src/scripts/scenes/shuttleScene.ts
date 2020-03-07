@@ -2,6 +2,8 @@ import HighMoonScene from './highMoonScene'
 import TextInput from '../objects/textInput'
 
 export default class ShuttleScene extends HighMoonScene {
+  surprise: any // sorry TS
+
   sky: Phaser.GameObjects.TileSprite
   lightsImage: Phaser.GameObjects.Image
   eye: Phaser.GameObjects.Image
@@ -19,6 +21,7 @@ export default class ShuttleScene extends HighMoonScene {
     this.load.image('shuttle', 'assets/img/shuttle/shuttle.png')
     this.load.image('shuttlelights', 'assets/img/shuttle/shuttlelights.png')
     this.load.image('eye', 'assets/img/shuttle/eyeframe1.png')
+    this.load.audio('surprise', 'assets/sound/deng.mp3')
   }
 
   create() {
@@ -34,7 +37,7 @@ export default class ShuttleScene extends HighMoonScene {
 
     this.time.delayedCall(3000, this.textBox.open, [], this.textBox)
 
-    this.inputField = new TextInput(this, 100, 100, 1000, 'aaaaaaa')
+    //    this.inputField = new TextInput(this, 100, 100, 1000, 'aaaaaaa')
 
     /*
       <<<<<<<<<<<<<<<<<<<   GRAPHICS SETUP  >>>>>>>>>>>>>>>>>>>>>
@@ -59,6 +62,11 @@ export default class ShuttleScene extends HighMoonScene {
 
     this.moveStars()
     this.blinkLights()
+
+    /* SOUND */
+
+    this.surprise = this.sound.add('surprise')
+    this.surprise.volume = 0.1
 
     /*
       <<<<<<<<<<<<<<<<<<<   SOUND SETUP  >>>>>>>>>>>>>>>>>>>>>
@@ -157,7 +165,7 @@ export default class ShuttleScene extends HighMoonScene {
       targets: this.sky,
       tilePositionX: this.sky.tilePositionX + 300,
       //  tilePositionY: this.sky.tilePositionY + 60,
-      rotation: this.sky.rotation + 0.01,
+      rotation: this.sky.rotation - 0.01,
       duration: 10000,
       ease: 'Linear',
       yoyo: false,
@@ -174,6 +182,6 @@ export default class ShuttleScene extends HighMoonScene {
 
   update() {
     super.update()
-    this.inputField.update()
+    // this.inputField.update()
   }
 }

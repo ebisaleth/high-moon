@@ -1,9 +1,11 @@
 import HighMoonScene from './highMoonScene'
+import TextInput from '../objects/textInput'
 
 export default class TestScene extends HighMoonScene {
   sky: Phaser.GameObjects.TileSprite
   creature: Phaser.GameObjects.Sprite
   sign: Phaser.GameObjects.Image
+  textInput: TextInput
 
   gong: any //sorry TS
 
@@ -13,7 +15,7 @@ export default class TestScene extends HighMoonScene {
 
   preload() {
     this.load.text('start-text', 'assets/json/space-bus-intro')
-    this.load.text('test123', 'assets/json/test123')
+    this.load.text('test123', 'assets/json/testaskforinput')
     this.load.image('space-bus-bg', 'assets/img/spacebus/space_bus_bg.png')
 
     this.load.spritesheet('space-bus-creature', 'assets/img/spacebus/space_bus_creature_frames.png', {
@@ -26,6 +28,12 @@ export default class TestScene extends HighMoonScene {
 
   create() {
     super.create()
+
+    /*
+     * <<<<<<<<<<<<<<<<<< TEXT INPUT >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+     * */
+
+    this.textInputs.push(new TextInput(this, 200, 200, 10, '', false))
 
     /*
       <<<<<<<<<<<<<<<<<<<  CAMERA AND TEXTBOX SETUP  >>>>>>>>>>>>>>>>>>>>>
@@ -179,6 +187,7 @@ export default class TestScene extends HighMoonScene {
 */
 
   update() {
+    this.textInputs.forEach(i => i.update())
     super.update()
   }
 }

@@ -1,7 +1,7 @@
 {
   "passages": [
     {
-      "text": "...\n§color[0x217554]...\n...\n§color[0x217554]So... \n§color[0x217554]Business or pleasure? \n(...?)\n(What?)\n[[What?]]\n[[Sorry, what?]]\n[[<Say nothing.>->(Say nothing.)]]",
+      "text": "...\n§color[0x217554]...\n...\n§color[0x217554]So... \n§sound[surprise]§color[0xffffff](!)\n§color[0x217554]Business or pleasure? \n(...?)\n(What?)\n[[What?]]\n[[Sorry, what?]]\n[[<Say nothing.>->(Say nothing.)]]",
       "links": [
         {
           "name": "What?",
@@ -22,8 +22,8 @@
       "name": "Untitled Passage",
       "pid": "1",
       "position": {
-        "x": "905",
-        "y": "344"
+        "x": "259.99999999999994",
+        "y": "381.3333333333333"
       }
     },
     {
@@ -31,17 +31,17 @@
       "name": "What?",
       "pid": "2",
       "position": {
-        "x": "708",
-        "y": "543"
+        "x": "491.3333333333333",
+        "y": "579.6666666666666"
       }
     },
     {
-      "text": "§color[0x217554]Heh. I was asking if you're going to High Moon for business, or for pleasure. \n§goto[notalotoftraffic]",
+      "text": "§color[0x217554]Heh. I was asking if you're going to High Moon for business, or for pleasure.  \n§goto[notalotoftraffic]",
       "name": "Sorry, what?",
       "pid": "3",
       "position": {
-        "x": "860",
-        "y": "544"
+        "x": "500",
+        "y": "426.3333333333333"
       }
     },
     {
@@ -61,17 +61,29 @@
       "name": "(Say nothing.)",
       "pid": "4",
       "position": {
-        "x": "1017",
-        "y": "537"
+        "x": "502",
+        "y": "280.3333333333333"
       }
     },
     {
-      "text": "§color[0x217554](This is where all paths should lead to!)",
+      "text": "§color[0x217554]So, have you been to this system before? \n[[Once, a long time ago.->BeenToBefore]]\n[[No, never.->NotBeenToBefore]]",
+      "links": [
+        {
+          "name": "Once, a long time ago.",
+          "link": "BeenToBefore",
+          "pid": "7"
+        },
+        {
+          "name": "No, never.",
+          "link": "NotBeenToBefore",
+          "pid": "8"
+        }
+      ],
       "name": "Alright.",
       "pid": "5",
       "position": {
-        "x": "976",
-        "y": "711"
+        "x": "945.9999999999999",
+        "y": "419.3333333333333"
       }
     },
     {
@@ -79,8 +91,88 @@
       "name": "notalotoftraffic",
       "pid": "6",
       "position": {
-        "x": "781",
-        "y": "664"
+        "x": "730.3333333333333",
+        "y": "481.99999999999994"
+      }
+    },
+    {
+      "text": "§set[beentobefore=true]\n§goto[WhereAreYouFrom]",
+      "name": "BeenToBefore",
+      "pid": "7",
+      "position": {
+        "x": "1194.3333333333333",
+        "y": "598.3333333333334"
+      }
+    },
+    {
+      "text": "§set[beentobefore=false]\n§goto[WhereAreYouFrom]",
+      "name": "NotBeenToBefore",
+      "pid": "8",
+      "position": {
+        "x": "1188.333333333333",
+        "y": "286.66666666666663"
+      }
+    },
+    {
+      "text": "successfully reached the end of the conversation!",
+      "name": "End",
+      "pid": "9",
+      "position": {
+        "x": "2991.3333333333335",
+        "y": "1468.1666666666667"
+      }
+    },
+    {
+      "text": "§color[0x217554]Huh.\n§color[0x217554]And where are you from, then? \n[[A small, terrestrial planet.]]\n[[A system near Alpha Centauri.]]\n[[The Orion Arm.]]",
+      "links": [
+        {
+          "name": "A small, terrestrial planet.",
+          "link": "A small, terrestrial planet.",
+          "pid": "11"
+        },
+        {
+          "name": "A system near Alpha Centauri.",
+          "link": "A system near Alpha Centauri.",
+          "pid": "12"
+        },
+        {
+          "name": "The Orion Arm.",
+          "link": "The Orion Arm.",
+          "pid": "13"
+        }
+      ],
+      "name": "WhereAreYouFrom",
+      "pid": "10",
+      "position": {
+        "x": "1346.0000000000002",
+        "y": "415.3333333333333"
+      }
+    },
+    {
+      "text": "§color[0x217554]Hmm! You grew up planetside? \n§color[0x217554]Around this corner of the universe, most people live on stations and space ships. \n§goto[End]",
+      "name": "A small, terrestrial planet.",
+      "pid": "11",
+      "position": {
+        "x": "1566.0000000000005",
+        "y": "591.9999999999999"
+      }
+    },
+    {
+      "text": "§color[0x217554]Hmm. I don't think I've ever heard of that one. \n§goto[End]",
+      "name": "A system near Alpha Centauri.",
+      "pid": "12",
+      "position": {
+        "x": "1562.3333333333335",
+        "y": "277.6666666666666"
+      }
+    },
+    {
+      "text": "§color[0x217554]Ah. \n§color[0x217554]Quite a far way from home, then. \n§goto[End]",
+      "name": "The Orion Arm.",
+      "pid": "13",
+      "position": {
+        "x": "1562.666666666667",
+        "y": "438.66666666666663"
       }
     }
   ],
