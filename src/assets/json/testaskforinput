@@ -1,12 +1,12 @@
 {
   "passages": [
     {
-      "text": "hello! \n§askfor[playerName]can i ask your name? \nthank you for telling me your name! ",
+      "text": "hello! \n§askfor[playerName,40,true]can i ask your name? \nthank you for telling me your name! \n§askfor[somethingelse]can is ask for something else entirely?\nyeah okay.",
       "name": "Untitled Passage",
       "pid": "1",
       "position": {
         "x": "412",
-        "y": "187.5"
+        "y": "187"
       }
     }
   ],

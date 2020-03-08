@@ -35,7 +35,7 @@ export default class TextInput extends Phaser.GameObjects.Graphics {
     this.theheight = 30
     this.thewidth = this.allowedLetters * 12 + 6
 
-    this.fillStyle(0x0000ff, 1)
+    this.fillStyle(0x001111, 1)
     this.fillRect(
       this.posX - this.thewidth / 2,
       this.posY - this.theheight / 2,

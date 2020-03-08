@@ -382,7 +382,16 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
         .filter(command => command.name === 'askfor')
         .forEach(command => {
           this.isWaitingForPlayerAction = true
-          this.scene.time.delayedCall(this.DELAY * 3, this.askForInput, [command.arg], this)
+          let args = command.arg.split(',')
+          let target = args[0]
+          let allowedletters = args[1] ? parseInt(args[1]) : 12
+          let canBeEmpty = args[2] ? /true/i.test(args[2]) : false
+          this.scene.time.delayedCall(
+            this.passages[this.passageCounter].lines[this.lineCounter].length * this.DELAY + this.DELAY * 3,
+            this.askForInput,
+            [target, allowedletters, canBeEmpty],
+            this
+          )
         })
 
       /* GOTO! OH NO! */
@@ -405,24 +414,25 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
     }
   }
 
-  askForInput(prompt: string) {
-    let allowedLetters = 12 // TODO
+  askForInput(target: string, allowedLetters: number, canBeEmpty: boolean) {
     let inputObj = new TextInput(this.scene, 40 + allowedLetters * 6, this.configY + 80, allowedLetters)
     this.scene.textInputs.push(inputObj)
     let confirmObj = this.scene.add
       .bitmapText(40 + inputObj.allowedLetters * 12 + 30, this.configY + 80, 'profont', 'ok')
       .setTint(0x88ddff)
-      .setOrigin(0, 0)
+      .setOrigin(0.5, 0.5)
       .setInteractive()
       .setDepth(11)
     confirmObj.on('pointerdown', () => {
-      inputObj.active = false
-      // @ts-ignore
-      this.scene.memory[prompt] = inputObj.content
-      confirmObj.destroy()
-      inputObj.destroy()
-      this.isWaitingForPlayerAction = false
-      this.advance()
+      if (canBeEmpty || inputObj.content.length > 0) {
+        inputObj.active = false
+        // @ts-ignore
+        this.scene.memory[target] = inputObj.content
+        confirmObj.destroy()
+        inputObj.destroy()
+        this.isWaitingForPlayerAction = false
+        this.advance()
+      }
     })
   }
 
