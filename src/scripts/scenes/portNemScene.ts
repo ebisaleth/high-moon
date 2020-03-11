@@ -67,6 +67,7 @@ export default class PortNemScene extends HighMoonScene {
 
       this.time.delayedCall(18000, this.fadeInMusic, [], this)
       this.spaceBusLeaving = this.sound.add('space-bus-leaving')
+      this.spaceBusLeaving.volume = 0.3
       this.spaceBusLeaving.play()
       this.memory.hasArrivedAtPortNemBefore = true
     }

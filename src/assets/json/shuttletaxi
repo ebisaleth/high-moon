@@ -22,26 +22,26 @@
       "name": "Untitled Passage",
       "pid": "1",
       "position": {
-        "x": "259.99999999999994",
-        "y": "381.3333333333333"
+        "x": "259",
+        "y": "381"
       }
     },
     {
-      "text": "§color[0x217554]Hmm. I was asking if you're going to High Moon for business, or for pleasure. \n§goto[notalotoftraffic]",
+      "text": "§color[0x217554]Hmm. I was asking if you're going to High Moon for business, or for pleasure. \n§color[0x217554]You know, is it a professional engagement, or is it a vacation. \n(...)\n(Actually, it's complicated...)\n(I'm not sure if that's appropriate shuttle taxi conversation, though.)\n§goto[notalotoftraffic]",
       "name": "What?",
       "pid": "2",
       "position": {
-        "x": "491.3333333333333",
-        "y": "579.6666666666666"
+        "x": "507.6666666666667",
+        "y": "584"
       }
     },
     {
-      "text": "§color[0x217554]Heh. I was asking if you're going to High Moon for business, or for pleasure.  \n§goto[notalotoftraffic]",
+      "text": "§color[0x217554]Heh. I was asking if you're going to High Moon for business, or for pleasure.  \n§color[0x217554]You know, is it a professional engagement, or is it a vacation. \n(...)\n(Actually, it's complicated...)\n(I'm not sure if that's appropriate shuttle taxi conversation, though.)\n§goto[notalotoftraffic]",
       "name": "Sorry, what?",
       "pid": "3",
       "position": {
         "x": "500",
-        "y": "426.3333333333333"
+        "y": "426"
       }
     },
     {
@@ -62,7 +62,7 @@
       "pid": "4",
       "position": {
         "x": "502",
-        "y": "280.3333333333333"
+        "y": "280"
       }
     },
     {
@@ -82,17 +82,29 @@
       "name": "Alright.",
       "pid": "5",
       "position": {
-        "x": "945.9999999999999",
-        "y": "419.3333333333333"
+        "x": "946",
+        "y": "419"
       }
     },
     {
-      "text": "§color[0x217554]Well, the place doesn't get a lot of traffic of either sort.\n§goto[Alright.]",
+      "text": "§color[0x217554]Well, the place doesn't get a lot of traffic of either sort.\n[[Yes, I gathered as much.->Alright.]]\n[[I had no idea.->Alright.]]",
+      "links": [
+        {
+          "name": "Yes, I gathered as much.",
+          "link": "Alright.",
+          "pid": "5"
+        },
+        {
+          "name": "I had no idea.",
+          "link": "Alright.",
+          "pid": "5"
+        }
+      ],
       "name": "notalotoftraffic",
       "pid": "6",
       "position": {
-        "x": "730.3333333333333",
-        "y": "481.99999999999994"
+        "x": "681",
+        "y": "484"
       }
     },
     {
@@ -100,8 +112,8 @@
       "name": "BeenToBefore",
       "pid": "7",
       "position": {
-        "x": "1194.3333333333333",
-        "y": "598.3333333333334"
+        "x": "1194",
+        "y": "598"
       }
     },
     {
@@ -109,8 +121,8 @@
       "name": "NotBeenToBefore",
       "pid": "8",
       "position": {
-        "x": "1188.333333333333",
-        "y": "286.66666666666663"
+        "x": "1188",
+        "y": "286"
       }
     },
     {
@@ -118,8 +130,8 @@
       "name": "End",
       "pid": "9",
       "position": {
-        "x": "2991.3333333333335",
-        "y": "1468.1666666666667"
+        "x": "2991",
+        "y": "1468"
       }
     },
     {
@@ -144,35 +156,86 @@
       "name": "WhereAreYouFrom",
       "pid": "10",
       "position": {
-        "x": "1346.0000000000002",
-        "y": "415.3333333333333"
+        "x": "1346",
+        "y": "415"
       }
     },
     {
-      "text": "§color[0x217554]Hmm! You grew up planetside? \n§color[0x217554]Around this corner of the universe, most people live on stations and space ships. \n§goto[End]",
+      "text": "§color[0x217554]So you grew up planetside? \n§color[0x217554]Around this corner of the universe, most people live on stations and space ships. \n§goto[Name]",
       "name": "A small, terrestrial planet.",
       "pid": "11",
       "position": {
-        "x": "1566.0000000000005",
-        "y": "591.9999999999999"
+        "x": "1566",
+        "y": "591"
       }
     },
     {
-      "text": "§color[0x217554]Hmm. I don't think I've ever heard of that one. \n§goto[End]",
+      "text": "§color[0x217554]Hmm. I don't think I've ever heard of that one. \n§goto[Name]",
       "name": "A system near Alpha Centauri.",
       "pid": "12",
       "position": {
-        "x": "1562.3333333333335",
-        "y": "277.6666666666666"
+        "x": "1563",
+        "y": "277"
       }
     },
     {
-      "text": "§color[0x217554]Ah. \n§color[0x217554]Quite a far way from home, then. \n§goto[End]",
+      "text": "§color[0x217554]Ah. \n§color[0x217554]Quite a far way from home, then. \n§goto[Name]",
       "name": "The Orion Arm.",
       "pid": "13",
       "position": {
-        "x": "1562.666666666667",
-        "y": "438.66666666666663"
+        "x": "1560",
+        "y": "438"
+      }
+    },
+    {
+      "text": "§askfor[playerName,20,true]§color[0x217554]What's your name, by the way? \n§color[0x217554]§playerNameButchered[]\n§color[0x217554]Am I pronouncing that correctly?\n[[Not quite...->RetryName]]\n[[Um, yes, sure.->Pronouns]]",
+      "links": [
+        {
+          "name": "Not quite...",
+          "link": "RetryName",
+          "pid": "15"
+        },
+        {
+          "name": "Um, yes, sure.",
+          "link": "Pronouns",
+          "pid": "16"
+        }
+      ],
+      "name": "Name",
+      "pid": "14",
+      "position": {
+        "x": "1778",
+        "y": "441"
+      }
+    },
+    {
+      "text": "§color[0x217554]§playerNameButchered[]\n[[Um, sure, much better.->Pronouns]]\n[[Not quite, sorry.->RetryName]]",
+      "links": [
+        {
+          "name": "Um, sure, much better.",
+          "link": "Pronouns",
+          "pid": "16"
+        },
+        {
+          "name": "Not quite, sorry.",
+          "link": "RetryName",
+          "pid": "15"
+        }
+      ],
+      "name": "RetryName",
+      "pid": "15",
+      "position": {
+        "x": "1776.3333333333333",
+        "y": "592.6666666666666"
+      }
+    },
+    {
+      "text": "§color[0x217554]Sorry, I'm not all that good at that. ",
+      "name": "Pronouns",
+      "pid": "16",
+      "position": {
+        "x": "2046.3333333333335",
+        "y": "356"
       }
     }
   ],

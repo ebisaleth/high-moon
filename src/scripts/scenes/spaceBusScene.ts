@@ -224,9 +224,10 @@ export default class SpaceBusScene extends HighMoonScene {
       this.time.delayedCall(
         1000,
         this.textBox.startWithPassages,
-        [this.cache.text.get('announcement-text'), this.leave, this],
+        [this.cache.text.get('announcement-text')],
         this.textBox
       )
+      this.leaving = true
       this.announced = true
     } else {
       this.textBox.startWithStringArray([

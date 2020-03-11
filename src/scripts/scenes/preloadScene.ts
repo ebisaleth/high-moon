@@ -71,7 +71,7 @@ export default class PreloadScene extends Phaser.Scene {
 
   nextScene() {
     if (SKIPINTRO) {
-      this.scene.start('TestScene')
+      this.scene.start('ShuttleScene')
     } else {
       this.scene.start('IntroScene')
     }

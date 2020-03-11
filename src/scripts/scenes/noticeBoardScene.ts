@@ -49,6 +49,7 @@ export default class NoticeBoardScene extends HighMoonScene {
     let planX = 590
 
     this.add.image(0, 0, 'noticeboard-bg').setOrigin(0, 0)
+
     this.add
       .image(230, 400, 'noticeboard-missing')
       .setOrigin(0, 0)

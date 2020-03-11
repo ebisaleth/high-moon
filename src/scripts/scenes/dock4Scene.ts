@@ -75,7 +75,8 @@ export default class Dock4Scene extends HighMoonScene {
     this.shuttle.on('pointerdown', () => {
       if (this.gaveTicket) {
         this.clickGuard.raise()
-        this.cameras.main.fade(3000)
+        this.time.delayedCall(6000, this.scene.start, ['ShuttleScene', this.memory], this.scene)
+        this.time.delayedCall(1000, this.cameras.main.fade, [3000], this.cameras.main)
         this.add.tween({ targets: this.hover, duration: 2000, volume: 0 })
       } else if (!this.clickedShuttle) {
         this.clickedShuttle = true
@@ -239,12 +240,11 @@ export default class Dock4Scene extends HighMoonScene {
             break
           case 'Shuttle Ticket':
             text = ['...', '...', '§color[0x217554]Greetings.', '§color[0x217554]Please come aboard.']
-            this.time.delayedCall(
-              1000,
-              this.add.tween,
-              [{ targets: this.shuttleWindow, alpha: 0, duration: 1000 }],
-              this.add
-            )
+            this.add.tween({
+              targets: this.shuttleWindow,
+              alpha: 0,
+              duration: 2000
+            })
             this.inventory.removeContent('Shuttle Ticket')
             this.gaveTicket = true
             break

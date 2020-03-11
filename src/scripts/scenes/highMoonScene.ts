@@ -207,6 +207,8 @@ export default abstract class HighMoonScene extends Phaser.Scene {
     //   }
     // })
 
+    this.textInputs.forEach(i => i.update())
+
     if (Phaser.Input.Keyboard.JustDown(this.esc)) {
       this.menu.isOpen ? this.menu.close() : this.menu.open()
     }
@@ -218,5 +220,10 @@ export default abstract class HighMoonScene extends Phaser.Scene {
     if (Phaser.Input.Keyboard.JustDown(this.space) && !this.menu.isOpen && this.textInputs.every(i => !i.active)) {
       this.textBox.advance()
     }
+  }
+
+  nextScene(nextSceneKey: string) {
+    this.time.delayedCall(4000, this.scene.start, [nextSceneKey, this.memory], this.scene)
+    this.time.delayedCall(2000, this.cameras.main.fade, [3000], this.cameras.main)
   }
 }

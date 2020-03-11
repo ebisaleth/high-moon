@@ -1,3 +1,5 @@
+// WILL BE SCRAPPED
+
 export default class Scope {
   vars: Variable[]
 

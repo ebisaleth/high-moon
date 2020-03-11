@@ -33,7 +33,7 @@ export default class TestScene extends HighMoonScene {
      * <<<<<<<<<<<<<<<<<< TEXT INPUT >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
      * */
 
-    this.textInputs.push(new TextInput(this, 200, 200, 10, '', false))
+    //this.textInputs.push(new TextInput(this, 200, 200, 10, '', false))
 
     /*
       <<<<<<<<<<<<<<<<<<<  CAMERA AND TEXTBOX SETUP  >>>>>>>>>>>>>>>>>>>>>
@@ -59,7 +59,8 @@ export default class TestScene extends HighMoonScene {
       if (!this.textBox.isOpen) {
         this.textBox.setStringArrayAsPassage([
           'Ill tell you the value of the variable thing:',
-          this.customVarScope.valueOfWithDefault('thing', "oops don't have it").toString()
+          //   this.customVarScope.valueOfWithDefault('thing', "oops don't have it").toString()
+          "no i won't sorry"
         ])
         this.textBox.open()
       }
@@ -187,7 +188,6 @@ export default class TestScene extends HighMoonScene {
 */
 
   update() {
-    this.textInputs.forEach(i => i.update())
     super.update()
   }
 }

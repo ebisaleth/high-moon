@@ -14,7 +14,7 @@ export default class ShuttleScene extends HighMoonScene {
   }
 
   preload() {
-    this.load.text('start-text', 'assets/json/shuttletaxi')
+    this.load.text('shuttle-text', 'assets/json/shuttletaxi')
 
     this.load.image('shuttleskybg', 'assets/img/shuttle/shuttleskybg.png')
     this.load.image('shuttlestars', 'assets/img/shuttle/shuttlestars.png')
@@ -33,11 +33,9 @@ export default class ShuttleScene extends HighMoonScene {
 
     this.cameras.main.fadeFrom(3000)
 
-    this.textBox.setJsonStringAsPassages(this.cache.text.get('start-text'))
+    this.textBox.setJsonStringAsPassages(this.cache.text.get('shuttle-text'))
 
     this.time.delayedCall(3000, this.textBox.open, [], this.textBox)
-
-    //    this.inputField = new TextInput(this, 100, 100, 1000, 'aaaaaaa')
 
     /*
       <<<<<<<<<<<<<<<<<<<   GRAPHICS SETUP  >>>>>>>>>>>>>>>>>>>>>
@@ -128,7 +126,14 @@ export default class ShuttleScene extends HighMoonScene {
           ]
           break
         case 'Breathing Helmet':
-          text = ['It would be really impolite to put on a breathing helmet right now.']
+          text = [
+            'It would be really impolite to put on a breathing helmet right now.',
+            'They would probably think that I think that they smell bad.',
+            "When in reality, they don't really smell of anything.",
+            '...',
+            "Oh god, I hope _I_ don't smell bad.",
+            'Should I offer them the helmet?'
+          ]
           break
       }
       this.textBox.close()
@@ -182,6 +187,5 @@ export default class ShuttleScene extends HighMoonScene {
 
   update() {
     super.update()
-    // this.inputField.update()
   }
 }

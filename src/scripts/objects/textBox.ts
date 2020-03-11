@@ -360,22 +360,22 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
         })
 
       /* FUNCTION CALL WOW. I *WILL* SCRAP THIS! */
-      parsedCommands
-        .filter(command => command.name === 'call' && /^\w+\((\w+(:\s*\w+)?)(,\s*\w+(:\s*\w+)?)*\)$/.test(command.arg))
-        .forEach(command => {
-          let funname: string = command.arg.split('(')[0]
-          let argslist: [string, string][] = command.arg
-            .split('(')[1]
-            .slice(0, -1)
-            .split(',')
-            .map(argAndTypeString => {
-              let splitted = argAndTypeString.split(':').map(string => string.trim())
-              let typestring = splitted[1] ? splitted[1] : ''
-              let valuestring = splitted[0]
-              return [typestring, valuestring]
-            })
-          this.scene.events.emit('textBoxEvent', [funname, argslist])
-        })
+      // parsedCommands
+      //   .filter(command => command.name === 'call' && /^\w+\((\w+(:\s*\w+)?)(,\s*\w+(:\s*\w+)?)*\)$/.test(command.arg))
+      //   .forEach(command => {
+      //     let funname: string = command.arg.split('(')[0]
+      //     let argslist: [string, string][] = command.arg
+      //       .split('(')[1]
+      //       .slice(0, -1)
+      //       .split(',')
+      //       .map(argAndTypeString => {
+      //         let splitted = argAndTypeString.split(':').map(string => string.trim())
+      //         let typestring = splitted[1] ? splitted[1] : ''
+      //         let valuestring = splitted[0]
+      //         return [typestring, valuestring]
+      //       })
+      //     this.scene.events.emit('textBoxEvent', [funname, argslist])
+      //   })
 
       /* ASK PLAYER FOR TEXT INPUT */
       parsedCommands
@@ -407,6 +407,58 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
             this.passageCounter = goto.pid - 1
             this.advance()
           }
+        })
+
+      /*Player Name Butchered */
+
+      parsedCommands
+        .filter(command => command.name === 'playerNameButchered')
+        .forEach(command => {
+          // TODO
+          let butcheredName = ''
+
+          for (var i = 0; i < this.scene.memory.playerName.length; i++) {
+            let letterToMessUp = ''
+            switch (this.scene.memory.playerName.charAt(i).toLowerCase()) {
+              case 'k':
+                letterToMessUp = 'g'
+                break
+              case 'g':
+                letterToMessUp = 'k'
+                break
+              case 'b':
+                letterToMessUp = 'p'
+                break
+              case 'p':
+                letterToMessUp = 'b'
+                break
+              case 'l':
+                letterToMessUp = 'w'
+                break
+              case 'r':
+                letterToMessUp = 'w'
+                break
+              case 't':
+                letterToMessUp = 'd'
+                break
+              case 'd':
+                letterToMessUp = 't'
+                break
+              case 's':
+                letterToMessUp = 'sh'
+                break
+              case 'i':
+                letterToMessUp = 'ee'
+                break
+              default:
+                letterToMessUp = this.scene.memory.playerName.charAt(i)
+            }
+            butcheredName =
+              butcheredName +
+              (Math.random() > 0.8 && i > 0 && i < this.scene.memory.playerName.length - 1 ? '-' : '') +
+              (Math.random() > 0.4 ? letterToMessUp : this.scene.memory.playerName.charAt(i))
+          }
+          message = message + butcheredName + '...?'
         })
 
       /* DONE! */
