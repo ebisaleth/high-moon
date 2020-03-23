@@ -35,7 +35,12 @@ export default class ShuttleScene extends HighMoonScene {
 
     this.textBox.setJsonStringAsPassages(this.cache.text.get('shuttle-text'))
 
-    this.time.delayedCall(3000, this.textBox.open, [], this.textBox)
+    this.time.delayedCall(
+      3000,
+      this.textBox.startWithPassages,
+      [this.cache.text.get('shuttle-text'), this.end, this],
+      this.textBox
+    )
 
     /*
       <<<<<<<<<<<<<<<<<<<   GRAPHICS SETUP  >>>>>>>>>>>>>>>>>>>>>
@@ -153,6 +158,11 @@ export default class ShuttleScene extends HighMoonScene {
    <<<<<<<<<<<<<<<<<<<  NON-PUBLIC FUNCTIONS >>>>>>>>>>>>>>>>>>>>>
    <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   */
+
+  end() {
+    this.time.delayedCall(5000, this.scene.start, ['EndScene'], this.scene)
+    this.time.delayedCall(2000, this.cameras.main.fade, [3000], this.cameras.main)
+  }
 
   blinkLights() {
     this.add.tween({

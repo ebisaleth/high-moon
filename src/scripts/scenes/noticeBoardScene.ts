@@ -23,6 +23,7 @@ export default class NoticeBoardScene extends HighMoonScene {
 
   create() {
     super.create()
+    console.log(this.BGmusic)
 
     /* clicky gartdi*/
 
@@ -170,6 +171,11 @@ export default class NoticeBoardScene extends HighMoonScene {
               case 'yes':
                 this.clickGuard.raise()
                 this.fadeOut(1500)
+                this.tweens.add({
+                  targets: this.BGmusic,
+                  duration: 1000,
+                  volume: 0
+                })
                 this.scene.start('Dock4Scene', this.memory)
                 break
               case 'no':
@@ -313,7 +319,7 @@ export default class NoticeBoardScene extends HighMoonScene {
       })
       .on('pointerdown', () => {
         this.scene.stop('NoticeBoardScene')
-        this.scene.start('PortNemScene', this.memory)
+        this.scene.start('PortNemScene', { memory: this.memory })
       })
 
     this.add.tween({

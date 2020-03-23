@@ -75,7 +75,7 @@ export default class Dock4Scene extends HighMoonScene {
     this.shuttle.on('pointerdown', () => {
       if (this.gaveTicket) {
         this.clickGuard.raise()
-        this.time.delayedCall(6000, this.scene.start, ['ShuttleScene', this.memory], this.scene)
+        this.time.delayedCall(6000, this.scene.start, ['ShuttleScene', { memory: this.memory }], this.scene)
         this.time.delayedCall(1000, this.cameras.main.fade, [3000], this.cameras.main)
         this.add.tween({ targets: this.hover, duration: 2000, volume: 0 })
       } else if (!this.clickedShuttle) {

@@ -21,6 +21,7 @@ export default abstract class HighMoonScene extends Phaser.Scene {
   textInputs: TextInput[]
 
   customVarScope: Scope
+  BGmusic: any
 
   memory: Memory
 
@@ -32,12 +33,15 @@ export default abstract class HighMoonScene extends Phaser.Scene {
 
   /* Playing with variables. Might be scrapped. */
 
-  init(config: Memory) {
-    if (!!config) {
-      this.memory = config
+  init(data: any) {
+    if (!!data.memory) {
+      this.memory = data.memory
     } else {
       console.log('I INITIALISED THE SCENE AND I DID NOT GET A MEMORY NO')
       this.memory = new Memory()
+    }
+    if (!!data.music) {
+      this.BGmusic = data.music
     }
     console.dir(this.memory)
   }
@@ -223,7 +227,7 @@ export default abstract class HighMoonScene extends Phaser.Scene {
   }
 
   nextScene(nextSceneKey: string) {
-    this.time.delayedCall(4000, this.scene.start, [nextSceneKey, this.memory], this.scene)
+    this.time.delayedCall(4000, this.scene.start, [nextSceneKey, { memory: this.memory }], this.scene)
     this.time.delayedCall(2000, this.cameras.main.fade, [3000], this.cameras.main)
   }
 }

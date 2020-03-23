@@ -7,6 +7,7 @@ import TestScene from './scenes/testScene'
 import NoticeBoardScene from './scenes/noticeBoardScene'
 import Dock4Scene from './scenes/dock4Scene'
 import ShuttleScene from './scenes/shuttleScene'
+import EndScene from './scenes/endScene'
 
 const DEFAULT_WIDTH = 1228
 const DEFAULT_HEIGHT = 800
@@ -22,7 +23,17 @@ const config: GameConfig = {
     width: DEFAULT_WIDTH,
     height: DEFAULT_HEIGHT
   },
-  scene: [PreloadScene, IntroScene, TestScene, SpaceBusScene, PortNemScene, NoticeBoardScene, Dock4Scene, ShuttleScene],
+  scene: [
+    PreloadScene,
+    IntroScene,
+    TestScene,
+    SpaceBusScene,
+    PortNemScene,
+    NoticeBoardScene,
+    Dock4Scene,
+    ShuttleScene,
+    EndScene
+  ],
   audio: {
     disableWebAudio: true
   }

@@ -2,7 +2,8 @@ import inventory from '../objects/inventory'
 import Memory from '../other/memory'
 import TextInput from '../objects/textInput'
 
-let SKIPINTRO = true
+let DEBUG = true
+let DEBUG_START_SCENE = 'PortNemScene'
 
 export default class PreloadScene extends Phaser.Scene {
   text: Phaser.GameObjects.BitmapText
@@ -70,8 +71,8 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   nextScene() {
-    if (SKIPINTRO) {
-      this.scene.start('ShuttleScene')
+    if (DEBUG) {
+      this.scene.start(DEBUG_START_SCENE)
     } else {
       this.scene.start('IntroScene')
     }

@@ -1,7 +1,7 @@
 {
   "passages": [
     {
-      "text": "...\n§color[0x217554]...\n...\n§color[0x217554]So... \n§sound[surprise]§color[0xffffff](!)\n§color[0x217554]Business or pleasure? \n(...?)\n(What?)\n[[What?]]\n[[Sorry, what?]]\n[[<Say nothing.>->(Say nothing.)]]",
+      "text": "...\n§color[0x217554]...\n...\n(The shuttle is really quiet during flight.)\n(I can really hear my own thoughts...)\n§color[0x217554]So... \n§sound[surprise]§color[0xffffff](!)\n(They said something!)\n§color[0x217554]Business or pleasure? \n(...?)\n(What?)\n[[What?]]\n[[Sorry, what?]]\n[[<Say nothing.>->(Say nothing.)]]",
       "links": [
         {
           "name": "What?",
@@ -22,8 +22,8 @@
       "name": "Untitled Passage",
       "pid": "1",
       "position": {
-        "x": "259",
-        "y": "381"
+        "x": "405",
+        "y": "37.5"
       }
     },
     {
@@ -31,8 +31,8 @@
       "name": "What?",
       "pid": "2",
       "position": {
-        "x": "507.6666666666667",
-        "y": "584"
+        "x": "263",
+        "y": "336.5"
       }
     },
     {
@@ -40,8 +40,8 @@
       "name": "Sorry, what?",
       "pid": "3",
       "position": {
-        "x": "500",
-        "y": "426"
+        "x": "413",
+        "y": "337.5"
       }
     },
     {
@@ -61,8 +61,8 @@
       "name": "(Say nothing.)",
       "pid": "4",
       "position": {
-        "x": "502",
-        "y": "280"
+        "x": "563",
+        "y": "337.5"
       }
     },
     {
@@ -71,23 +71,41 @@
         {
           "name": "Once, a long time ago.",
           "link": "BeenToBefore",
-          "pid": "7"
+          "pid": "6"
         },
         {
           "name": "No, never.",
           "link": "NotBeenToBefore",
-          "pid": "8"
+          "pid": "7"
         }
       ],
       "name": "Alright.",
       "pid": "5",
       "position": {
-        "x": "946",
-        "y": "419"
+        "x": "563",
+        "y": "487.5"
       }
     },
     {
-      "text": "§color[0x217554]Well, the place doesn't get a lot of traffic of either sort.\n[[Yes, I gathered as much.->Alright.]]\n[[I had no idea.->Alright.]]",
+      "text": "§set[beentobefore=true]\n§goto[WhereAreYouFrom]",
+      "name": "BeenToBefore",
+      "pid": "6",
+      "position": {
+        "x": "488",
+        "y": "637.5"
+      }
+    },
+    {
+      "text": "§set[beentobefore=false]\n§goto[WhereAreYouFrom]",
+      "name": "NotBeenToBefore",
+      "pid": "7",
+      "position": {
+        "x": "638",
+        "y": "637.5"
+      }
+    },
+    {
+      "text": "§color[0x217554]Well, the place doesn't get a lot of traffic of either sort.\n[[Yes, I gathered as much.->Alright.]]\n[[I had no idea. (Not true.)->Alright.]]",
       "links": [
         {
           "name": "Yes, I gathered as much.",
@@ -95,43 +113,16 @@
           "pid": "5"
         },
         {
-          "name": "I had no idea.",
+          "name": "I had no idea. (Not true.)",
           "link": "Alright.",
           "pid": "5"
         }
       ],
       "name": "notalotoftraffic",
-      "pid": "6",
-      "position": {
-        "x": "681",
-        "y": "484"
-      }
-    },
-    {
-      "text": "§set[beentobefore=true]\n§goto[WhereAreYouFrom]",
-      "name": "BeenToBefore",
-      "pid": "7",
-      "position": {
-        "x": "1194",
-        "y": "598"
-      }
-    },
-    {
-      "text": "§set[beentobefore=false]\n§goto[WhereAreYouFrom]",
-      "name": "NotBeenToBefore",
       "pid": "8",
       "position": {
-        "x": "1188",
-        "y": "286"
-      }
-    },
-    {
-      "text": "successfully reached the end of the conversation!",
-      "name": "End",
-      "pid": "9",
-      "position": {
-        "x": "2991",
-        "y": "1468"
+        "x": "262",
+        "y": "477.5"
       }
     },
     {
@@ -140,51 +131,51 @@
         {
           "name": "A small, terrestrial planet.",
           "link": "A small, terrestrial planet.",
-          "pid": "11"
+          "pid": "10"
         },
         {
           "name": "A system near Alpha Centauri.",
           "link": "A system near Alpha Centauri.",
-          "pid": "12"
+          "pid": "11"
         },
         {
           "name": "The Orion Arm.",
           "link": "The Orion Arm.",
-          "pid": "13"
+          "pid": "12"
         }
       ],
       "name": "WhereAreYouFrom",
-      "pid": "10",
+      "pid": "9",
       "position": {
-        "x": "1346",
-        "y": "415"
+        "x": "563",
+        "y": "780.5"
       }
     },
     {
       "text": "§color[0x217554]So you grew up planetside? \n§color[0x217554]Around this corner of the universe, most people live on stations and space ships. \n§goto[Name]",
       "name": "A small, terrestrial planet.",
-      "pid": "11",
+      "pid": "10",
       "position": {
-        "x": "1566",
-        "y": "591"
+        "x": "413",
+        "y": "930.5"
       }
     },
     {
-      "text": "§color[0x217554]Hmm. I don't think I've ever heard of that one. \n§goto[Name]",
+      "text": "§color[0x217554]Hmm. I don't think I've ever heard of that one. §goto[Name]",
       "name": "A system near Alpha Centauri.",
-      "pid": "12",
+      "pid": "11",
       "position": {
-        "x": "1563",
-        "y": "277"
+        "x": "563",
+        "y": "929.5"
       }
     },
     {
       "text": "§color[0x217554]Ah. \n§color[0x217554]Quite a far way from home, then. \n§goto[Name]",
       "name": "The Orion Arm.",
-      "pid": "13",
+      "pid": "12",
       "position": {
-        "x": "1560",
-        "y": "438"
+        "x": "713",
+        "y": "930.5"
       }
     },
     {
@@ -193,49 +184,162 @@
         {
           "name": "Not quite...",
           "link": "RetryName",
-          "pid": "15"
+          "pid": "14"
         },
         {
           "name": "Um, yes, sure.",
           "link": "Pronouns",
-          "pid": "16"
+          "pid": "15"
         }
       ],
       "name": "Name",
-      "pid": "14",
+      "pid": "13",
       "position": {
-        "x": "1778",
-        "y": "441"
+        "x": "563",
+        "y": "1085.5"
       }
     },
     {
-      "text": "§color[0x217554]§playerNameButchered[]\n[[Um, sure, much better.->Pronouns]]\n[[Not quite, sorry.->RetryName]]",
+      "text": "§color[0x217554]\n§playerNameButchered[]\n[[Um, sure, much better.->Pronouns]]\n[[Not quite, sorry.->RetryName]]",
       "links": [
         {
           "name": "Um, sure, much better.",
           "link": "Pronouns",
-          "pid": "16"
+          "pid": "15"
         },
         {
           "name": "Not quite, sorry.",
           "link": "RetryName",
-          "pid": "15"
+          "pid": "14"
         }
       ],
       "name": "RetryName",
-      "pid": "15",
+      "pid": "14",
       "position": {
-        "x": "1776.3333333333333",
-        "y": "592.6666666666666"
+        "x": "488",
+        "y": "1235.5"
       }
     },
     {
-      "text": "§color[0x217554]Sorry, I'm not all that good at that. ",
+      "text": "§color[0x217554]Huh!\n§color[0x217554]Good to meet you. \n§color[0x217554]So... §{{playerName}}...\n§color[0x217554]I don't mean to pry, but I noticed that you've got a one-way ticket. \n§color[0x217554]How long will you be staying?\n[[Only as long as I need to.]]\n[[Quite a while.]]\n[[I don't know yet.]]",
+      "links": [
+        {
+          "name": "Only as long as I need to.",
+          "link": "Only as long as I need to.",
+          "pid": "16"
+        },
+        {
+          "name": "Quite a while.",
+          "link": "Quite a while.",
+          "pid": "17"
+        },
+        {
+          "name": "I don't know yet.",
+          "link": "I don't know yet.",
+          "pid": "18"
+        }
+      ],
       "name": "Pronouns",
+      "pid": "15",
+      "position": {
+        "x": "638",
+        "y": "1235.5"
+      }
+    },
+    {
+      "text": "§color[0x217554]Oh. \n§color[0x217554]Well, I guess it's not the most exciting place to be. \n§goto[WhyAreYouGoing]",
+      "name": "Only as long as I need to.",
       "pid": "16",
       "position": {
-        "x": "2046.3333333333335",
-        "y": "356"
+        "x": "488",
+        "y": "1384.5"
+      }
+    },
+    {
+      "text": "§color[0x217554]Oh. \n§color[0x217554]Well. \n§color[0x217554]It's certainly not the worst place in the galaxy. \n§color[0x217554]Definitely very quiet. \n§goto[WhyAreYouGoing]",
+      "name": "Quite a while.",
+      "pid": "17",
+      "position": {
+        "x": "633",
+        "y": "1426"
+      }
+    },
+    {
+      "text": "§color[0x217554]Huh...\n§color[0x217554]Interesting.\n§goto[WhyAreYouGoing]",
+      "name": "I don't know yet.",
+      "pid": "18",
+      "position": {
+        "x": "787",
+        "y": "1384.5"
+      }
+    },
+    {
+      "text": "§color[0x217554]So...\n§color[0x217554]Forgive me, I'm a wee bit curios now. \n§color[0x217554]Why are you going to High Moon?\n[[I needed a change. (Well, true.)->I needed some distance. (True.)]]\n[[I needed some distance. (True.)]]\n[[It wasn't my choice. (True.)]]",
+      "links": [
+        {
+          "name": "I needed a change. (Well, true.)",
+          "link": "I needed some distance. (True.)",
+          "pid": "20"
+        },
+        {
+          "name": "I needed some distance. (True.)",
+          "link": "I needed some distance. (True.)",
+          "pid": "20"
+        },
+        {
+          "name": "It wasn't my choice. (True.)",
+          "link": "It wasn't my choice. (True.)",
+          "pid": "21"
+        }
+      ],
+      "name": "WhyAreYouGoing",
+      "pid": "19",
+      "position": {
+        "x": "649",
+        "y": "1637"
+      }
+    },
+    {
+      "text": "§color[0x217554]... \n§color[0x217554]Yeah.\n§color[0x217554]I hear that. \n§goto[End]",
+      "name": "I needed some distance. (True.)",
+      "pid": "20",
+      "position": {
+        "x": "556",
+        "y": "1812"
+      }
+    },
+    {
+      "text": "§color[0x217554]...\n§color[0x217554]Oh. \n§color[0x217554]Alright then. That's probably my cue to stop asking.\n(...)\n§goto[End]",
+      "name": "It wasn't my choice. (True.)",
+      "pid": "21",
+      "position": {
+        "x": "755",
+        "y": "1808"
+      }
+    },
+    {
+      "text": "§color[0x217554]...\n§color[0x217554]Actually, I think we're going to arrive in just a bit. \n§color[0x217554]I can already see Rho, Sigma and Tau. \n[[Rho, Sigma and Tau?]]",
+      "links": [
+        {
+          "name": "Rho, Sigma and Tau?",
+          "link": "Rho, Sigma and Tau?",
+          "pid": "23"
+        }
+      ],
+      "name": "End",
+      "pid": "22",
+      "position": {
+        "x": "656",
+        "y": "1950"
+      }
+    },
+    {
+      "text": "§color[0x217554]They are the planets High Moon orbits. \n§color[0x217554]You should hold onto your belongings, §{{playerName}}.\n§color[0x217554]This voyage is going to be a lot less smooth in a minute. \n...",
+      "name": "Rho, Sigma and Tau?",
+      "pid": "23",
+      "position": {
+        "x": "656",
+        "y": "2102"
       }
     }
   ],
@@ -243,5 +347,5 @@
   "startnode": "1",
   "creator": "Twine",
   "creator-version": "2.3.3",
-  "ifid": "96A1F437-06F5-437A-8FB3-63D181E37E7D"
+  "ifid": "23F68C2A-BC86-47A4-B9A8-4B7C129F1E40"
 }

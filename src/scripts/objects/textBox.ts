@@ -424,13 +424,13 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
                 letterToMessUp = 'g'
                 break
               case 'g':
-                letterToMessUp = 'k'
+                letterToMessUp = Math.random() > 0.5 ? 'k' : 'j'
                 break
               case 'b':
-                letterToMessUp = 'p'
+                letterToMessUp = Math.random() > 0.5 ? 'p' : 'bb'
                 break
               case 'p':
-                letterToMessUp = 'b'
+                letterToMessUp = Math.random() > 0.5 ? 'b' : 'ph'
                 break
               case 'l':
                 letterToMessUp = 'w'
@@ -442,10 +442,10 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
                 letterToMessUp = 'd'
                 break
               case 'd':
-                letterToMessUp = 't'
+                letterToMessUp = Math.random() > 0.5 ? 't' : 'th'
                 break
               case 's':
-                letterToMessUp = 'sh'
+                letterToMessUp = Math.random() > 0.5 ? 'sh' : 'z'
                 break
               case 'i':
                 letterToMessUp = 'ee'
@@ -461,6 +461,8 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
           message = message + butcheredName + '...?'
         })
 
+      //TODO genericise
+      message = message.replace('§{{playerName}}', this.scene.memory.playerName)
       /* DONE! */
       return message
     }

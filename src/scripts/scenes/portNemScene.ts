@@ -116,7 +116,7 @@ export default class PortNemScene extends HighMoonScene {
       .setDepth(1)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
     this.noticeboard.on('pointerdown', () => {
-      this.scene.start('NoticeBoardScene', this.memory)
+      this.scene.start('NoticeBoardScene', { memory: this.memory, music: this.music })
     })
     this.nemcity = this.add
       .image(0, 0, 'portnem-background-nemcity')
