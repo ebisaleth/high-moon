@@ -2,6 +2,7 @@ import PassageParser from '../other/passageParser'
 import { collectAllDependants } from 'ts-loader/dist/types/utils'
 import HighMoonScene from '../scenes/highMoonScene'
 import TextInput from './textInput'
+import GameState from '../other/gameState'
 
 export default class TextBox extends Phaser.GameObjects.Graphics {
   scene: HighMoonScene
@@ -417,9 +418,9 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
           // TODO
           let butcheredName = ''
 
-          for (var i = 0; i < this.scene.memory.playerName.length; i++) {
+          for (var i = 0; i < GameState.playerName.length; i++) {
             let letterToMessUp = ''
-            switch (this.scene.memory.playerName.charAt(i).toLowerCase()) {
+            switch (GameState.playerName.charAt(i).toLowerCase()) {
               case 'k':
                 letterToMessUp = 'g'
                 break
@@ -451,18 +452,18 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
                 letterToMessUp = 'ee'
                 break
               default:
-                letterToMessUp = this.scene.memory.playerName.charAt(i)
+                letterToMessUp = GameState.playerName.charAt(i)
             }
             butcheredName =
               butcheredName +
-              (Math.random() > 0.8 && i > 0 && i < this.scene.memory.playerName.length - 1 ? '-' : '') +
-              (Math.random() > 0.4 ? letterToMessUp : this.scene.memory.playerName.charAt(i))
+              (Math.random() > 0.8 && i > 0 && i < GameState.playerName.length - 1 ? '-' : '') +
+              (Math.random() > 0.4 ? letterToMessUp : GameState.playerName.charAt(i))
           }
           message = message + butcheredName + '...?'
         })
 
       //TODO genericise
-      message = message.replace('§{{playerName}}', this.scene.memory.playerName)
+      message = message.replace('§{{playerName}}', GameState.playerName)
       /* DONE! */
       return message
     }
@@ -481,7 +482,7 @@ export default class TextBox extends Phaser.GameObjects.Graphics {
       if (canBeEmpty || inputObj.content.length > 0) {
         inputObj.active = false
         // @ts-ignore
-        this.scene.memory[target] = inputObj.content
+        GameState[target] = inputObj.content
         confirmObj.destroy()
         inputObj.destroy()
         this.isWaitingForPlayerAction = false

@@ -3,7 +3,7 @@ import Inventory from '../objects/inventory'
 import TextBox from '../objects/textBox'
 import Scope from '../other/Scope'
 import ClickGuard from '../objects/clickGuard'
-import Memory from '../other/memory'
+import GameState from '../other/gameState'
 import ParserCenter from '../other/ParserCenter'
 import TextInput from '../objects/textInput'
 
@@ -23,8 +23,6 @@ export default abstract class HighMoonScene extends Phaser.Scene {
   customVarScope: Scope
   BGmusic: any
 
-  memory: Memory
-
   /* We don't want anyone to create a HighMoonScene directly, instead you're supposed to extend it. */
 
   protected constructor(name: string) {
@@ -34,16 +32,7 @@ export default abstract class HighMoonScene extends Phaser.Scene {
   /* Playing with variables. Might be scrapped. */
 
   init(data: any) {
-    if (!!data.memory) {
-      this.memory = data.memory
-    } else {
-      console.log('I INITIALISED THE SCENE AND I DID NOT GET A MEMORY NO')
-      this.memory = new Memory()
-    }
-    if (!!data.music) {
-      this.BGmusic = data.music
-    }
-    console.dir(this.memory)
+    console.dir(GameState)
   }
 
   create() {
@@ -227,7 +216,7 @@ export default abstract class HighMoonScene extends Phaser.Scene {
   }
 
   nextScene(nextSceneKey: string) {
-    this.time.delayedCall(4000, this.scene.start, [nextSceneKey, { memory: this.memory }], this.scene)
+    this.time.delayedCall(4000, this.scene.start, [nextSceneKey], this.scene)
     this.time.delayedCall(2000, this.cameras.main.fade, [3000], this.cameras.main)
   }
 }

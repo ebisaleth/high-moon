@@ -1,5 +1,5 @@
 import inventory from '../objects/inventory'
-import Memory from '../other/memory'
+import GameState from '../other/gameState'
 import TextInput from '../objects/textInput'
 
 let DEBUG = false

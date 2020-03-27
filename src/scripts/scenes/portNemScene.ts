@@ -1,6 +1,7 @@
 import TextBox from '../objects/textBox'
 import Inventory from '../objects/inventory'
 import HighMoonScene from './highMoonScene'
+import GameState from '../other/gameState'
 
 export default class PortNemScene extends HighMoonScene {
   skyClear: Phaser.GameObjects.Image
@@ -57,7 +58,7 @@ export default class PortNemScene extends HighMoonScene {
 
     /* CAMERA & MUSIC INITIALISE */
 
-    if (this.memory.hasArrivedAtPortNemBefore) {
+    if (GameState.hasArrivedAtPortNemBefore) {
       this.cameras.main.fadeFrom(1500)
       this.time.delayedCall(1500, this.clickGuard.lower, [], this.clickGuard)
     } else {
@@ -69,7 +70,7 @@ export default class PortNemScene extends HighMoonScene {
       this.spaceBusLeaving = this.sound.add('space-bus-leaving')
       this.spaceBusLeaving.volume = 0.3
       this.spaceBusLeaving.play()
-      this.memory.hasArrivedAtPortNemBefore = true
+      GameState.hasArrivedAtPortNemBefore = true
     }
 
     /*
@@ -116,7 +117,7 @@ export default class PortNemScene extends HighMoonScene {
       .setDepth(1)
       .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
     this.noticeboard.on('pointerdown', () => {
-      this.scene.start('NoticeBoardScene', { memory: this.memory, music: this.music })
+      this.scene.start('NoticeBoardScene')
     })
     this.nemcity = this.add
       .image(0, 0, 'portnem-background-nemcity')
@@ -167,7 +168,7 @@ export default class PortNemScene extends HighMoonScene {
         "It's probably bound to go back to my home system.",
         'I kind of wish I could just go with it...',
         'But I need to find my shuttle.',
-        this.memory.hasCheckedShuttleTicket
+        GameState.hasCheckedShuttleTicket
           ? ''
           : 'I should probably look at the ticket I got and find out which dock I need to go to.'
       ])
@@ -312,7 +313,7 @@ export default class PortNemScene extends HighMoonScene {
             "Alright. Let's see. This says I need to go to dock 4.",
             '... Now I only need to find out where dock 4 is.'
           ]
-          this.memory.hasCheckedShuttleTicket = true
+          GameState.hasCheckedShuttleTicket = true
           break
       }
       this.textBox.startWithStringArrayAndChoices(text)

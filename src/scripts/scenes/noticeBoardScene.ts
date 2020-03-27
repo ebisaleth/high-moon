@@ -1,4 +1,5 @@
 import HighMoonScene from './highMoonScene'
+import GameState from '../other/gameState'
 
 export default class NoticeBoardScene extends HighMoonScene {
   constructor() {
@@ -39,7 +40,7 @@ export default class NoticeBoardScene extends HighMoonScene {
       'Hmm...',
       'Maybe some of the plans on this notice board will help me figure out where I need to go to catch my shuttle.',
       'I should look at them really closely.',
-      this.memory.hasCheckedShuttleTicket
+      GameState.hasCheckedShuttleTicket
         ? "I think my ticket said Dock 4... let's see..."
         : 'I should probably also check my shuttle ticket.'
     ])
@@ -72,13 +73,13 @@ export default class NoticeBoardScene extends HighMoonScene {
         this.textBox.startWithStringArray([
           'This departure schedule is helpfully bilingual.',
           "But I don't think that individual shuttle tours are listed there.",
-          this.memory.hasCheckedShuttleTicket
+          GameState.hasCheckedShuttleTicket
             ? 'I assume that the little dot combinations represent the dock numbers written directly above them.'
             : '',
-          this.memory.hasCheckedShuttleTicket
+          GameState.hasCheckedShuttleTicket
             ? 'So I guess I could cross reference them with the ones on the site plan.'
             : '',
-          this.memory.hasCheckedShuttleTicket ? "...But dock 4 doesn't seem to appear here. Bother." : ''
+          GameState.hasCheckedShuttleTicket ? "...But dock 4 doesn't seem to appear here. Bother." : ''
         ])
       })
 
@@ -176,7 +177,7 @@ export default class NoticeBoardScene extends HighMoonScene {
                   duration: 1000,
                   volume: 0
                 })
-                this.scene.start('Dock4Scene', this.memory)
+                this.scene.start('Dock4Scene')
                 break
               case 'no':
                 break
@@ -319,7 +320,7 @@ export default class NoticeBoardScene extends HighMoonScene {
       })
       .on('pointerdown', () => {
         this.scene.stop('NoticeBoardScene')
-        this.scene.start('PortNemScene', { memory: this.memory })
+        this.scene.start('PortNemScene')
       })
 
     this.add.tween({
@@ -373,7 +374,7 @@ export default class NoticeBoardScene extends HighMoonScene {
             "Alright. Let's see. This says I need to go to dock 4.",
             '... Now I only need to find out where dock 4 is.'
           ]
-          this.memory.hasCheckedShuttleTicket = true
+          GameState.hasCheckedShuttleTicket = true
           break
       }
       this.textBox.startWithStringArrayAndChoices(text)

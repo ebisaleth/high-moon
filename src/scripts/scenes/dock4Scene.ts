@@ -1,4 +1,5 @@
 import HighMoonScene from './highMoonScene'
+import GameState from '../other/gameState'
 
 export default class Dock4Scene extends HighMoonScene {
   flightDuration: integer
@@ -75,7 +76,7 @@ export default class Dock4Scene extends HighMoonScene {
     this.shuttle.on('pointerdown', () => {
       if (this.gaveTicket) {
         this.clickGuard.raise()
-        this.time.delayedCall(6000, this.scene.start, ['ShuttleScene', { memory: this.memory }], this.scene)
+        this.time.delayedCall(6000, this.scene.start, ['ShuttleScene'], this.scene)
         this.time.delayedCall(1000, this.cameras.main.fade, [3000], this.cameras.main)
         this.add.tween({ targets: this.hover, duration: 2000, volume: 0 })
       } else if (!this.clickedShuttle) {
@@ -264,7 +265,7 @@ export default class Dock4Scene extends HighMoonScene {
               this.clickedShuttle ? "I'll need to give it to the shuttle driver." : '',
               this.clickedShuttle ? '§color[0xADADAD](Drag the ticket towards the shuttle!)' : ''
             ]
-            this.memory.hasCheckedShuttleTicket = true
+            GameState.hasCheckedShuttleTicket = true
             break
         }
       }
