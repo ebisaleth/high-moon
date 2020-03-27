@@ -20,7 +20,6 @@ export default class PortNemScene extends HighMoonScene {
   kuppelship: Phaser.GameObjects.Image
   boobship: Phaser.GameObjects.Image
 
-  music: any //sorry TS
   spaceBusLeaving: any //sorry TS
 
   constructor() {
@@ -53,8 +52,6 @@ export default class PortNemScene extends HighMoonScene {
     this.clickGuard.raise()
 
     /* SOUND */
-    this.music = this.sound.add('cavern', { loop: true })
-    this.music.volume = 0
 
     /* CAMERA & MUSIC INITIALISE */
 
@@ -62,15 +59,24 @@ export default class PortNemScene extends HighMoonScene {
       this.cameras.main.fadeFrom(1500)
       this.time.delayedCall(1500, this.clickGuard.lower, [], this.clickGuard)
     } else {
-      this.cameras.main.fade(0)
-      this.time.delayedCall(18000, this.cameras.main.fadeFrom, [3000], this.cameras.main)
-      this.time.delayedCall(16000, this.clickGuard.lower, [], this.clickGuard)
-
-      this.time.delayedCall(18000, this.fadeInMusic, [], this)
-      this.spaceBusLeaving = this.sound.add('space-bus-leaving')
-      this.spaceBusLeaving.volume = 0.3
-      this.spaceBusLeaving.play()
+      this.music = this.sound.add('cavern', { loop: true })
+      this.music.volume = 0
+      GameState.sceneThatOwnsBGMusic = this
       GameState.hasArrivedAtPortNemBefore = true
+      this.spaceBusLeaving = this.sound.add('space-bus-leaving')
+      if (GameState.DEBUG) {
+        this.cameras.main.fade(0)
+        this.time.delayedCall(1800, this.cameras.main.fadeFrom, [3000], this.cameras.main)
+        this.time.delayedCall(1600, this.clickGuard.lower, [], this.clickGuard)
+        this.time.delayedCall(1800, this.fadeInMusic, [], this)
+      } else {
+        this.cameras.main.fade(0)
+        this.time.delayedCall(18000, this.cameras.main.fadeFrom, [3000], this.cameras.main)
+        this.time.delayedCall(16000, this.clickGuard.lower, [], this.clickGuard)
+        this.time.delayedCall(18000, this.fadeInMusic, [], this)
+        this.spaceBusLeaving.volume = 0.3
+        this.spaceBusLeaving.play()
+      }
     }
 
     /*

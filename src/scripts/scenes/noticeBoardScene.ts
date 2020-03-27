@@ -1,5 +1,6 @@
 import HighMoonScene from './highMoonScene'
 import GameState from '../other/gameState'
+import PortNemScene from './portNemScene'
 
 export default class NoticeBoardScene extends HighMoonScene {
   constructor() {
@@ -24,7 +25,6 @@ export default class NoticeBoardScene extends HighMoonScene {
 
   create() {
     super.create()
-    console.log(this.BGmusic)
 
     /* clicky gartdi*/
 
@@ -170,14 +170,18 @@ export default class NoticeBoardScene extends HighMoonScene {
           choice => {
             switch (choice) {
               case 'yes':
+                console.log('clicked the thingy')
                 this.clickGuard.raise()
-                this.fadeOut(1500)
-                this.tweens.add({
-                  targets: this.BGmusic,
-                  duration: 1000,
-                  volume: 0
-                })
-                this.scene.start('Dock4Scene')
+                this.fadeOut(2000)
+                if (!!GameState.sceneThatOwnsBGMusic) {
+                  this.tweens.add({
+                    targets: GameState.sceneThatOwnsBGMusic.music,
+                    volume: 0,
+                    ease: 'Quad.easeIn',
+                    duration: 2999
+                  })
+                }
+                this.time.delayedCall(3000, this.startNextScene, [], this)
                 break
               case 'no':
                 break
@@ -379,5 +383,9 @@ export default class NoticeBoardScene extends HighMoonScene {
       }
       this.textBox.startWithStringArrayAndChoices(text)
     }
+  }
+
+  startNextScene() {
+    this.scene.start('Dock4Scene')
   }
 }

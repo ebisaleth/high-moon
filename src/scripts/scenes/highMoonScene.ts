@@ -6,6 +6,7 @@ import ClickGuard from '../objects/clickGuard'
 import GameState from '../other/gameState'
 import ParserCenter from '../other/ParserCenter'
 import TextInput from '../objects/textInput'
+import SceneManager = Phaser.Scenes.SceneManager
 
 export default abstract class HighMoonScene extends Phaser.Scene {
   tab: Phaser.Input.Keyboard.Key
@@ -21,7 +22,9 @@ export default abstract class HighMoonScene extends Phaser.Scene {
   textInputs: TextInput[]
 
   customVarScope: Scope
-  BGmusic: any
+  music: any
+
+  testSprite: Phaser.GameObjects.Sprite
 
   /* We don't want anyone to create a HighMoonScene directly, instead you're supposed to extend it. */
 
@@ -54,6 +57,12 @@ export default abstract class HighMoonScene extends Phaser.Scene {
         }
       })
     })
+
+    this.testSprite = this.add
+      .sprite(826, 508, 'space-bus-creature')
+      .setInteractive({ pixelPerfect: true, cursor: 'url(assets/img/cursorgreen.png), pointer' })
+      .setAlpha(0)
+      .setDepth(6000)
 
     this.clickGuard = new ClickGuard(this)
 

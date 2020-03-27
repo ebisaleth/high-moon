@@ -2,9 +2,6 @@ import inventory from '../objects/inventory'
 import GameState from '../other/gameState'
 import TextInput from '../objects/textInput'
 
-let DEBUG = false
-let DEBUG_START_SCENE = 'PortNemScene'
-
 export default class PreloadScene extends Phaser.Scene {
   text: Phaser.GameObjects.BitmapText
 
@@ -71,8 +68,8 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   nextScene() {
-    if (DEBUG) {
-      this.scene.start(DEBUG_START_SCENE)
+    if (GameState.DEBUG) {
+      this.scene.start(GameState.DEBUG_START_SCENE)
     } else {
       this.scene.start('IntroScene')
     }
